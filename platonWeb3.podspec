@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "platonWeb3"
-  s.version      = "0.3.0.0"
+  s.version      = "0.3.0.1"
   s.summary      = "PlatOn RPC SDK for iOS,A Web3 RPC tool to interact with PlatON node"
 
   s.description  = "add executeCode option for transaction in Data fileld"
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   
   s.author             = { "weixuening" => "weixuegg@gmail.com" }
 
-  s.source       = { :git => "git@192.168.9.66:Juzix-Platon/web3j-ios.git", :branch => "#{s.version}" }
+  s.source       = { :git => "git@192.168.9.66:Juzix-Platon/web3j-ios.git", :tag => "#{s.version}" }
   s.source_files = "source/**/*.swift"
 
   s.platform     = :ios, "9.0"
