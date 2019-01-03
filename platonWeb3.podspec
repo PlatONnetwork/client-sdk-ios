@@ -2,10 +2,10 @@
 Pod::Spec.new do |s|
 
   s.name         = "platonWeb3"
-  s.version      = "0.2.1.1"
-  s.summary      = "PlatOn RPC SDK for iOS"
+  s.version      = "0.3.0.0"
+  s.summary      = "PlatOn RPC SDK for iOS,A Web3 RPC tool to interact with PlatON node"
 
-  s.description  = "A Web3 RPC tool to interact with PlatON node"
+  s.description  = "add executeCode option for transaction in Data fileld"
 
   s.homepage     = "http://192.168.9.66/Juzix-Platon/web3j-ios"
   

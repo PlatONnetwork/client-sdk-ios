@@ -7,12 +7,46 @@ import Foundation
 import BigInt
 import Localize_Swift
 
-let PlatonTxTypeDeploy = Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01])
-let PlatonTxTypeFunc = Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02])
+public enum ExecuteCode {
+    case Transfer
+    case ContractDeploy
+    case ContractExecute
+    case Vote
+    case Authority
+    case MPCTransaction
+    case CampaignPledge
+    case RecudePledge
+    case DrawPledge
+    
+    public var DataValue: Data{
+        switch self {
+        case .Transfer:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00])
+        case .ContractDeploy:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01])
+        case .ContractExecute:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02])
+        case .Vote:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xE8])
+        case .Authority:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x04])
+        case .MPCTransaction:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x05])
+        case .CampaignPledge:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xE9])
+        case .RecudePledge:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEA])
+        case .DrawPledge:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEB])
+        }
+    }
+}
+
 
 let web3RPCWaitTimeout = 60.0
 
 public extension Web3.Eth{
+    
     
     func platonDeployContract(abi : String,
                               bin : Data,
@@ -26,7 +60,7 @@ public extension Web3.Eth{
         ){
         
         var completion = completion
-        let txTypePart = RLPItem(bytes: PlatonTxTypeDeploy.bytes)
+        let txTypePart = RLPItem(bytes: ExecuteCode.ContractDeploy.DataValue.bytes)
         let binPart = RLPItem(bytes: (bin.bytes))
         let abiPart = RLPItem(bytes: (abi.data(using: .utf8)?.bytes)!)
         
@@ -209,7 +243,6 @@ public extension Web3.Eth{
             case .success(_):
                 let data = Data(bytes: (resp.result?.bytes)!)
                 let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexString())
-                //NSLog("\(functionName) call result:\n\(dictionary)")
                 if dictionary != nil && (dictionary?.count)! > 0{
                     self.call_success(dictionary: dictionary as AnyObject, completion: &completion)
                 }else{
@@ -221,10 +254,10 @@ public extension Web3.Eth{
         }
     }
     
-    func platonCall(contractAddress : String,functionName : String, from: String?, params : [Data], outputs: [SolidityParameter],completion : ContractCallCompletion?) {
+    func platonCall(code: ExecuteCode, contractAddress : String,functionName : String, from: String?, params : [Data], outputs: [SolidityParameter],completion : ContractCallCompletion?) {
         
         var completion = completion
-        let txTypePart = RLPItem(bytes: PlatonTxTypeFunc.bytes)
+        let txTypePart = RLPItem(bytes: code.DataValue.bytes)
         let funcItemPart = RLPItem(bytes: (functionName.data(using: .utf8)?.bytes)!)
         var items : [RLPItem] = []
         items.append(txTypePart)
@@ -363,7 +396,8 @@ public extension Web3.Eth{
         
     }
 
-    func plantonSendRawTransaction(contractAddress : String,
+    func plantonSendRawTransaction(code: ExecuteCode,
+                                   contractAddress : String,
                                    functionName : String,
                                    _ params : [Data],
                                    sender: String,
@@ -374,7 +408,7 @@ public extension Web3.Eth{
                                    estimated: Bool,
                                    completion: ContractSendRawCompletion?){
         
-        let txTypePart = RLPItem(bytes: PlatonTxTypeFunc.bytes)
+        let txTypePart = RLPItem(bytes: code.DataValue.bytes)
         let funcItemPart = RLPItem(bytes: (functionName.data(using: .utf8)?.bytes)!)
         var items : [RLPItem] = []
         items.append(txTypePart)
