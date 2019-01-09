@@ -214,7 +214,11 @@ extension String: ABIConvertible {
     
     public func abiEncode(dynamic: Bool) -> String? {
         // UTF-8 encoded bytes, padded right to multiple of 32 bytes
-        return Data(self.utf8).abiEncodeDynamic()
+        if dynamic{
+            return Data(self.utf8).abiEncodeDynamic()
+        }else{
+            return self.data(using: .utf8)?.toHexString()
+        }
     }
 }
 

@@ -84,6 +84,7 @@
 /* Begin PBXFileReference section */
 		4CF0F7BE6E2263B13EF50BD7 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7295FA86079D3425605EEFD9 /* Pods-platonWeb3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3/Pods-platonWeb3.debug.xcconfig"; sourceTree = "<group>"; };
+		78A21334DC701B6999CBB3F1 /* Pods_platonWeb3_demoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3_demoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81248A9B21BF9973000C2F03 /* platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81248A9E21BF9973000C2F03 /* platonWeb3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platonWeb3.h; sourceTree = "<group>"; };
 		81248A9F21BF9973000C2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -159,7 +160,9 @@
 		81248B3E21BF9AC6000C2F03 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		81248B6C21BFA43D000C2F03 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81248B6E21BFA46A000C2F03 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9649490547AC925271E21496 /* Pods-platonWeb3-demoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3-demoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D518EC3837A681CE954F3122 /* Pods-platonWeb3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3/Pods-platonWeb3.release.xcconfig"; sourceTree = "<group>"; };
+		EA3658831D86CD7ACA6C1089 /* Pods-platonWeb3-demoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3-demoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,8 @@
 			children = (
 				7295FA86079D3425605EEFD9 /* Pods-platonWeb3.debug.xcconfig */,
 				D518EC3837A681CE954F3122 /* Pods-platonWeb3.release.xcconfig */,
+				EA3658831D86CD7ACA6C1089 /* Pods-platonWeb3-demoUITests.debug.xcconfig */,
+				9649490547AC925271E21496 /* Pods-platonWeb3-demoUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				81248B6E21BFA46A000C2F03 /* Pods_platonWeb3.framework */,
 				81248B6C21BFA43D000C2F03 /* Pods_platonWeb3.framework */,
 				4CF0F7BE6E2263B13EF50BD7 /* Pods_platonWeb3.framework */,
+				78A21334DC701B6999CBB3F1 /* Pods_platonWeb3_demoUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -441,6 +447,7 @@
 		81248A9221BF9973000C2F03 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = ju;
 				TargetAttributes = {
@@ -455,6 +462,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 81248A9121BF9973000C2F03;
 			productRefGroup = 81248A9C21BF9973000C2F03 /* Products */;

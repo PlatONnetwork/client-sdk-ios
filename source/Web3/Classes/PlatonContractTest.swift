@@ -116,7 +116,7 @@ class PlatonContractTest {
         let gasPrice = BigUInt("22000000000")
         let gas = BigUInt("4300000")
             
-        web3.eth.plantonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: functionName, [param_from!,param_to!,param_assert], sender: sender, privateKey: privateKey, gasPrice: gasPrice!, gas: gas!,value: nil, estimated: false, completion: nil)
+        web3.eth.platonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: functionName, params: [param_from!,param_to!,param_assert], sender: sender, privateKey: privateKey, gasPrice: gasPrice!, gas: gas!,value: nil, estimated: false, completion: nil)
     }
     
     func testABIEventDecode(){
@@ -139,7 +139,7 @@ class PlatonContractTest {
         let sender = "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219"
         let privateKey = "4484092b68df58d639f11d59738983e2b8b81824f3c0c759edd6773f9adadfe7"
         let contractAddress = "0x43355c787c50b647c425f594b441d4bd751951c1"
-        web3.eth.plantonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: "transfer", [address!, amout], sender: sender, privateKey: privateKey, gasPrice: gasPrice!, gas: gas!,value: nil, estimated: false, completion: { (result, data) in
+        web3.eth.platonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: "transfer", params: [address!, amout], sender: sender, privateKey: privateKey, gasPrice: gasPrice!, gas: gas!,value: nil, estimated: false, completion: { (result, data) in
             switch result{
             case .success:
                 do{}

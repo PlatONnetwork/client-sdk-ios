@@ -300,12 +300,12 @@ public extension Web3.Eth{
     }
     
     
-    func plantonSendRawTransaction(contractAddress : String,data: Bytes, sender: String, privateKey: String, gasPrice : BigUInt, gas : BigUInt, value: EthereumQuantity?, estimated: Bool ,completion: ContractSendRawCompletion?){
+    func platonSendRawTransaction(contractAddress : String,data: Bytes, sender: String, privateKey: String, gasPrice : BigUInt, gas : BigUInt, value: EthereumQuantity?, estimated: Bool ,completion: ContractSendRawCompletion?){
         
         var completion = completion
         
         let semaphore = DispatchSemaphore(value: 0)
-        let queue = DispatchQueue(label: "plantonSendRawTransactionQueue")
+        let queue = DispatchQueue(label: "platonSendRawTransactionQueue")
         
         var nonce : EthereumQuantity?
         queue.async {
@@ -316,6 +316,7 @@ public extension Web3.Eth{
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
+                    print("nonce:\(String((nonceResp.result?.quantity)!))")
                     semaphore.signal()
                 case .failure(_):
                     self.sendRawTransaction_fail(code: nonceResp.getErrorCode(), errorMsg: nonceResp.getErrorLocalizedDescription(), completion: &completion)
@@ -403,10 +404,10 @@ public extension Web3.Eth{
         
     }
 
-    func plantonSendRawTransaction(code: ExecuteCode,
+    func platonSendRawTransaction(code: ExecuteCode,
                                    contractAddress : String,
                                    functionName : String,
-                                   _ params : [Data],
+                                   params : [Data],
                                    sender: String,
                                    privateKey: String,
                                    gasPrice : BigUInt,
@@ -427,7 +428,7 @@ public extension Web3.Eth{
         let rlp = RLPItem.array(items)
         let rawRlp = try? RLPEncoder().encode(rlp)
         
-        self.plantonSendRawTransaction(contractAddress: contractAddress, data: rawRlp!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: value, estimated: estimated, completion: completion)
+        self.platonSendRawTransaction(contractAddress: contractAddress, data: rawRlp!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: value, estimated: estimated, completion: completion)
         
     }
     
@@ -489,4 +490,11 @@ public extension Web3.Eth{
     
     
        
+}
+
+public extension EthereumTransactionReceiptObject{
+    
+    func decodeEvent(event: SolidityEvent){
+        
+    }
 }
