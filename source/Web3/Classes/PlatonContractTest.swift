@@ -28,7 +28,7 @@ class PlatonContractTest {
         let sender = "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219"
         let privateKey = "4484092b68df58d639f11d59738983e2b8b81824f3c0c759edd6773f9adadfe7"
         
-        web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice!, gas: gas!, estimateGas: false, timeout: 20, completion:{
+        web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice!, gas: gas!, estimateGas: false, waitForTransactionReceipt: false, timeout: 20, completion:{
             (result,contractAddress,transactionHash) in
             
             switch result{

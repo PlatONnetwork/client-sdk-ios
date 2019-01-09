@@ -55,6 +55,7 @@ public extension Web3.Eth{
                               gasPrice : BigUInt,
                               gas : BigUInt,
                               estimateGas : Bool,
+                              waitForTransactionReceipt: Bool,
                               timeout: dispatch_time_t,
                               completion : ContractDeployCompletion?
         ){
@@ -179,6 +180,12 @@ public extension Web3.Eth{
             
             if txHash.bytes.count == 0{
                 semaphore.signal()
+                self.deploy_fail(code: -1, errorMsg: "empty hash", completion: &completion)
+                return
+            }
+            
+            if !waitForTransactionReceipt{
+                self.deploy_success(nil, txHash.hex(), completion: &completion)
                 return
             }
             
@@ -466,8 +473,13 @@ public extension Web3.Eth{
                         semaphore.signal()
                     }
                 }
-                sleep(UInt32(3.0))
-                semaphore.wait(timeout: .now() + 3)
+                
+                if semaphore.wait(timeout: .now() + 3) == .timedOut{
+                    
+                }else{
+                    //sleep for one second
+                    sleep(1)
+                }
             }while time > 0
         }
        
