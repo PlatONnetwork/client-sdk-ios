@@ -14,6 +14,10 @@ public class Debugger{
     
     public var debugMode = false
     
+    public static func enableDebug(_ enable: Bool){
+        Debugger.instance.debugMode = enable
+    }
+    
     public static func debugPrint(_ items: Any...){
         if Debugger.instance.debugMode{
             print(items)
