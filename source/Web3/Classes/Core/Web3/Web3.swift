@@ -8,25 +8,6 @@
 
 import Foundation
 
-public class Debugger{
-    
-    static let instance = Debugger()
-    
-    public var debugMode = false
-    
-    public func debugPrint(_ items: Any...){
-        if debugMode{
-            print(items)
-        }
-    }
-    
-    public static func debugPrint(_ items: Any...){
-        if Debugger.instance.debugMode{
-            print(items)
-        }
-    }
-}
-
 public struct Web3 {
 
     public typealias Web3ResponseCompletion<Result: Codable> = (_ resp: Web3Response<Result>) -> Void
