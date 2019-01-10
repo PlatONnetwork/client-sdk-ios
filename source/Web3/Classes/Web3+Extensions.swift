@@ -77,18 +77,18 @@ public extension Web3.Eth{
         if estimateGas{
             deployQueue.async {
                 let from = EthereumAddress(hexString: sender)
-                print("platonDeployContract estimatedGas begin 💪 semaphone\(semaphore)")
+                web3.debugPrint("platonDeployContract estimatedGas begin 💪 semaphone\(semaphore)")
                 let call = EthereumCall(from: from, to: nil, gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: rawRlp!))
                 self.estimateGas(call: call) { (gasestResp) in
                     switch gasestResp.status{
                     case .success(_):
                         do {
                             estimatedGas = gasestResp.result
-                            print("platonDeployContract estimatedGas done😀")
+                            web3.debugPrint("platonDeployContract estimatedGas done😀")
                             semaphore.signal()
                         }
                     case .failure(_):
-                        print("platonDeployContract estimatedGas fail😭")
+                        web3.debugPrint("platonDeployContract estimatedGas fail😭")
                         self.deploy_fail(code: gasestResp.getErrorCode(), errorMsg: gasestResp.getErrorLocalizedDescription(), completion: &completion)
                         semaphore.signal()
                     }
@@ -121,11 +121,11 @@ public extension Web3.Eth{
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
-                    print("platonDeployContract get nonce done😀" + "nonce:" + String((nonceResp.result?.quantity)!))
+                    web3.debugPrint("platonDeployContract get nonce done😀" + "nonce:" + String((nonceResp.result?.quantity)!))
                     semaphore.signal()
                 case .failure(_):
                     self.deploy_fail(code: nonceResp.getErrorCode(), errorMsg: nonceResp.getErrorLocalizedDescription(), completion: &completion)
-                    print("platonDeployContract get nonce fail😭")
+                    web3.debugPrint("platonDeployContract get nonce fail😭")
                     semaphore.signal()
                     
                 }
@@ -161,11 +161,11 @@ public extension Web3.Eth{
                 switch sendTxResp.status{
                 case .success(_):
                     txHash = sendTxResp.result!
-                    print("platonDeployContract Deploy done😀")
+                    web3.debugPrint("platonDeployContract Deploy done😀")
                     semaphore.signal()
                 case .failure(_):
                     self.deploy_fail(code: sendTxResp.getErrorCode(), errorMsg: sendTxResp.getErrorLocalizedDescription(), completion: &completion)
-                    print("platonDeployContract Deploy fail😭")
+                    web3.debugPrint("platonDeployContract Deploy fail😭")
                     semaphore.signal()
                     return
                 }
@@ -199,40 +199,16 @@ public extension Web3.Eth{
                     completion?(PlatonCommonResult.success,receptionresp.contractAddress?.hex(), txHash.hex())
                     self.deploy_success(receptionresp.contractAddress?.hex(), txHash.hex(), completion: &completion)
                     
-                    print("platonDeployContract Receipt done😀")
+                    web3.debugPrint("platonDeployContract Receipt done😀")
                     semaphore.signal()
                 case .fail(let code, let errMsg):
                     self.deploy_fail(code: code!, errorMsg: errMsg!, completion: &completion)
-                    print("platonDeployContract Receipt fail😭")
+                    web3.debugPrint("platonDeployContract Receipt fail😭")
                     semaphore.signal()
                     return
                 }
             })
         }
-    }
-    
-    
-    func parserEvent(){
-        
-        self.getTransactionReceipt(transactionHash: EthereumData(bytes: [0x00]), response: { receptionresp in
-            switch receptionresp.status{
-            case .success(_):
-                do {
-                    /*
-                     let firstTopicBytes = receptionresp.result??.logs[0].topics[0].bytes
-                     let logdata = receptionresp.result??.logs[0].data
-                     let decoderesult = try? RLPDecoder().decode((logdata?.bytes)!)
-                     let value = decoderesult?.array![0].bytes
-                     let result = String(bytes: (decoderesult?.array![1].bytes)!)
-                     */
-                }
-            case .failure(_):
-                do {
-                    
-                }
-            }
-            
-        })
     }
     
     func platonCall(contractAddress : String ,data: Data, from: String?,gas: EthereumQuantity?, gasPrice: EthereumQuantity?, value: EthereumQuantity?,outputs: [SolidityParameter],completion : ContractCallCompletion?) {
@@ -286,7 +262,7 @@ public extension Web3.Eth{
             case .success(_):
                 let data = Data(bytes: (resp.result?.bytes)!)
                 let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexString())
-                //NSLog("\(functionName) call result:\n\(dictionary)")
+                //web3.debugPrint("\(functionName) call result:\n\(dictionary)")
                 if dictionary != nil && (dictionary?.count)! > 0{
                     self.call_success(dictionary: dictionary as AnyObject, completion: &completion)
                 }else{
@@ -316,7 +292,7 @@ public extension Web3.Eth{
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
-                    print("nonce:\(String((nonceResp.result?.quantity)!))")
+                    web3.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
                     semaphore.signal()
                 case .failure(_):
                     self.sendRawTransaction_fail(code: nonceResp.getErrorCode(), errorMsg: nonceResp.getErrorLocalizedDescription(), completion: &completion)
@@ -350,10 +326,7 @@ public extension Web3.Eth{
                         semaphore.signal()
                         
                     case .failure(_):
-                        DispatchQueue.main.async {
-                            completion?(PlatonCommonResult.fail(gasestResp.getErrorCode(), gasestResp.getErrorLocalizedDescription()),nil)
-                            completion = nil
-                        }
+                        self.sendRawTransaction_fail(code: gasestResp.getErrorCode(), errorMsg: gasestResp.getErrorLocalizedDescription(), completion: &completion)
                         semaphore.signal()
                         return
                     }
@@ -448,21 +421,21 @@ public extension Web3.Eth{
         var time = loopTime
         queue.async {
             repeat{
-                NSLog("begin getTransactionReceipt 💪:\(txHash)")
+                web3.debugPrint("begin getTransactionReceipt 💪:\(txHash)")
                 self.getTransactionReceipt(transactionHash: EthereumData(bytes: Data(hex: txHash).bytes)) { (response) in
                     time = time - 1
                     switch response.status{
                     case .success(_):
                         
                         DispatchQueue.main.async {
-                            NSLog("success getTransactionReceipt 🙂")
+                            web3.debugPrint("success getTransactionReceipt 🙂")
                             completion?(.success,response.result as AnyObject)
                             completion = nil
                         }
                         semaphore.signal()
                         time = 0
                     case .failure(_):
-                        NSLog("fail getTransactionReceipt 😭")
+                        web3.debugPrint("fail getTransactionReceipt 😭")
                         if time == 0{
                             DispatchQueue.main.async {
                                 completion?(PlatonCommonResult.fail(response.getErrorCode(), response.getErrorLocalizedDescription()),nil)

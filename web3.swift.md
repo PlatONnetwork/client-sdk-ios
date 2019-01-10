@@ -1,1170 +1,711 @@
 
-## 概览
 
-## 版本说明
+# 概览
+> Platon Swift SDK是PlatON面向Swift开发者，提供的PlatON公链的Swift开发工具包
 
-### v1.0.0 更新说明
-发行初始版本
+# 版本说明
 
-## 快速入门
+## v0.2.0 更新说明
+1. 支持PlatON的智能合约
 
-### 安装或引入
+## v0.3.0 更新说明
+1. 实现了PlatON协议中交易类型定义
+2. 增加内置合约CandidateContract
 
-通过CocoaPods引入, 在podfile文件添加：
+# 快速入门
 
-`
-pod install web3.swfit
-`
+## 安装或引入
 
-### 初始化代码
+### 环境要求
+1. swift4.0，iOS 9.0以上
+
+### CocoaPods
+
+2. 在Podfile文件中添加引用
+```
+pod 'platonWeb3', '~> 0.3.0.4'
+```
+
+
+## 初始化代码
+```
+let web3 : Web3 = Web3(rpcURL: "http://192.168.1.100:6789")
+```
+
+# 合约
+
+## 合约示例
 
 ```
-let web3 = Web3(rpcURL: "http://localhost:6789")
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+#include <platon/platon.hpp>
 
-```
+namespace demo {
+    class FirstDemo : public platon::Contract
+    {
+        public:
+            FirstDemo(){}
+            
+            /// 实现父类: platon::Contract 的虚函数
+            /// 该函数在合约首次发布时执行，仅调用一次
+            void init() 
+            {
+                platon::println("init success...");
+            }
 
+            /// 定义Event.
+            PLATON_EVENT(Notify, uint64_t, const char *)
 
-## 合约
+        public:
+            void invokeNotify(const char *msg)
+            {   
+                // 定义状态变量
+                platon::setState("NAME_KEY", std::string(msg));
+                // 日志输出
+                platon::println("into invokeNotify...");
+                // 事件返回
+                PLATON_EMIT_EVENT(Notify, 0, "Insufficient value for the method.");
+            }
 
-合约部署和调用需要xx工具生成abi（应用程序二进制接口）和bin（WebAssembly的二进制代码），参考[生成方法]()。
-    
-### 合约示例
-
-```
-namespace platon {
-    class ACC : public token::Token {
-    public:
-        ACC(){}
-        void init(){
-            Address user(std::string("0xa0b21d5bcc6af4dda0579174941160b9eecb6916"), true);
-            initSupply(user, 199999);
-        }
-
-        void create(const char *addr, uint64_t asset){
-            Address user(std::string(addr), true);
-            Token::create(user, asset);
-        }
-
-        uint64_t getAsset(const char *addr) const {
-            Address user(std::string(addr), true);
-            return Token::getAsset(user);
-        }
-
-        void transfer(const char *addr, uint64_t asset) {
-            Address user(std::string(addr), true);
-            Token::transfer(user, asset);
-        }
+            const char* getName() const 
+            {
+                std::string value;
+                platon::getState("NAME_KEY", value);
+                // 读取合约数据并返回
+                return value.c_str();
+            }
     };
 }
 
-PLATON_ABI(platon::ACC, create)
-PLATON_ABI(platon::ACC, getAsset)
-PLATON_ABI(platon::ACC, transfer)
-//platon autogen begin
-extern "C" { 
-    void create(const char * addr,unsigned long long asset) {
-        platon::ACC ACC_platon;
-        ACC_platon.create(addr,asset);
-    }
-    unsigned long long getAsset(const char * addr) {
-        platon::ACC ACC_platon;
-        return ACC_platon.getAsset(addr);
-    }
-    void transfer(const char * addr,unsigned long long asset) {
-        platon::ACC ACC_platon;
-        ACC_platon.transfer(addr,asset);
-    }
-    void init() {
-        platon::ACC ACC_platon;
-        ACC_platon.init();
-    }
-}
-//platon autogen end
+// 此处定义的函数会生成ABI文件供外部调用
+PLATON_ABI(demo::FirstDemo, invokeNotify)
+PLATON_ABI(demo::FirstDemo, getName)
 ```
 
-
-#### 部署合约
-
-**接口声明**
-
+## 部署合约
 ```
-func platonDeployContract(abi : String,
-                          bin : Data,
-                          sender : String,
-                          privateKey : String,
-                          gasPrice : BigUInt,
-                          gas : BigUInt,
-                          estimateGas : Bool,
-                          timeout: dispatch_time_t,
-                          completion : ContractDeployCompletion?)
-```
-
-                              
-
-| 名称  |类型| 属性  | 含义 |
-| :---------------: | :----: |:---------------:| :---------------:|
-| abi  |	 String     			    | 必选  | 应用程序二进制接口       |
-| bin | 	Data					    | 必选  | WebAssembly的二进制代码 |
-| sender |	 String  				    | 必选  | 账户地址 |
-| privateKey |    String  			    | 必选 | 私钥 |
-| gasPrice |  BigUInt    			    | 必选 | 手续费费用 |
-| gas | BigUInt     			    | 必选 | 手续费 |
-| estimateGas |  Bool    				    | 必选 | 是否预估手续费，如果为true，则根据abi和bin自动预估费用;否则使用接口传入的gasPrice， gas。 |
-| timeout |  `dispatch_time_t`    		    | 必选 | 超时时间 |
-| completion  |   ContractDeployCompletion   | 必选 | 完成回调 |
-
-
-
-
-```
-//get gas via web3.eth.estimateGas
-let gasPrice = BigUInt("22000000000")
-let gas = BigUInt("4300000")
-        
-let binPath = Bundle.main.path(forResource: "PlatonAssets/multisig", ofType: "wasm")
-let bin = try? Data(contentsOf: URL(fileURLWithPath: binPath!))
-
-let abiPath = Bundle.main.path(forResource: "PlatonAssets/multisig.cpp.abi", ofType: "json")
-var abiS = try? String(contentsOfFile: abiPath!)
-abiS = abiS?.replacingOccurrences(of: "\r\n", with: "")
-abiS = abiS?.replacingOccurrences(of: "\n", with: "")
-abiS = abiS?.replacingOccurrences(of: " ", with: "")
-
-web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: deployGasPrice, gas: deployGgas, estimateGas: false, timeout: 20, completion:{
-(result,contractAddress,transactionHash) in
-	switch result{
-	case .success:
-		do {
-		}
-	case .fail(let fret, let fdes):
-		do {
-		}
-	}
-})
-```
-
-
-#### 合约call调用
-
->调用合约函数，返回常量值
-
-**接口声明**
-
-```
-func platonCall(contractAddress : String,
-                 functionName : String,
-                 from: String,
-                 _ params : [Data],
-                 outputs: [SolidityParameter],
-                 completion : ContractCallCompletion?)
-```
+let bin = self.getBIN()
+let abiS = self.getABI()
+web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, estimateGas: false, waitForTransactionReceipt: true, timeout: 20, completion:{
+    (result,contractAddress,transactionHash) in
     
-**参数说明**    
-
-| 名称  |类型| 属性  | 含义 |
-| :---------------: | :----: |:---------------:| :---------------:|
-| contractAddress | String | 必选 | 应用程序二进制接口 |
-| functionName | String | 必选 | WebAssembly的二进制代码 |
-| from |	String | 必选 | 账户地址 |
-| params | [Data] | 必选 | 合约对应接口的参数列表 |
-| outputs | [SolidityParameter] | 必选 | 合约返回值 |
-| completion | ContractCallCompletion | 必选 | 完成回调 |
-
-**示例**
-
-```
-let paramter = SolidityFunctionParameter(name: "", type: .uint64)
-let contractAddress = "0x..."
-let owner = "0x..."
-let ownerData = owner.data(using: .utf8)
-web3.eth.platonCall(contractAddress: contractAddress, functionName: "getAsset", from: from, [ownerData], outputs: [paramter]) { (result, data) in
-    switch result{        
-    case .success:
-	    do{}
-    case .fail(let code, let errMsg):
-         do{}
-    }
-}
-```
-
-#### 合约sendRawTransaction调用
-
->发送通过私钥签名的交易
-
-**接口声明**
-
-```
-func plantonSendRawTransaction(contractAddress : String,
-                               functionName : String,
-                               _ params : [Data],
-                               sender: String,
-                               privateKey: String,
-                               gasPrice : BigUInt,
-                               gas : BigUInt,
-                               estimated: Bool,
-                               completion: ContractSendRawCompletion?)
-```        
-                       
-**参数说明**    
-
-| 名称  |类型| 属性  | 含义 |
-| :---------------: | :----: |:---------------:| :---------------:|
-| contractAddress | String | 必选 | 合约地址 |
-| functionName | String | 必选 | 方法名 |
-| params |	[Data] | 必选 | 调用参数列表 |
-| sender |	 String | 必选  | 账户地址 |
-| privateKey |    String | 必选 | 私钥 |
-| gasPrice |  BigUInt | 必选 | 手续费费用 |
-| gas | BigUInt | 必选 | 手续费 |
-| estimateGas |  Bool | 必选 | 是否预估手续费，如果为true，则根据abi和bin自动预估费用;否则使用接口传入的gasPrice， gas。 |
-| completion | ContractCallCompletion | 必选 | 完成回调 |
-
-**示例**
-
-```
-let address = "0x..".data(using: .utf8)
-let amout = Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02])
-let gasPrice = BigUInt("22000000000")
-let gas = BigUInt("4300000")
-let sender = "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219"
-let privateKey = "4484092b68df58d639f11d59738983e2b8b81824f3c0c759edd6773f9adadfe7"
-let contractAddress = "0x43355c787c50b647c425f594b441d4bd751951c1"
-web3.eth.plantonSendRawTransaction(contractAddress: contractAddress, functionName: "transfer", [address!, amout], sender: sender, privateKey: privateKey, gasPrice: gasPrice!, gas: gas!,estimated: false, completion: { (result, data) in
     switch result{
     case .success:
-        do{}
-    case .fail(_,_):
-        do{}
+        self.contractAddress = contractAddress
+        self.deployHash = transactionHash
+        print("deploy success, contractAddress: \(String(describing: contractAddress))")
+    case .fail(let code, let errorMsg):
+        print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
     }
 })
 ```
 
-
-
-
-## web3
-
-
-### web3 eth相关 (标准JSON RPC )
-
-#### getBalance
-
->查询账户余额
-
-**接口声明**
-
+## 合约call调用
 ```
-public func getBalance(
-    address: EthereumAddress,
-    block: EthereumQuantityTag,
-    response: @escaping Web3ResponseCompletion<EthereumQuantity>
-)
-```
-
-
-**参数**
-
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| address | EthereumAddress      | 必选 | 账户地址 |
-| block | EthereumQuantityTag      | 必选 | 区块高度类型 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-
-余额对应EthereumQuantity对象的quantity属性
-
-**示例**
-
-```
-web3.eth.getBalance(address: ea!, block: .latest) { resp in
-        switch resp.status{
-        case .success(_):
-            NSLog("\(resp.result!.quantity)")
-        case .failure(_):
-            failCompletion()
+let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
+web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: self.contractAddress!, functionName: "getName", from: nil, params: [], outputs: [paramter]) { (result, data) in
+    switch result{
+    case .success:
+        if let dic = data as? Dictionary<String, String>{
+            print("return: \(String(describing: dic["whateverkey"]))")
+        }else{
+            print("return empty value")
         }
+    case .fail(let code, let errorMsg):
+        print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
+    }
 }
 ```
 
-#### getStorageAt
+## 合约sendRawTransaction调用
+```
+let msg_s = SolidityWrappedValue.string(msg)
+let msg_d = Data(hex: msg_s.value.abiEncode(dynamic: false)!)
 
->获取某一地址上指定位置的存储数据
-
-**接口声明**
+web3.eth.platonSendRawTransaction(code: ExecuteCode.ContractExecute, contractAddress: self.contractAddress!, functionName: "invokeNotify", params: [msg_d], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: nil, estimated: false) { (result, data) in
+    switch result{
+    case .success:
+        print("transaction success, hash: \(String(describing: data?.toHexString()))")
+        self.invokeNotifyHash = data?.toHexString()
+    case .fail(let code, let errorMsg):
+        print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
+    }
+}
 
 ```
-public func getStorageAt(
-    address: EthereumAddress,
-    position: EthereumQuantity,
-    block: EthereumQuantityTag,
-    response: @escaping Web3ResponseCompletion<EthereumData>
-)
+
+## 内置合约
+###  CandidateContract
+> PlatOn经济模型中候选人相关的合约接口 [合约描述](https://note.youdao.com/)
+
+
+#### **`CandidateDeposit`**
+> 节点候选人申请/增加质押
+
+**入参**
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| nodeId | String  | 节点id, 16进制格式， 0x开头 |
+| owner | String | 质押金退款地址, 16进制格式， 0x开头 |
+| fee | BigInteger |  出块奖励佣金比，以10000为基数(eg：5%，则fee=500) |
+| host | String | 节点IP  |
+| port | String | 节点P2P端口号 |
+| Extra | String | 附加数据，json格式字符串类型 |
+| sender  | String  | 账户地址                   |
+| privateKey  | String  | 私钥，需要与账户地址对应                   |
+| gasPrice  | BigUInt  | Energon价格                   |
+| gas  | BigUInt  | Energon数量                   |
+| value  | BigUInt  | 质押金额                   |
+| completion  | PlatonCommonCompletion  | 回调闭包                   |
+
+
+Extra描述
+```
+{
+    "nodeName":string,                     //节点名称
+    "officialWebsite":string,              //官网 http | https
+    "nodePortrait":string,                 //节点logo http | https
+    "nodeDiscription":string,              //机构简介
+    "nodeDepartment":string                //机构名称
+}
 ```
 
-**参数**
 
 
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| address | EthereumAddress      | 必选 | 账户地址 |
-| position | Int      | 必选 | 存储索引地址 |
-| block | EthereumQuantityTag      | 必选 | 区块高度类型 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
+出参（事件：CandidateDepositEvent）：
+* `Ret`: bool 操作结果
+* `ErrMsg`: string 错误信息
 
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumData>
-`
-EthereumData属性中的bytes即为对应存储数据
-
-**示例**
-
+合约方法
 ```
-web3.eth.getStorageAt(address: ea!, block: .latest) { resp in
-        switch resp.status{
-        case .success(_):
-			do{}	
-        case .failure(_):
-			do{}
+func CandidateDeposit(){
+    let nodeId = "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3";//节点id
+    let owner = "0xf8f3978c14f585c920718c27853e2380d6f5db36"; //质押金退款地址
+    let fee = UInt64(500)
+    let host = "192.168.9.76"; //节点IP
+    let port = "26794"; //节点P2P端口号
+    
+    var extra : Dictionary<String,String> = [:]
+    extra["nodeName"] = "xxxx-noedeName"
+    extra["nodePortrait"] = "http://192.168.9.86:8082/group2/M00/00/00/wKgJVlr0KDyAGSddAAYKKe2rswE261.png"
+    extra["nodeDiscription"] = "xxxx-nodeDiscription"
+    extra["nodeDepartment"] = "xxxx-nodeDepartment"
+    extra["officialWebsite"] = "https://www.platon.network/"
+    
+    var theJSONText : String = ""
+    if let theJSONData = try? JSONSerialization.data(withJSONObject: extra,options: []) {
+        theJSONText = String(data: theJSONData,
+                             encoding: .utf8)!
+    }
+    
+    contract.CandidateDeposit(nodeId: nodeId, owner: owner, fee: fee, host: host, port: port, extra: theJSONText, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: BigUInt("500")!) { (result, data) in
+        switch result{
+        case .success:
+            print("Transaction success")
+            if let data = data as? Data{
+                web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    if let receipt = receipt as? EthereumTransactionReceiptObject{
+                        if String((receipt.status?.quantity)!) == "1"{
+                            let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
+                            if (rlpItem?.array?.count)! > 0{
+                                let message = ABI.stringDecode(data: Data(rlpItem!.array![0].bytes!))
+                                print("Event:\(message)")
+                            }
+                            print("CandidateDeposit success")
+                        }else if String((receipt.status?.quantity)!) == "0"{
+                            print("CandidateDeposit receipt status: 0")
+                        }
+                    }
+                })
+            }else{
+                print("CandidateDeposit empty transaction hash")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
         }
-}
-```
-
-
-
-#### getCode
-
->获取某一地址上指定位置的数据
-
-**接口声明**
-
-```
-public func getCode(
-    address: EthereumAddress,
-    block: EthereumQuantityTag,
-    response: @escaping Web3ResponseCompletion<EthereumData>
-)
-``` 
-
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| address | EthereumAddress      | 必选 | 账户地址 |
-| block | EthereumQuantityTag      | 必选 | 区块高度类型 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumData>
-`
-
-EthereumData即为对应数据
-
-
-**示例**
-
-```
- let address = EthereumAddress(hexString: "0x...")
- web3.eth.getCode(address: address!, block: .latest) { (result) in
-     switch result.status{
-         
-     case .success(_):
-         do{}
-     case .failure(_):
-         do{}
-     } 
- }
-
-```
-
-
-#### getBlockByHash
-
->获取某一地址上指定位置的数据
-
-**接口声明**
-
-```
-public func getBlockByHash(
-    blockHash: EthereumData,
-    fullTransactionObjects: Bool,
-    response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
-    )
-``` 
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| blockHash | EthereumAddress      | 必选 | 区块哈希 |
-| fullTransactionObjects | Int      | 必选 | 是否获取获取所有交易 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumBlockObject?>
-`
-EthereumBlockObject为对应结果
-
-**示例**
-
-```
-
-let blockHash = EthereumData(bytes: (Data.init(hexStr: "0x...")?.bytes)!)
-web3.eth.getBlockByHash(blockHash: blockHash, fullTransactionObjects: true) {  (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
-    }
-}
-
-```
-
-
-#### getBlockByNumber
-
->获取对应区块类型的区块内容
-
-**接口声明**
-
-```
-public func getBlockByNumber(
-    block: EthereumQuantityTag,
-    fullTransactionObjects: Bool,
-    response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
-)
-``` 
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| block | EthereumQuantityTag      | 必选 | 区块类型 |
-| fullTransactionObjects | Int      | 必选 | 是否获取获取所有交易 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumBlockObject?>
-`
-EthereumBlockObject为对应结果
-
-**示例**
-
-```
- web3.eth.getBlockByNumber(block: .latest, fullTransactionObjects: true) {  (result) in
-     switch result.status{
-     case .success(_):
-         do{}
-     case .failure(_):
-         do{}
-     }
- }
-
-```
-
-#### getUncleByBlockHashAndIndex
-
->通过区块哈希和索引获取uncle区块
-
-**接口声明**
-
-```
-public func getUncleByBlockHashAndIndex(
-    blockHash: EthereumData,
-    uncleIndex: EthereumQuantity,
-    response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
-)
-```
-
-
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| blockHash | EthereumAddress      | 必选 | 区块哈希 |
-| uncleIndex | Int      | 必选 | 存储索引地址 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumBlockObject?>
-`
-EthereumBlockObject为对应结果
-
-**示例**
-
-```
-let uncleIndex = EthereumQuantity(quantity: BigUInt("1")!)
-web3.eth.getUncleByBlockNumberAndIndex(block: .latest, uncleIndex: uncleIndex) { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
     }
 }
 ```
 
-#### getUncleCountByBlockNumber
+#### **`CandidateApplyWithdraw`**
+> 节点质押金退回申请，申请成功后节点将被重新排序，发起的地址必须是质押金退款的地址 from==owner
 
->获取对应区块类型的叔区块数量
+**入参**
 
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| nodeId | String  | 节点id, 16进制格式， 0x开头 |
+| withdraw | BigInteger |  退款金额 (单位：wei) |
+| sender  | String  | 账户地址                   |
+| privateKey  | String  | 私钥，需要与账户地址对应                   |
+| gasPrice  | BigUInt  | Energon价格                   |
+| gas  | BigUInt  | Energon数量                   |
+| value  | BigUInt  | 转账金额，一般为nil                   |
+| completion  | PlatonCommonCompletion  | 回调闭包                   |
+
+**返回事件**
+
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| param1 | String | 执行结果，json格式字符串类型 |
+
+param1描述
 ```
-public func getUncleCountByBlockNumber(
-    block: EthereumQuantityTag,
-    response: @escaping Web3ResponseCompletion<EthereumQuantity>
-)
-
+{
+    "Ret":boolean,                         //是否成功 true:成功  false:失败
+    "ErrMsg":string                        //错误信息，失败时存在
+}
 ```
 
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| block | EthereumQuantityTag      | 必选 | 区块高度类型 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity即为对应区块数量
-
-**示例**
-
+**合约使用**
 ```
-web3.eth.getUncleCountByBlockNumber(block: .latest) { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
+func CandidateApplyWithdraw(){
+    let nodeId = "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3";
+    //退款金额, 单位 wei
+    let value = BigUInt("500")!
+    //must be owner
+    let owner = "f8f3978c14f585c920718c27853e2380d6f5db36"
+    let ownerPrivateKey = "74df7c508a4e20a3da81b331e2168cff9e6bc085e1968a30a05daf85ae654ed6"
+    contract.CandidateApplyWithdraw(nodeId: nodeId,withdraw: value,sender: owner,privateKey: ownerPrivateKey,gasPrice: gasPrice,gas: gas,value: BigUInt(0)) { (result, data) in
+        switch result{
+        case .success:
+            print("CandidateApplyWithdraw success")
+            if let data = data as? Data{
+                web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    if let receipt = receipt as? EthereumTransactionReceiptObject{
+                        if String((receipt.status?.quantity)!) == "1"{
+                            let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
+                            if (rlpItem?.array?.count)! > 0{
+                                let message = ABI.stringDecode(data: Data(rlpItem!.array![0].bytes!))
+                                print("Event:\(message)")
+                            }
+                            print("CandidateApplyWithdraw success")
+                        }else if String((receipt.status?.quantity)!) == "0"{
+                            print("CandidateApplyWithdraw receipt status: 0")
+                        }
+                    }
+                })
+            }else{
+                print("CandidateApplyWithdraw empty transaction hash")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
     }
 }
 ```
 
+#### **`CandidateWithdraw`**
+> 节点质押金提取，调用成功后会提取所有已申请退回的质押金到owner账户。
 
-#### getBlockTransactionCountByHash
+**入参**
 
->根据hash获取对应区块的交易数量
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| nodeId | String  | 节点id, 16进制格式， 0x开头 |
+| sender  | String  | 账户地址                   |
+| privateKey  | String  | 私钥，需要与账户地址对应                   |
+| gasPrice  | BigUInt  | Energon价格                   |
+| gas  | BigUInt  | Energon数量                   |
+| value  | BigUInt  | 转账金额，一般为nil                   |
+| completion  | PlatonCommonCompletion  | 回调闭包                   |
 
+**返回事件**
+
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| param1 | String | 执行结果，json格式字符串类型 |
+
+param1描述
 ```
-public func getBlockTransactionCountByHash(
-    blockHash: EthereumData,
-    response: @escaping Web3ResponseCompletion<EthereumQuantity>
-)
-
-```
-
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| blockHash | EthereumData      | 必选 | 交易哈希 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity即为对应数量
-
-**示例**
-
-```
- let blockHash = EthereumData(bytes: Data(hex: "0x..."))
- web3.eth.getBlockTransactionCountByHash(blockHash: blockHash) { (result) in
-     switch result.status{
-     case .success(_):
-         do{}
-     case .failure(_):
-         do{}
-     }
- }
-
-```
-
-
-#### getBlockTransactionCountByNumber
-
->根据区块类型获取对应区块的交易数量
-
-```
-public func getBlockTransactionCountByNumber(
-    block: EthereumQuantityTag,
-    response: @escaping Web3ResponseCompletion<EthereumQuantity>
-)
-
-```
-
-
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| blockHash | EthereumData      | 必选 | 交易哈希 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity即为对应数量
-
-EthereumData属性中的bytes即为对应存储数据
-
-**示例**
-
-```
- web3.eth.getBlockTransactionCountByNumber(block: .latest) { (result) in
-     switch result.status{
-     case .success(_):
-         do{}
-     case .failure(_):
-         do{}
-     }
- }
- 
-```
-
-
-#### getTransactionByHash
-
-
->根据哈希获取交易对象
-
-**接口声明**
-
-```
-public func getTransactionByHash(
-    blockHash: EthereumData,
-    response: @escaping Web3ResponseCompletion<EthereumTransactionObject?>
-) 
-
-```
-
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| blockHash | EthereumData      | 必选 | 交易哈希 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumTransactionObject?>
-`
-EthereumTransactionObject即为交易对象
-
-**示例**
-
-```
-let transactionHash = EthereumData(bytes: Data(hex: "0x..").bytes)
-web3.eth.getTransactionByHash(blockHash: transactionHash) { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
-    }
+{
+    "Ret":boolean,                         //是否成功 true:成功  false:失败
+    "ErrMsg":string                        //错误信息，失败时存在
 }
-
 ```
 
-#### getTransactionFromBlock
-
->根据区块哈希获取指定下标区块上的交易对象
-
-**接口声明**
-
-
+**合约使用**
 ```
-public func getTransactionByBlockHashAndIndex(
-    blockHash: EthereumData,
-    transactionIndex: EthereumQuantity,
-    response: @escaping Web3ResponseCompletion<EthereumTransactionObject?>
-) 
-
-```
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| blockHash | EthereumAddress      | 必选 | 区块哈希 |
-| transactionIndex | Int      | 必选 | 区块下标 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumTransactionObject?>
-`
-EthereumTransactionObject即为交易对象
-
-**示例**
-
-```
-let blockHash = EthereumData(bytes: Data(hex: "0x..").bytes)
-let transactionIndex = EthereumQuantity(integerLiteral: 1)
-web3.eth.getTransactionByBlockHashAndIndex(blockHash: blockHash, transactionIndex: transactionIndex) 	{ (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
-    }
-}
-        
-```
-
-
-#### getTransactionReceipt
-
->根据交易哈希获取交易回执
-
-**接口声明**
-
-```
-public func getTransactionReceipt(
-    transactionHash: EthereumData,
-    response: @escaping Web3ResponseCompletion<EthereumTransactionReceiptObject?>
-)
-
-```
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| transactionHash | EthereumData      | 必选 | 交易哈希 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumTransactionReceiptObject?>
-`
-EthereumTransactionReceiptObject即为交易回执对象
-
-**示例**
-
-```
-let transactionHash = EthereumData(bytes: Data(hex: "0x..").bytes)
-web3.eth.getTransactionReceipt(transactionHash: transactionHash) { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
+func CandidateWithdraw(){
+    let nodeId = "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3";
+    contract.CandidateWithdraw(nodeId: nodeId,sender: sender,privateKey: privateKey,gasPrice: gasPrice,gas: gas,value: BigUInt(0)) { (result, data) in
+        switch result{
+        case .success:
+            print("send Transaction success")
+            if let data = data as? Data{
+                web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    if let receipt = receipt as? EthereumTransactionReceiptObject{
+                        if String((receipt.status?.quantity)!) == "1"{
+                            let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
+                            if (rlpItem?.array?.count)! > 0{
+                                let message = ABI.stringDecode(data: Data(rlpItem!.array![0].bytes!))
+                                print("message:\(message)")
+                            }
+                            print("CandidateWithdraw success")
+                        }else if String((receipt.status?.quantity)!) == "0"{
+                            print("CandidateWithdraw receipt status: 0")
+                        }
+                    }
+                })
+            }else{
+                print("CandidateWithdraw empty transaction hash")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
     }
 }
 ```
 
+#### **`SetCandidateExtra`**
+> 设置节点附加信息, 发起的地址必须是质押金退款的地址 from==owner
 
-#### getTransactionCount
+**入参**
 
->获取nonce（某一地址上的交易数量）
-
-**接口声明**
-
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| Extra | String | 附加数据，json格式字符串类型 |
+| sender  | String  | 账户地址                   |
+| privateKey  | String  | 私钥，需要与账户地址对应                   |
+| gasPrice  | BigUInt  | Energon价格                   |
+| gas  | BigUInt  | Energon数量                   |
+| value  | BigUInt  | 转账金额，一般为nil                   |
+| completion  | PlatonCommonCompletion  | 回调闭包                   |
+Extra描述
 ```
-public func getTransactionCount(
-    address: EthereumAddress,
-    block: EthereumQuantityTag,
-    response: @escaping Web3ResponseCompletion<EthereumQuantity>
-    )
-```    
-
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| address | EthereumAddress      | 必选 | 账户地址 |
-| block | EthereumQuantityTag      | 必选 | 区块高度类型 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity即为nonce
-
-**示例**
-
-```
- let address = EthereumAddress(hexString: "0x..")
- web3.eth.getTransactionCount(address: address, block: .latest) { (result) in
-     switch result.status{
-     case .success(_):
-         do{}
-     case .failure(_):
-         do{}
-     }
- }
-
+{
+    "nodeName":string,                     //节点名称
+    "officialWebsite":string,              //官网 http | https
+    "nodePortrait":string,                 //节点logo http | https
+    "nodeDiscription":string,              //机构简介
+    "nodeDepartment":string                //机构名称
+}
 ```
 
+**返回事件**
 
-#### estimateGas
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| param1 | String | 执行结果，json格式字符串类型 |
 
-
->获取对应交易预估手续费
-
-**接口声明**
-
-
+param1描述
 ```
-public func estimateGas(call: EthereumCall, response: @escaping Web3ResponseCompletion<EthereumQuantity>)
+{
+    "Ret":boolean,                         //是否成功 true:成功  false:失败
+    "ErrMsg":string                        //错误信息，失败时存在
+}
 ```
 
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| address | EthereumAddress      | 必选 | 账户地址 |
-| position | Int      | 必选 | 存储索引地址 |
-| block | EthereumQuantityTag      | 必选 | 区块高度类型 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity为对应手续费gas数量
-
-**示例**
-
+**合约使用**
 ```
-let callData = EthereumData(bytes: Data(hex: "0x..").bytes)
-let contractAddress = EthereumAddress(hexString: "0x..")
-let thecall = EthereumCall(from: nil, to: contractAddress!, gas: nil, gasPrice: nil, value: nil, data: 	callData)
-web3.eth.estimateGas(call: thecall) { (gasestResp) in
-    switch gasestResp.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
+func SetCandidateExtra(){
+    let nodeId = "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3";//节点id
+    var extra : Dictionary<String,String> = [:]
+    extra["nodeName"] = "xxxx-noedeName"
+    extra["nodePortrait"] = "group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg"
+    extra["nodeDiscription"] = "xxxx-nodeDiscription1"
+    extra["nodeDepartment"] = "xxxx-nodeDepartment"
+    extra["officialWebsite"] = "xxxx-officialWebsite"
+    
+    var theJSONText : String = ""
+    if let theJSONData = try? JSONSerialization.data(withJSONObject: extra,options: []) {
+        theJSONText = String(data: theJSONData,
+                             encoding: .utf8)!
+    }
+    //must be owner
+    let owner = "f8f3978c14f585c920718c27853e2380d6f5db36"
+    let ownerPrivateKey = "74df7c508a4e20a3da81b331e2168cff9e6bc085e1968a30a05daf85ae654ed6"
+    contract.SetCandidateExtra(nodeId: nodeId, extra: theJSONText, sender: owner, privateKey: ownerPrivateKey, gasPrice: gasPrice, gas: gas, value: nil) { (result, data) in
+        switch result{
+        case .success:
+            print("send Transaction success")
+            if let data = data as? Data{
+                web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    if let receipt = receipt as? EthereumTransactionReceiptObject{
+                        if String((receipt.status?.quantity)!) == "1"{
+                            let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
+                            if (rlpItem?.array?.count)! > 0{
+                                let message = ABI.stringDecode(data: Data(rlpItem!.array![0].bytes!))
+                                print("message:\(message)")
+                            }
+                            print("SetCandidateExtra success")
+                        }else if String((receipt.status?.quantity)!) == "0"{
+                            print("SetCandidateExtra receipt status: 0")
+                        }
+                    }
+                })
+            }else{
+                print("SetCandidateExtra empty transaction hash")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
     }
 }
-
 ```
 
+#### **`CandidateWithdrawInfos`**
+> 获取节点申请的退款记录列表
 
+**入参**
 
-#### mining
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| nodeId | String  | 节点id, 16进制格式， 0x开头 |
 
->获取节点是否在挖矿
+**返回**
 
-**接口声明**
+- String：json格式字符串
 
 ```
-public func mining(response: @escaping Web3ResponseCompletion<Bool>)
+{
+    "Ret": true,                      
+    "ErrMsg": "success",
+    "Infos": [{                        //退款记录
+        "Balance": 100,                //退款金额
+        "LockNumber": 13112,           //退款申请所在块高
+        "LockBlockCycle": 1            //退款金额锁定周期
+    }]
+}
 ```
 
-**参数**
+**合约使用**
+```
+func CandidateWithdrawInfos() {
+    contract.CandidateWithdrawInfos(nodeId: "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3") { (result, data) in
+        switch result{
+        case .success:
+            if let data = data as? String{
+                print("result:\(data)")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
+    }
+}
+```
+
+#### **`CandidateDetails`**
+> 获取候选人信息
+
+**入参**
+
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| nodeId | String  | 节点id, 16进制格式， 0x开头 |
+
+**返回**
+
+- String：json格式字符串
+
+```
+{
+    //质押金额 
+    "Deposit": 200,    
+    //质押金更新的最新块高
+    "BlockNumber": 12206,
+    //所在区块交易索引
+    "TxIndex": 0,
+    //节点Id
+    "CandidateId": "6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3",
+    //节点IP
+    "Host": "192.168.9.76",
+    //节点P2P端口号
+    "Port": "26794",
+    //质押金退款地址
+    "Owner": "0xf8f3978c14f585c920718c27853e2380d6f5db36",
+    //最新质押交易的发送方
+    "From": "0x493301712671ada506ba6ca7891f436d29185821",
+    //附加数据
+    "Extra": "{\"nodeName\":\"xxxx-noedeName\",\"officialWebsite\":\"xxxx-officialWebsite\",\"nodePortrait\":\"group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg\",\"nodeDiscription\":\"xxxx-nodeDiscription1\",\"nodeDepartment\":\"xxxx-nodeDepartment\"}",
+    //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
+    "Fee": 500
+}
+```
+
+**合约使用**
+```
+func CandidateDetails(){
+    contract.CandidateDetails(nodeId: "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3") { (result, data) in
+        switch result{
+        case .success:
+            if let data = data as? String{
+                print("result:\(data)")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
+    }
+}
+```
+
+#### **`GetBatchCandidateDetail`**
+> 批量获取候选人信息
+
+**入参**
+
+| **参数名** | **类型** | **参数说明** |
+| ------ | ------ | ------ |
+| nodeIds | String  | 节点id列表，中间通过`:`号分割 |
+
+**返回**
+
+- String：json格式字符串
+
+```
+[{
+    "Deposit": 11100000000000000000,
+    "BlockNumber": 13721,
+    "TxIndex": 0,
+    "CandidateId": "c0e69057ec222ab257f68ca79d0e74fdb720261bcdbdfa83502d509a5ad032b29d57c6273f1c62f51d689644b4d446064a7c8279ff9abd01fa846a3555395535",
+    "Host": "192.168.9.76",
+    "Port": "26793",
+    "Owner": "0x3ef573e439071c87fe54287f07fe1fd8614f134c",
+    "From": "0x3ef573e439071c87fe54287f07fe1fd8614f134c",
+    "Extra": "{\"nodeName\":\"xxxx-noedeName\",\"officialWebsite\":\"xxxx-officialWebsite\",\"nodePortrait\":\"group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg\",\"nodeDiscription\":\"xxxx-nodeDiscription1\",\"nodeDepartment\":\"xxxx-nodeDepartment\"}",
+    "Fee": 9900
+}, {
+    "Deposit": 200,
+    "BlockNumber": 12206,
+    "TxIndex": 0,
+    "CandidateId": "6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3",
+    "Host": "192.168.9.76",
+    "Port": "26794",
+    "Owner": "0xf8f3978c14f585c920718c27853e2380d6f5db36",
+    "From": "0x493301712671ada506ba6ca7891f436d29185821",
+    "Extra": "{\"nodeName\":\"xxxx-noedeName\",\"officialWebsite\":\"xxxx-officialWebsite\",\"nodePortrait\":\"group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg\",\"nodeDiscription\":\"xxxx-nodeDiscription1\",\"nodeDepartment\":\"xxxx-nodeDepartment\"}",
+    "Fee": 500
+}]
+```
+
+**合约使用**
+```
+func GetBatchCandidateDetail(){
+   var nodes = "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3"
+    nodes = nodes + ":"
+    nodes = nodes + "0xc0e69057ec222ab257f68ca79d0e74fdb720261bcdbdfa83502d509a5ad032b29d57c6273f1c62f51d689644b4d446064a7c8279ff9abd01fa846a3555395535"
+
+    contract.GetBatchCandidateDetail(batchNodeIds: nodes) { (result, data) in
+        switch result{
+        case .success:
+            if let data = data as? String{
+                print("result:\(data)")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
+    }
+}
+```
+
+#### **`CandidateList`**
+> 获取所有入围节点的信息列表
+
+**入参**
 
 无
 
-**返回值 或 回调**
+**返回**
 
-`
-Web3ResponseCompletion<Bool>
-`
-Bool对应挖矿状态
-
-**示例**
+- String：json格式字符串
 
 ```
-web3.eth.mining { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
+[{
+    "Deposit": 11100000000000000000,
+    "BlockNumber": 13721,
+    "TxIndex": 0,
+    "CandidateId": "c0e69057ec222ab257f68ca79d0e74fdb720261bcdbdfa83502d509a5ad032b29d57c6273f1c62f51d689644b4d446064a7c8279ff9abd01fa846a3555395535",
+    "Host": "192.168.9.76",
+    "Port": "26793",
+    "Owner": "0x3ef573e439071c87fe54287f07fe1fd8614f134c",
+    "From": "0x3ef573e439071c87fe54287f07fe1fd8614f134c",
+    "Extra": "{\"nodeName\":\"xxxx-noedeName\",\"officialWebsite\":\"xxxx-officialWebsite\",\"nodePortrait\":\"group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg\",\"nodeDiscription\":\"xxxx-nodeDiscription1\",\"nodeDepartment\":\"xxxx-nodeDepartment\"}",
+    "Fee": 9900
+}, {
+    "Deposit": 200,
+    "BlockNumber": 12206,
+    "TxIndex": 0,
+    "CandidateId": "6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3",
+    "Host": "192.168.9.76",
+    "Port": "26794",
+    "Owner": "0xf8f3978c14f585c920718c27853e2380d6f5db36",
+    "From": "0x493301712671ada506ba6ca7891f436d29185821",
+    "Extra": "{\"nodeName\":\"xxxx-noedeName\",\"officialWebsite\":\"xxxx-officialWebsite\",\"nodePortrait\":\"group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg\",\"nodeDiscription\":\"xxxx-nodeDiscription1\",\"nodeDepartment\":\"xxxx-nodeDepartment\"}",
+    "Fee": 500
+}]
+```
+
+**合约使用**
+```
+func CandidateList(){
+    contract.CandidateList { (result, data) in
+        switch result{
+        case .success:
+            if let data = data as? String{
+                print("result:\(data)")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
     }
 }
 ```
 
-#### hashrate
+#### **`VerifiersList`**
+> 获取参与当前共识的验证人列表
 
->获取节点挖矿每秒中hash的数量
-
-**接口声明**
-
-```
-public func hashrate(response: @escaping Web3ResponseCompletion<EthereumQuantity>)
-```
-
-**参数**
+**入参**
 
 无
 
-**返回值 或 回调**
+**返回**
 
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity为hash的数量
-
-**示例**
+- String：json格式字符串
 
 ```
-web3.eth.hashrate { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
+[{
+    "Deposit": 11100000000000000000,
+    "BlockNumber": 13721,
+    "TxIndex": 0,
+    "CandidateId": "c0e69057ec222ab257f68ca79d0e74fdb720261bcdbdfa83502d509a5ad032b29d57c6273f1c62f51d689644b4d446064a7c8279ff9abd01fa846a3555395535",
+    "Host": "192.168.9.76",
+    "Port": "26793",
+    "Owner": "0x3ef573e439071c87fe54287f07fe1fd8614f134c",
+    "From": "0x3ef573e439071c87fe54287f07fe1fd8614f134c",
+    "Extra": "{\"nodeName\":\"xxxx-noedeName\",\"officialWebsite\":\"xxxx-officialWebsite\",\"nodePortrait\":\"group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg\",\"nodeDiscription\":\"xxxx-nodeDiscription1\",\"nodeDepartment\":\"xxxx-nodeDepartment\"}",
+    "Fee": 9900
+}, {
+    "Deposit": 200,
+    "BlockNumber": 12206,
+    "TxIndex": 0,
+    "CandidateId": "6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3",
+    "Host": "192.168.9.76",
+    "Port": "26794",
+    "Owner": "0xf8f3978c14f585c920718c27853e2380d6f5db36",
+    "From": "0x493301712671ada506ba6ca7891f436d29185821",
+    "Extra": "{\"nodeName\":\"xxxx-noedeName\",\"officialWebsite\":\"xxxx-officialWebsite\",\"nodePortrait\":\"group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg\",\"nodeDiscription\":\"xxxx-nodeDiscription1\",\"nodeDepartment\":\"xxxx-nodeDepartment\"}",
+    "Fee": 500
+}]
+```
+
+合约使用：
+```
+func VerifiersList(){
+    contract.VerifiersList { (result, data) in
+        switch result{
+        case .success:
+            if let data = data as? String{
+                print("result:\(data)")
+            }
+        case .fail(let code, let errMsg):
+            print("error code:\(code ?? 0) errMsg:\(errMsg ?? "")")
+        }
     }
 }
 ```
 
-
-#### syncing
-
->获取节点的同步状态
-
-**接口声明**
-
-```
-public func syncing(response: @escaping Web3ResponseCompletion<EthereumSyncStatusObject>)
-```
-
-**参数**
-
-| 名称  | 类型  | 属性  | 含义 |
-| :---------------:| :---------------: |:---------------:| :---------------:|
-| address | EthereumAddress      | 必选 | 账户地址 |
-| position | Int      | 必选 | 存储索引地址 |
-| block | EthereumQuantityTag      | 必选 | 区块高度类型 |
-| response | Web3ResponseCompletion<T>      | 必选 | 回调 |
-
-
-
-**返回值 或 回调**
-
-`
-EthereumSyncStatusObject
-`
-
-其对应属性有
-
-syncing: Bool //是否在同步,如果为true，其他值为nil
-startingBlock: EthereumQuantity? //如果syncing为false，则其含义为开始同步的区块
-currentBlock: EthereumQuantity? //如果syncing为false，则其含义为当前块高，同eth_blockNumber
-highestBlock: EthereumQuantity? //如果syncing为false，则其含义为预计的最高块高
-
-**示例**
-
-```
-web3.eth.syncing{ (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
-    }
-}
-
-```
-
-
-#### gasPrice
-
->获取最新快的交易单价
-
-**接口声明**
-
-```
-public func gasPrice(response: @escaping Web3ResponseCompletion<EthereumQuantity>)
-```
-
-**参数**
-无
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity为对应的交易单价
-
-**示例**
-
-```
-web3.eth.gasPrice { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
-    }
-}
-
-```
-
-
-#### accounts
-
-
->获取节点对应的账户
-
-**接口声明**
-
-```
-public func accounts(response: @escaping Web3ResponseCompletion<[EthereumAddress]>)
-```
-
-
-**参数**
-
-无
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<[EthereumAddress]>
-`
-[EthereumAddress]为账户列表
-
-**示例**
-
-```
-web3.eth.accounts { (result) in
-     switch result.status{
-     case .success(_):
-         do{}
-     case .failure(_):
-         do{}
-     }
- }
-
-```
-
-#### blockNumber
-
->获取节点当前交易区块数量
-
-**接口声明**
-
-```
-public func blockNumber(response: @escaping Web3ResponseCompletion<EthereumQuantity>)
-```
-
-
-**参数**
-
-无
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<EthereumQuantity>
-`
-EthereumQuantity为对应区块数量
-
-**示例**
-
-```
-web3.eth.blockNumber { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
-    }
-}
-
-```
-
-#### protocolVersion
-
->获取协议版本号
-
-**接口声明**
-
-```
-public func protocolVersion(response: @escaping Web3ResponseCompletion<String>)
-```
-
-
-**参数**
-
-无
-
-**返回值 或 回调**
-
-`
-Web3ResponseCompletion<String>
-`
-String为协议版本号
-
-**示例**
-
-```
-web3.eth.protocolVersion { (result) in
-    switch result.status{
-    case .success(_):
-        do{}
-    case .failure(_):
-        do{}
-    }
-}
-```
-
-
-#### call
-同：[合约call调用](#合约call调用)
-
-
-#### sendRawTransaction
-同：[合约sendrawtransaction调用](#合约sendrawtransaction调用)
+# web3
+## web3 eth相关 (标准JSON RPC )
+- Swift可 api的使用请参考[Web3.swift github](https://github.com/Boilertalk/Web3.swift)

@@ -12,15 +12,14 @@ import Localize_Swift
 
 let onMainPerformTimeout = 5.0
 
+public typealias PlatonCommonCompletion = (_ result : PlatonCommonResult, _ obj : AnyObject?) -> ()
 
-extension Web3.Eth{
-    
-    public typealias PlatonCommonCompletion = (_ result : PlatonCommonResult, _ obj : AnyObject?) -> ()
-    
-    public enum PlatonCommonResult : Error{
-        case success
-        case fail(Int?,String?)
-    }
+public enum PlatonCommonResult : Error{
+    case success
+    case fail(Int?,String?)
+}
+
+public extension Web3.Eth{
     
     public typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ address : String?, _ hash: String?) -> ()
     

@@ -9,52 +9,211 @@
 import Foundation
 import BigInt
 
-class CandidateContract {
+
+class CandidateContract : Contract{
     
-    func CandidateDeposit(){
+    private let contractAddress = "0x1000000000000000000000000000000000000001"
+    
+    func CandidateDeposit(nodeId: String,
+                          owner: String,
+                          fee: UInt64,
+                          host: String,
+                          port: String,
+                          extra: String,
+                          sender: String,
+                          privateKey: String,
+                          gasPrice: BigUInt,
+                          gas: BigUInt,
+                          value: BigUInt,
+                          completion: PlatonCommonCompletion?
+                          ){
         
-        let nodeId = "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3";//节点id
-        let owner = "0xf8f3978c14f585c920718c27853e2380d6f5db36"; //质押金退款地址
-        let fee = Data.newData(unsignedLong: 500, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
-        let host = "192.168.9.76"; //节点IP
-        let port = "26794"; //节点P2P端口号
-        
-        var extra : Dictionary<String,String> = [:]
-        extra["nodeName"] = "xxxx-noedeName"
-        extra["nodePortrait"] = "http://192.168.9.86:8082/group2/M00/00/00/wKgJVlr0KDyAGSddAAYKKe2rswE261.png"
-        extra["nodeDiscription"] = "xxxx-nodeDiscription"
-        extra["nodeDepartment"] = "xxxx-nodeDepartment"
-        extra["officialWebsite"] = "https://www.platon.network/"
-        
-        var theJSONText : String?
-        if let theJSONData = try? JSONSerialization.data(withJSONObject: extra,options: []) {
-            theJSONText = String(data: theJSONData,
-                                     encoding: .ascii)
-        }
-        let value = BigUInt("500")!
-        
+        let fee_d = Data.newData(unsignedLong: 500, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
+
         let params = [
             nodeId.data(using: .utf8)!,
             owner.data(using: .utf8),
-            fee,
+            fee_d,
             host.data(using: .utf8),
             port.data(using: .utf8),
-            theJSONText!.data(using: .utf8)
-                      ]
+            extra.data(using: .utf8)
+            ]
         
-        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: "0x1000000000000000000000000000000000000001", functionName: "CandidateDeposit", params: params as! [Data], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value), estimated: false) { (result, data) in
+        var completion = completion
+        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateDeposit", params: params as! [Data], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value), estimated: false) { (result, data) in
             switch result{
             case .success:
-                print("success: hash: \(String(describing: data?.toHexString()))")
+                self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
             case .fail(let code, let errorMsg):
-                print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
             }
         }
         
     }
     
-    func CandidateApplyWithdraw(){
+    func CandidateApplyWithdraw(nodeId: String,
+                                withdraw: BigUInt,
+                                sender: String,
+                                privateKey: String,
+                                gasPrice: BigUInt,
+                                gas: BigUInt,
+                                value: BigUInt?,
+                                completion: PlatonCommonCompletion?){
+        
+        let v = SolidityWrappedValue(value: withdraw, type: .uint256)
+        let withdraw_d = Data(hex: try! ABI.encodeParameter(v))
+        
+        let params = [nodeId.data(using: .utf8)!,withdraw_d]
+        
+        var completion = completion
+        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateApplyWithdraw", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
+            switch result{
+            case .success:
+                self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
+    }
+    
+    func CandidateWithdraw(nodeId: String,
+                           sender: String,
+                           privateKey: String,
+                           gasPrice: BigUInt,
+                           gas: BigUInt,
+                           value: BigUInt?,
+                           completion: PlatonCommonCompletion?){
+    
+        var completion = completion
+        let params = [nodeId.data(using: .utf8)!]
+        
+        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateWithdraw", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
+            switch result{
+            case .success:
+                self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
+    }
+    
+    func SetCandidateExtra(nodeId: String,
+                           extra: String,
+                           sender: String,
+                           privateKey: String,
+                           gasPrice: BigUInt,
+                           gas: BigUInt,
+                           value: BigUInt?,
+                           completion: PlatonCommonCompletion?){
+        var completion = completion
+        let params = [nodeId.data(using: .utf8)!,extra.data(using: .utf8)!]
+        
+        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "SetCandidateExtra", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
+            switch result{
+            case .success:
+                self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
+    }
+    
+    
+    func CandidateWithdrawInfos(nodeId: String, completion: PlatonCommonCompletion?){
+        
+        var completion = completion
+        let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
+        
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateWithdrawInfos", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+            switch result{
+            case .success:
+                if let dic = data as? Dictionary<String, String>{
+                    self.successCompletionOnMain(obj: dic["whateverkey"] as AnyObject, completion: &completion)
+                }else{
+                    self.successCompletionOnMain(obj: "" as AnyObject, completion: &completion)
+                }
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
         
     }
+    
+    func CandidateDetails(nodeId: String,completion: PlatonCommonCompletion?){
+        var completion = completion
+        let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
+        
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateDetails", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+            switch result{
+            case .success:
+                if let dic = data as? Dictionary<String, String>{
+                    self.successCompletionOnMain(obj: dic["whateverkey"] as AnyObject, completion: &completion)
+                }else{
+                    self.successCompletionOnMain(obj: "" as AnyObject, completion: &completion)
+                }
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
+    }
+    
+    func GetBatchCandidateDetail(batchNodeIds: String,completion: PlatonCommonCompletion?){
+        var completion = completion
+        let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
+        
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetBatchCandidateDetail", from: nil, params: [batchNodeIds.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+            switch result{
+            case .success:
+                if let dic = data as? Dictionary<String, String>{
+                    self.successCompletionOnMain(obj: dic["whateverkey"] as AnyObject, completion: &completion)
+                }else{
+                    self.successCompletionOnMain(obj: "" as AnyObject, completion: &completion)
+                }
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
+    }
+    
+    func CandidateList(completion: PlatonCommonCompletion?){
+        var completion = completion
+        let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
+        
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+            switch result{
+            case .success:
+                if let dic = data as? Dictionary<String, String>{
+                    self.successCompletionOnMain(obj: dic["whateverkey"] as AnyObject, completion: &completion)
+                }else{
+                    self.successCompletionOnMain(obj: "" as AnyObject, completion: &completion)
+                }
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
+    }
+    
+    func VerifiersList(completion: PlatonCommonCompletion?){
+        var completion = completion
+        let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
+        
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "VerifiersList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+            switch result{
+            case .success:
+                if let dic = data as? Dictionary<String, String>{
+                    self.successCompletionOnMain(obj: dic["whateverkey"] as AnyObject, completion: &completion)
+                }else{
+                    self.successCompletionOnMain(obj: "" as AnyObject, completion: &completion)
+                }
+            case .fail(let code, let errorMsg):
+                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
+            }
+        }
+    }
+    
+    
+    
+    
+    
 }
 

@@ -18,7 +18,15 @@ public struct Web3 {
     // MARK: - Properties
 
     public let properties: Properties
-
+    
+    public var debugMode = false
+    
+    public func debugPrint(_ items: Any...){
+        if debugMode{
+            print(items)
+        }
+    }
+    
     public struct Properties {
 
         public let provider: Web3Provider

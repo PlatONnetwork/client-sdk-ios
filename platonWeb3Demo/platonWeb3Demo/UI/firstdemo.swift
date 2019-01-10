@@ -36,11 +36,9 @@ class firstdemo{
     //MARK: - Contract methods
     
     func deploy(completion: () -> Void){
-        
         print("begin deploy")
         let bin = self.getBIN()
         let abiS = self.getABI()
-        
         web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, estimateGas: false, waitForTransactionReceipt: true, timeout: 20, completion:{
             (result,contractAddress,transactionHash) in
             
@@ -52,7 +50,6 @@ class firstdemo{
             case .fail(let code, let errorMsg):
                 print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
             }
-            
         })
     }
     
@@ -98,15 +95,12 @@ class firstdemo{
     }
     
     func getName(){
-        
         guard contractAddress != nil else {
             print("deploy contract first!")
             return
         }
-        
-        let sender = "0x72ADbBFd846f34Ff54456219ef750E53621b6CC1"
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: self.contractAddress!, functionName: "getName", from: sender, params: [], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: self.contractAddress!, functionName: "getName", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
