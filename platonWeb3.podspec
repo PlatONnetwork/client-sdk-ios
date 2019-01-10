@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "platonWeb3"
-  s.version      = "0.3.0.3"
+  s.version      = "0.3.0.4"
   s.summary      = "PlatOn RPC SDK for iOS,A Web3 RPC tool to interact with PlatON node"
 
   s.description  = "add executeCode option for transaction in Data fileld"
