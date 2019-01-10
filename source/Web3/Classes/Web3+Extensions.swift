@@ -77,18 +77,18 @@ public extension Web3.Eth{
         if estimateGas{
             deployQueue.async {
                 let from = EthereumAddress(hexString: sender)
-                web3.debugPrint("platonDeployContract estimatedGas begin 💪 semaphone\(semaphore)")
+                Debugger.debugPrint("platonDeployContract estimatedGas begin 💪 semaphone\(semaphore)")
                 let call = EthereumCall(from: from, to: nil, gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: rawRlp!))
                 self.estimateGas(call: call) { (gasestResp) in
                     switch gasestResp.status{
                     case .success(_):
                         do {
                             estimatedGas = gasestResp.result
-                            web3.debugPrint("platonDeployContract estimatedGas done😀")
+                            Debugger.debugPrint("platonDeployContract estimatedGas done😀")
                             semaphore.signal()
                         }
                     case .failure(_):
-                        web3.debugPrint("platonDeployContract estimatedGas fail😭")
+                        Debugger.debugPrint("platonDeployContract estimatedGas fail😭")
                         self.deploy_fail(code: gasestResp.getErrorCode(), errorMsg: gasestResp.getErrorLocalizedDescription(), completion: &completion)
                         semaphore.signal()
                     }
@@ -121,11 +121,11 @@ public extension Web3.Eth{
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
-                    web3.debugPrint("platonDeployContract get nonce done😀" + "nonce:" + String((nonceResp.result?.quantity)!))
+                    Debugger.debugPrint("platonDeployContract get nonce done😀" + "nonce:" + String((nonceResp.result?.quantity)!))
                     semaphore.signal()
                 case .failure(_):
                     self.deploy_fail(code: nonceResp.getErrorCode(), errorMsg: nonceResp.getErrorLocalizedDescription(), completion: &completion)
-                    web3.debugPrint("platonDeployContract get nonce fail😭")
+                    Debugger.debugPrint("platonDeployContract get nonce fail😭")
                     semaphore.signal()
                     
                 }
@@ -161,11 +161,11 @@ public extension Web3.Eth{
                 switch sendTxResp.status{
                 case .success(_):
                     txHash = sendTxResp.result!
-                    web3.debugPrint("platonDeployContract Deploy done😀")
+                    Debugger.debugPrint("platonDeployContract Deploy done😀")
                     semaphore.signal()
                 case .failure(_):
                     self.deploy_fail(code: sendTxResp.getErrorCode(), errorMsg: sendTxResp.getErrorLocalizedDescription(), completion: &completion)
-                    web3.debugPrint("platonDeployContract Deploy fail😭")
+                    Debugger.debugPrint("platonDeployContract Deploy fail😭")
                     semaphore.signal()
                     return
                 }
@@ -199,11 +199,11 @@ public extension Web3.Eth{
                     completion?(PlatonCommonResult.success,receptionresp.contractAddress?.hex(), txHash.hex())
                     self.deploy_success(receptionresp.contractAddress?.hex(), txHash.hex(), completion: &completion)
                     
-                    web3.debugPrint("platonDeployContract Receipt done😀")
+                    Debugger.debugPrint("platonDeployContract Receipt done😀")
                     semaphore.signal()
                 case .fail(let code, let errMsg):
                     self.deploy_fail(code: code!, errorMsg: errMsg!, completion: &completion)
-                    web3.debugPrint("platonDeployContract Receipt fail😭")
+                    Debugger.debugPrint("platonDeployContract Receipt fail😭")
                     semaphore.signal()
                     return
                 }
@@ -262,7 +262,7 @@ public extension Web3.Eth{
             case .success(_):
                 let data = Data(bytes: (resp.result?.bytes)!)
                 let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexString())
-                //web3.debugPrint("\(functionName) call result:\n\(dictionary)")
+                //Debugger.debugPrint("\(functionName) call result:\n\(dictionary)")
                 if dictionary != nil && (dictionary?.count)! > 0{
                     self.call_success(dictionary: dictionary as AnyObject, completion: &completion)
                 }else{
@@ -292,7 +292,7 @@ public extension Web3.Eth{
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
-                    web3.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
+                    Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
                     semaphore.signal()
                 case .failure(_):
                     self.sendRawTransaction_fail(code: nonceResp.getErrorCode(), errorMsg: nonceResp.getErrorLocalizedDescription(), completion: &completion)
@@ -421,21 +421,21 @@ public extension Web3.Eth{
         var time = loopTime
         queue.async {
             repeat{
-                web3.debugPrint("begin getTransactionReceipt 💪:\(txHash)")
+                Debugger.debugPrint("begin getTransactionReceipt 💪:\(txHash)")
                 self.getTransactionReceipt(transactionHash: EthereumData(bytes: Data(hex: txHash).bytes)) { (response) in
                     time = time - 1
                     switch response.status{
                     case .success(_):
                         
                         DispatchQueue.main.async {
-                            web3.debugPrint("success getTransactionReceipt 🙂")
+                            Debugger.debugPrint("success getTransactionReceipt 🙂")
                             completion?(.success,response.result as AnyObject)
                             completion = nil
                         }
                         semaphore.signal()
                         time = 0
                     case .failure(_):
-                        web3.debugPrint("fail getTransactionReceipt 😭")
+                        Debugger.debugPrint("fail getTransactionReceipt 😭")
                         if time == 0{
                             DispatchQueue.main.async {
                                 completion?(PlatonCommonResult.fail(response.getErrorCode(), response.getErrorLocalizedDescription()),nil)
