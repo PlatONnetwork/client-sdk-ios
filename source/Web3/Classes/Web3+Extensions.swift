@@ -15,8 +15,9 @@ public enum ExecuteCode {
     case Authority
     case MPCTransaction
     case CampaignPledge
-    case RecudePledge
+    case ReducePledge
     case DrawPledge
+    case InnerContract
     
     public var DataValue: Data{
         switch self {
@@ -34,10 +35,12 @@ public enum ExecuteCode {
             return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x05])
         case .CampaignPledge:
             return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xE9])
-        case .RecudePledge:
+        case .ReducePledge:
             return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEA])
         case .DrawPledge:
             return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEB])
+        case .InnerContract:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEC])
         }
     }
 }
@@ -185,20 +188,18 @@ public extension Web3.Eth{
             }
             
             if !waitForTransactionReceipt{
-                self.deploy_success(nil, txHash.hex(), completion: &completion)
+                self.deploy_success(nil, nil, completion: &completion)
                 return
             }
             
-            self.platongetTransactionReceipt(txHash: txHash.hex(), loopTime: 10, completion: { (ret, data) in
+            self.platonGetTransactionReceipt(txHash: txHash.hex(), loopTime: 15, completion: { (ret, data) in
                 switch ret{
                 case .success:
                     guard let receptionresp = data as? EthereumTransactionReceiptObject else{
                         self.deploy_empty(completion: &completion)
                         return
                     }
-                    completion?(PlatonCommonResult.success,receptionresp.contractAddress?.hex(), txHash.hex())
-                    self.deploy_success(receptionresp.contractAddress?.hex(), txHash.hex(), completion: &completion)
-                    
+                    self.deploy_success(receptionresp.contractAddress?.hex(), receptionresp, completion: &completion)
                     Debugger.debugPrint("platonDeployContract Receipt done😀")
                     semaphore.signal()
                 case .fail(let code, let errMsg):
@@ -412,12 +413,12 @@ public extension Web3.Eth{
     }
     
     
-    func platongetTransactionReceipt(txHash: String, loopTime: Int, completion: PlatonCommonCompletion?) {
+    func platonGetTransactionReceipt(txHash: String, loopTime: Int, completion: PlatonCommonCompletion?) {
         
         var completion = completion
         
         let semaphore = DispatchSemaphore(value: 0)
-        let queue = DispatchQueue(label: "platongetTransactionReceipt")
+        let queue = DispatchQueue(label: "platonGetTransactionReceipt")
         var time = loopTime
         queue.async {
             repeat{

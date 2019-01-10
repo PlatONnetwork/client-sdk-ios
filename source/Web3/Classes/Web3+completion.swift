@@ -21,7 +21,7 @@ public enum PlatonCommonResult : Error{
 
 public extension Web3.Eth{
     
-    public typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ address : String?, _ hash: String?) -> ()
+    public typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ address : String?, _ receipt: EthereumTransactionReceiptObject?) -> ()
     
     public typealias ContractCallCompletion = (_ result : PlatonCommonResult, _ data : AnyObject?) -> ()
     
@@ -65,15 +65,15 @@ public extension Web3.Eth{
         }
     }
     
-    func deploy_success(_ address : String?, _ hash: String?,completion: inout ContractDeployCompletion?) {
+    func deploy_success(_ address : String?, _ receipt: EthereumTransactionReceiptObject?,completion: inout ContractDeployCompletion?) {
         if Thread.current == Thread.main{
-            completion?(PlatonCommonResult.success,address, hash)
+            completion?(PlatonCommonResult.success,address, receipt)
             completion = nil
         }else{
             let semaphore = DispatchSemaphore(value: 0)
             var mc = completion
             DispatchQueue.main.async {
-                mc?(PlatonCommonResult.success,address, hash)
+                mc?(PlatonCommonResult.success,address, receipt)
                 mc = nil
                 semaphore.signal()
             }

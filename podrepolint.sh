@@ -1,0 +1,1 @@
+pod repo lint platonWeb3.podspec --verbose 

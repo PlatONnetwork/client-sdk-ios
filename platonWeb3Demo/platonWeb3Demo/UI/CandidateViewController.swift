@@ -73,7 +73,7 @@ class CandidateViewController: UITableViewController {
             case .success:
                 print("Transaction success")
                 if let data = data as? Data{
-                    web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    web3.eth.platonGetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
                         if let receipt = receipt as? EthereumTransactionReceiptObject{
                             if String((receipt.status?.quantity)!) == "1"{
                                 let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
@@ -108,7 +108,7 @@ class CandidateViewController: UITableViewController {
             case .success:
                 print("CandidateApplyWithdraw success")
                 if let data = data as? Data{
-                    web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    web3.eth.platonGetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
                         if let receipt = receipt as? EthereumTransactionReceiptObject{
                             if String((receipt.status?.quantity)!) == "1"{
                                 let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
@@ -139,7 +139,7 @@ class CandidateViewController: UITableViewController {
             case .success:
                 print("send Transaction success")
                 if let data = data as? Data{
-                    web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    web3.eth.platonGetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
                         if let receipt = receipt as? EthereumTransactionReceiptObject{
                             if String((receipt.status?.quantity)!) == "1"{
                                 let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
@@ -184,7 +184,7 @@ class CandidateViewController: UITableViewController {
             case .success:
                 print("send Transaction success")
                 if let data = data as? Data{
-                    web3.eth.platongetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    web3.eth.platonGetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
                         if let receipt = receipt as? EthereumTransactionReceiptObject{
                             if String((receipt.status?.quantity)!) == "1"{
                                 let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)

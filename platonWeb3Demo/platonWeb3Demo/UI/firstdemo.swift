@@ -40,12 +40,11 @@ class firstdemo{
         let bin = self.getBIN()
         let abiS = self.getABI()
         web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, estimateGas: false, waitForTransactionReceipt: true, timeout: 20, completion:{
-            (result,contractAddress,transactionHash) in
+            (result,contractAddress,receipt) in
             
             switch result{
             case .success:
                 self.contractAddress = contractAddress
-                self.deployHash = transactionHash
                 print("deploy success, contractAddress: \(String(describing: contractAddress))")
             case .fail(let code, let errorMsg):
                 print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
@@ -79,7 +78,7 @@ class firstdemo{
             print("ERROR:invoke invokeNotify first!")
             return
         }
-        web3.eth.platongetTransactionReceipt(txHash: self.invokeNotifyHash!, loopTime: 15) { (result, data) in
+        web3.eth.platonGetTransactionReceipt(txHash: self.invokeNotifyHash!, loopTime: 15) { (result, data) in
             switch result{
             case .success:
                 if let receipt = data as? EthereumTransactionReceiptObject{
