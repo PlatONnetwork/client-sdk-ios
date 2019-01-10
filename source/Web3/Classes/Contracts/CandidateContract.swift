@@ -12,6 +12,12 @@ import BigInt
 
 class CandidateContract : Contract{
     
+    private var web3 : Web3
+    
+    required init(web3: Web3) {
+        self.web3 = web3
+    }
+    
     private let contractAddress = "0x1000000000000000000000000000000000000001"
     
     func CandidateDeposit(nodeId: String,

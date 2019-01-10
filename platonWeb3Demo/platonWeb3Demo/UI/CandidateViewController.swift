@@ -10,7 +10,7 @@ import UIKit
 
 class CandidateViewController: UITableViewController {
 
-    var contract = CandidateContract()
+    var contract = CandidateContract(web3: web3)
     
     override func viewDidLoad() {
         super.viewDidLoad()

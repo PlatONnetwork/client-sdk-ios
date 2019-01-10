@@ -17,9 +17,7 @@
 		8141DF1B21E5D2B900F803DA /* FirstDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF1A21E5D2B900F803DA /* FirstDemoViewController.swift */; };
 		8141DF1D21E5D2C600F803DA /* CandidateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF1C21E5D2C600F803DA /* CandidateViewController.swift */; };
 		8141DF2121E6116000F803DA /* firstdemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF2021E6116000F803DA /* firstdemo.swift */; };
-		8141DF2321E611A900F803DA /* CandidateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF2221E611A900F803DA /* CandidateContract.swift */; };
 		8141DF2521E61A5F00F803DA /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF2421E61A5F00F803DA /* config.swift */; };
-		817A9BD621E6DFF500C94CB4 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9BD521E6DFF500C94CB4 /* Contract.swift */; };
 		817A9C3121E72D3500C94CB4 /* Web3+completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9BDD21E72D3500C94CB4 /* Web3+completion.swift */; };
 		817A9C3221E72D3500C94CB4 /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9BE021E72D3500C94CB4 /* EthereumPublicKey.swift */; };
 		817A9C3321E72D3500C94CB4 /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9BE121E72D3500C94CB4 /* EthereumAddress.swift */; };
@@ -92,6 +90,8 @@
 		817A9C7621E72D3500C94CB4 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C2E21E72D3500C94CB4 /* Debugger.swift */; };
 		817A9C7721E72D3500C94CB4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C2F21E72D3500C94CB4 /* Config.swift */; };
 		817A9C7821E72D3500C94CB4 /* Web3ResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C3021E72D3500C94CB4 /* Web3ResponseHelper.swift */; };
+		817A9C7C21E752FC00C94CB4 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C7A21E752FB00C94CB4 /* Contract.swift */; };
+		817A9C7D21E752FC00C94CB4 /* CandidateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C7B21E752FB00C94CB4 /* CandidateContract.swift */; };
 		9570941F1ADCA6FFD66D88D6 /* Pods_platonWeb3DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */; };
 		CC6B53092747AF973335F624 /* Pods_platonWeb3Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB9103C53618EC9C119E1BF /* Pods_platonWeb3Demo.framework */; };
 /* End PBXBuildFile section */
@@ -137,9 +137,7 @@
 		8141DF1A21E5D2B900F803DA /* FirstDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDemoViewController.swift; sourceTree = "<group>"; };
 		8141DF1C21E5D2C600F803DA /* CandidateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateViewController.swift; sourceTree = "<group>"; };
 		8141DF2021E6116000F803DA /* firstdemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstdemo.swift; sourceTree = "<group>"; };
-		8141DF2221E611A900F803DA /* CandidateContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateContract.swift; sourceTree = "<group>"; };
 		8141DF2421E61A5F00F803DA /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
-		817A9BD521E6DFF500C94CB4 /* Contract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
 		817A9BDD21E72D3500C94CB4 /* Web3+completion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+completion.swift"; sourceTree = "<group>"; };
 		817A9BE021E72D3500C94CB4 /* EthereumPublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPublicKey.swift; sourceTree = "<group>"; };
 		817A9BE121E72D3500C94CB4 /* EthereumAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddress.swift; sourceTree = "<group>"; };
@@ -212,6 +210,8 @@
 		817A9C2E21E72D3500C94CB4 /* Debugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
 		817A9C2F21E72D3500C94CB4 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		817A9C3021E72D3500C94CB4 /* Web3ResponseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3ResponseHelper.swift; sourceTree = "<group>"; };
+		817A9C7A21E752FB00C94CB4 /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
+		817A9C7B21E752FB00C94CB4 /* CandidateContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateContract.swift; sourceTree = "<group>"; };
 		9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C2D1A01CDA4F71E53689CA /* Pods-platonWeb3DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoUITests/Pods-platonWeb3DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BA5F8F4002A0DD861594D32C /* Pods-platonWeb3Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3Demo/Pods-platonWeb3Demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -318,9 +318,7 @@
 				8141DF1A21E5D2B900F803DA /* FirstDemoViewController.swift */,
 				8141DF1C21E5D2C600F803DA /* CandidateViewController.swift */,
 				8141DF2021E6116000F803DA /* firstdemo.swift */,
-				8141DF2221E611A900F803DA /* CandidateContract.swift */,
 				8141DF2421E61A5F00F803DA /* config.swift */,
-				817A9BD521E6DFF500C94CB4 /* Contract.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -347,6 +345,7 @@
 		817A9BDC21E72D3500C94CB4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				817A9C7921E752FB00C94CB4 /* Contracts */,
 				817A9BDD21E72D3500C94CB4 /* Web3+completion.swift */,
 				817A9BDE21E72D3500C94CB4 /* Core */,
 				817A9C1021E72D3500C94CB4 /* ContractABI */,
@@ -515,6 +514,15 @@
 				817A9C2E21E72D3500C94CB4 /* Debugger.swift */,
 			);
 			path = Debugger;
+			sourceTree = "<group>";
+		};
+		817A9C7921E752FB00C94CB4 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				817A9C7A21E752FB00C94CB4 /* Contract.swift */,
+				817A9C7B21E752FB00C94CB4 /* CandidateContract.swift */,
+			);
+			path = Contracts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -709,6 +717,7 @@
 				817A9C6E21E72D3500C94CB4 /* Data+extension.swift in Sources */,
 				817A9C6F21E72D3500C94CB4 /* SolidityTuple.swift in Sources */,
 				817A9C4321E72D3500C94CB4 /* EthereumQuantity.swift in Sources */,
+				817A9C7D21E752FC00C94CB4 /* CandidateContract.swift in Sources */,
 				817A9C7721E72D3500C94CB4 /* Config.swift in Sources */,
 				817A9C4621E72D3500C94CB4 /* RPCResponse.swift in Sources */,
 				817A9C4F21E72D3500C94CB4 /* Bytes+SecureRandom.swift in Sources */,
@@ -727,7 +736,6 @@
 				817A9C5921E72D3500C94CB4 /* Values+GeneralHashable.swift in Sources */,
 				817A9C3221E72D3500C94CB4 /* EthereumPublicKey.swift in Sources */,
 				817A9C4A21E72D3500C94CB4 /* EthereumLogObject.swift in Sources */,
-				8141DF2321E611A900F803DA /* CandidateContract.swift in Sources */,
 				817A9C6C21E72D3500C94CB4 /* SolidityWrappedValue.swift in Sources */,
 				817A9C6A21E72D3500C94CB4 /* SolidityType.swift in Sources */,
 				817A9C3E21E72D3500C94CB4 /* EthereumTransactionReceiptObject.swift in Sources */,
@@ -763,7 +771,6 @@
 				817A9C4B21E72D3500C94CB4 /* String+BytesConvertible.swift in Sources */,
 				817A9C4E21E72D3500C94CB4 /* Bytes+TrimLeadingZeros.swift in Sources */,
 				817A9C6321E72D3500C94CB4 /* ContractPromiseExtensions.swift in Sources */,
-				817A9BD621E6DFF500C94CB4 /* Contract.swift in Sources */,
 				817A9C5421E72D3500C94CB4 /* CharacterSet+Hex.swift in Sources */,
 				817A9C3D21E72D3500C94CB4 /* EthereumBlockObject.swift in Sources */,
 				817A9C3621E72D3500C94CB4 /* Web3Provider.swift in Sources */,
@@ -778,6 +785,7 @@
 				817A9C7521E72D3500C94CB4 /* Web3+Extensions.swift in Sources */,
 				817A9C5121E72D3500C94CB4 /* BytesConvertible.swift in Sources */,
 				817A9C5821E72D3500C94CB4 /* Int+ETH.swift in Sources */,
+				817A9C7C21E752FC00C94CB4 /* Contract.swift in Sources */,
 				817A9C6D21E72D3500C94CB4 /* ABI.swift in Sources */,
 				817A9C5E21E72D3500C94CB4 /* SolidityEvent.swift in Sources */,
 			);
