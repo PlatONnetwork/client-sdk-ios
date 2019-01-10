@@ -40,7 +40,7 @@ class firstdemo{
         let bin = self.getBIN()
         let abiS = self.getABI()
         web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, estimateGas: false, waitForTransactionReceipt: true, timeout: 20, completion:{
-            (result,contractAddress,receipt) in
+            (result,hash,contractAddress,receipt) in
             
             switch result{
             case .success:

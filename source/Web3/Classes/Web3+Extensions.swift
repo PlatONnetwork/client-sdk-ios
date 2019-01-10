@@ -188,7 +188,7 @@ public extension Web3.Eth{
             }
             
             if !waitForTransactionReceipt{
-                self.deploy_success(nil, nil ,nil, completion: &completion)
+                self.deploy_success(txHash.hex(), nil ,nil, completion: &completion)
                 return
             }
             
