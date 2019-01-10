@@ -188,7 +188,7 @@ public extension Web3.Eth{
             }
             
             if !waitForTransactionReceipt{
-                self.deploy_success(nil, nil, completion: &completion)
+                self.deploy_success(nil, nil ,nil, completion: &completion)
                 return
             }
             
@@ -199,7 +199,7 @@ public extension Web3.Eth{
                         self.deploy_empty(completion: &completion)
                         return
                     }
-                    self.deploy_success(receptionresp.contractAddress?.hex(), receptionresp, completion: &completion)
+                    self.deploy_success(txHash.hex(),receptionresp.contractAddress?.hex(), receptionresp, completion: &completion)
                     Debugger.debugPrint("platonDeployContract Receipt done😀")
                     semaphore.signal()
                 case .fail(let code, let errMsg):

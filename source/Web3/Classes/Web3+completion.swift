@@ -21,7 +21,7 @@ public enum PlatonCommonResult : Error{
 
 public extension Web3.Eth{
     
-    public typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ address : String?, _ receipt: EthereumTransactionReceiptObject?) -> ()
+    public typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ transactionHash: String?, _ contractAddress : String?, _ receipt: EthereumTransactionReceiptObject?) -> ()
     
     public typealias ContractCallCompletion = (_ result : PlatonCommonResult, _ data : AnyObject?) -> ()
     
@@ -31,13 +31,13 @@ public extension Web3.Eth{
     
     func deploy_timeout(completion: inout ContractDeployCompletion?){
         if Thread.current == Thread.main{
-            completion?(PlatonCommonResult.fail(-1, Localized("Request_timeout")),nil, nil)
+            completion?(PlatonCommonResult.fail(-1, Localized("Request_timeout")),nil,nil, nil)
             completion = nil
         }else{
             let semaphore = DispatchSemaphore(value: 0)
             var mc = completion
             DispatchQueue.main.async {
-                mc?(PlatonCommonResult.fail(-1, Localized("Request_timeout")),nil, nil)
+                mc?(PlatonCommonResult.fail(-1, Localized("Request_timeout")),nil,nil, nil)
                 mc = nil
                 semaphore.signal()
             }
@@ -49,13 +49,13 @@ public extension Web3.Eth{
     
     func deploy_fail(code: Int, errorMsg: String, completion: inout ContractDeployCompletion?){
         if Thread.current == Thread.main{
-            completion?(PlatonCommonResult.fail(code, errorMsg),nil, nil)
+            completion?(PlatonCommonResult.fail(code, errorMsg),nil,nil, nil)
             completion = nil
         }else{
             let semaphore = DispatchSemaphore(value: 0)
             var mc = completion
             DispatchQueue.main.async {
-                mc?(PlatonCommonResult.fail(code, errorMsg),nil, nil)
+                mc?(PlatonCommonResult.fail(code, errorMsg),nil, nil,nil)
                 mc = nil
                 semaphore.signal()
             }
@@ -65,15 +65,15 @@ public extension Web3.Eth{
         }
     }
     
-    func deploy_success(_ address : String?, _ receipt: EthereumTransactionReceiptObject?,completion: inout ContractDeployCompletion?) {
+    func deploy_success(_ transactionHash: String?,_ contractAddress : String?, _ receipt: EthereumTransactionReceiptObject?,completion: inout ContractDeployCompletion?) {
         if Thread.current == Thread.main{
-            completion?(PlatonCommonResult.success,address, receipt)
+            completion?(PlatonCommonResult.success,transactionHash,contractAddress, receipt)
             completion = nil
         }else{
             let semaphore = DispatchSemaphore(value: 0)
             var mc = completion
             DispatchQueue.main.async {
-                mc?(PlatonCommonResult.success,address, receipt)
+                mc?(PlatonCommonResult.success,transactionHash,contractAddress, receipt)
                 mc = nil
                 semaphore.signal()
             }
@@ -85,13 +85,13 @@ public extension Web3.Eth{
     
     func deploy_empty(completion: inout ContractDeployCompletion?){
         if Thread.current == Thread.main{
-            completion?(PlatonCommonResult.fail(-1, Localized("RPC_Response_empty")),nil, nil)
+            completion?(PlatonCommonResult.fail(-1, Localized("RPC_Response_empty")),nil, nil,nil)
             completion = nil
         }else{
             let semaphore = DispatchSemaphore(value: 0)
             var mc = completion
             DispatchQueue.main.async {
-                mc?(PlatonCommonResult.fail(-1, Localized("RPC_Response_empty")),nil, nil)
+                mc?(PlatonCommonResult.fail(-1, Localized("RPC_Response_empty")),nil, nil,nil)
                 mc = nil
                 semaphore.signal()
             }
