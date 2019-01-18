@@ -1,1 +1,0 @@
-pod repo push JuzixSpecs platonWeb3.podspec --allow-warnings
