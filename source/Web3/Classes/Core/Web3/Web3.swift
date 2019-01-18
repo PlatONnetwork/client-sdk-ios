@@ -18,7 +18,9 @@ public struct Web3 {
     // MARK: - Properties
 
     public let properties: Properties
+    
 
+    
     public struct Properties {
 
         public let provider: Web3Provider

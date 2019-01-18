@@ -11,5 +11,5 @@ target 'platonWeb3' do
     pod 'Localize-Swift', '~> 2.0'
 
   # Pods for platonWeb3
-
 end
+

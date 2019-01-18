@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		029FFB3C37EEF14F90E27987D104317F /* ecmult_const_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C69C7EE160173E975AF57C13C51A84F /* ecmult_const_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		03FA6B58A6ECEA700110C4CDDBA3967C /* Pods-platonWeb3-demoUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C02ADFB48F7C244A1F0F3C541B9A1D4 /* Pods-platonWeb3-demoUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03FA8EDEAAF28C2F20B6134374C42DAB /* SipHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200CA1709DD0CEEDC2F8BDADDA5F39F6 /* SipHashable.swift */; };
 		0627DC84943C9B21BBFFD77F73ECE3AA /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B74E0BB12BF1E57F06908231C1709F7 /* HMAC.swift */; };
 		06837C9C7764FEE3FD8390BF249DDDB5 /* secp256k1.swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DA17A5032A35A7469E8D5B73E9DE7E /* secp256k1.swift-dummy.m */; };
@@ -18,9 +19,10 @@
 		08BBE3B0A2885A94DE68FEEA9FBCD256 /* Array+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DACE88F5739BEA1A12A45C5D01F0AA9 /* Array+Foundation.swift */; };
 		09B63262629F601BBAB267A8494934B1 /* group.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44D41D46DD5EB1ACE759F50727F6C4 /* group.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0A0FBCAD7A1F908EF9B1197FE8BB63D2 /* CMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8AC2DE98B747CDC095CCF970D8DDAC /* CMAC.swift */; };
+		0AAD42D9E343BF715BCFE3E97812194F /* Pods-platonWeb3-demoUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E39A2CD2F5910E545139CF29EB7C22 /* Pods-platonWeb3-demoUITests-dummy.m */; };
 		0CC317688DF2270B6FC17AFFBC1F77C1 /* secp256k1.c in Sources */ = {isa = PBXBuildFile; fileRef = C005FA915F51C117C44E740BF8FA5D3F /* secp256k1.c */; };
 		0D32A5EE13EC8FB94162257D12B47954 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A1BD1BABC0D34059E8A57625B9CCA8 /* PKCS7.swift */; };
-		0D8FEF335928E24623C0E64E11644E26 /* Pods-platonWeb3-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1463DD54E1E7527B2F37902B02CF34FE /* Pods-platonWeb3-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D8FEF335928E24623C0E64E11644E26 /* Pods-platonWeb3-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D9ADF1602A985B7011CD76AF2B3FEECF /* Pods-platonWeb3-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E8865F19ED08938AD447CE3EFEB6164 /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB181F832234031D78FEEEC5C79AD9B /* Checksum.swift */; };
 		0F47AECED76239456F530A9F34C202AB /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E4D2700B694A4936CB95131F45E22 /* PBKDF2.swift */; };
 		11155D066240AA9BCB5FB19A8915C253 /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E58E679E1E12C15009E1AD40F4EE44 /* GCD.swift */; };
@@ -35,6 +37,7 @@
 		1BC55FA4DA2E01D976F753676E331D69 /* main_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8663C0AFFD280E3C2DE98CA7A7BCA2F3 /* main_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1C53AF4113DA6608A4B207AFF139039A /* RandomUInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FA01C191CA8CA7F55B268CD9868F02 /* RandomUInt64.swift */; };
 		1C6305612C71BA4A41EA3EE86EF9DE98 /* Addition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E371DFF18BD90D800B11BF07862CC7DA /* Addition.swift */; };
+		1E661353DF81352408068BB0AC2A82D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B9C4276DB407EBAC1948F1A5B34B00E /* Foundation.framework */; };
 		21627D831313487F424755C5DC0020DA /* eckey.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C1953EE2156A6F9D661B495638106D /* eckey.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22FE67B665841A937E8D95D9DBCC7EB7 /* Bitwise Ops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE2186B5FAC8A9BBE921AE744FA101 /* Bitwise Ops.swift */; };
 		23916C64C98204C928896ABA4BE1DAE6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B9C4276DB407EBAC1948F1A5B34B00E /* Foundation.framework */; };
@@ -173,7 +176,7 @@
 		EF2D257F439AB4E0C37E407B20DF41BC /* Cryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877388D568A7996C515214166FE9E621 /* Cryptor.swift */; };
 		EFB38A3AC0C79689874458BE12601515 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B7BD1AEB8C37176DF61D8DF5259B6 /* Data+Extension.swift */; };
 		F1631F5F7CD77D9527E4FE5EEFBCEB3D /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E60E5EB62C6615EE79F6300895C54B /* BigInt.swift */; };
-		F46811BA37B7824A8AB0C56EB2A039C2 /* Pods-platonWeb3-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A2128DE4E3F208AB56AE389E2CC63268 /* Pods-platonWeb3-dummy.m */; };
+		F46811BA37B7824A8AB0C56EB2A039C2 /* Pods-platonWeb3-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A510040EDA077F2FC617F3E8B3A35B45 /* Pods-platonWeb3-dummy.m */; };
 		F5BCE1E730F746F620A9DB13EE2C1B60 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21108D4D7745941473721B61E230C272 /* Generics.swift */; };
 		F6666F3FE8D03AFE4FDEE4421D50B914 /* GCM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DF7E68B2EC2D48A416597C0B486A6 /* GCM.swift */; };
 		F67B3BCEA7FB9BCF442419ECBB90F869 /* field_10x26_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BC47CC37A7309D1043D2271649BAB03 /* field_10x26_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -185,12 +188,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1ECE5A50054DCC211F866E762946CC6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76A09AF65442095303C5F208A524E123;
+			remoteInfo = "Localize-Swift";
+		};
+		37CFF939AF76AFB7B48EAD54E3B2768A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FF8752D2607B0617A8EA59CB6F52DA7;
+			remoteInfo = SipHash;
+		};
 		3EB956DCBF20F418D4D25D41F1AB2E50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 76A09AF65442095303C5F208A524E123;
 			remoteInfo = "Localize-Swift";
+		};
+		4C459387076C624EAEF92A1B8334A4AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 137411A4D3CCDCAE6EE1A79271E0889C;
+			remoteInfo = BigInt;
 		};
 		5046A6E0A34316ACFCD2F4612A74A81E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -220,6 +244,20 @@
 			remoteGlobalIDString = 6F5F8CED7C3379A0404E745819F8B311;
 			remoteInfo = CryptoSwift;
 		};
+		9815E9CCBAC0CA007E4997C63F59D2D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A3378D548D165B83BF3BC2870118934;
+			remoteInfo = secp256k1.swift;
+		};
+		A45E9F6617D066317EE8E24BB1D35F5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F5F8CED7C3379A0404E745819F8B311;
+			remoteInfo = CryptoSwift;
+		};
 		C6C17D0086F8D9E70B8AF619657FF2BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -239,7 +277,6 @@
 		0B9C4276DB407EBAC1948F1A5B34B00E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		0D02A20780BB2B5E03A1DBB1067C700C /* scalar_8x32.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_8x32.h; path = secp256k1/Classes/secp256k1/src/scalar_8x32.h; sourceTree = "<group>"; };
 		0E4B16266D99B595FE00AC9CE63E57E7 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F9D8EB275004DEFB5B9FC73B846DAF8 /* Localize_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Localize_Swift.framework; path = "Localize-Swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10A4D095983B7C45ADF61B073612D866 /* String+LocalizeTableName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+LocalizeTableName.swift"; path = "Sources/String+LocalizeTableName.swift"; sourceTree = "<group>"; };
 		1195B1FD80DAA0D9530EB56E752410F0 /* scalar_4x64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_4x64.h; path = secp256k1/Classes/secp256k1/src/scalar_4x64.h; sourceTree = "<group>"; };
 		12EB623338D38052482421037D6F3957 /* ecmult_gen.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_gen.h; path = secp256k1/Classes/secp256k1/src/ecmult_gen.h; sourceTree = "<group>"; };
@@ -248,8 +285,7 @@
 		13B7C8A26C1051D636C94DD14405A4B3 /* Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Codable.swift; path = sources/Codable.swift; sourceTree = "<group>"; };
 		13E39401F4D0F869D0E425EB264A7871 /* secp256k1.swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "secp256k1.swift-umbrella.h"; sourceTree = "<group>"; };
 		144E1E9F1DC1F7DB4601BE8682F35C3A /* DigestType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DigestType.swift; path = Sources/CryptoSwift/DigestType.swift; sourceTree = "<group>"; };
-		1452DA2C2299FF760BEBD424BDE7313D /* Pods-platonWeb3-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-platonWeb3-resources.sh"; sourceTree = "<group>"; };
-		1463DD54E1E7527B2F37902B02CF34FE /* Pods-platonWeb3-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-platonWeb3-umbrella.h"; sourceTree = "<group>"; };
+		17905DCC80C7FC3388675B3605C0CB93 /* Pods-platonWeb3-demoUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-platonWeb3-demoUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		17C4EEA6BCD8D8AFEEB8D043100BB986 /* BlockModeOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockModeOptions.swift; path = Sources/CryptoSwift/BlockMode/BlockModeOptions.swift; sourceTree = "<group>"; };
 		189E089AEDC163A4984269EEF6DB273F /* basic-config.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "basic-config.h"; path = "secp256k1/Classes/secp256k1/src/basic-config.h"; sourceTree = "<group>"; };
 		1A3445A3F866458B3CAF79216994C25B /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
@@ -272,13 +308,17 @@
 		27EAED4CD9254BB16780D632077F7AD0 /* PBKDF1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF1.swift; path = Sources/CryptoSwift/PKCS/PBKDF1.swift; sourceTree = "<group>"; };
 		291FBB0326E233EB86846DC7C9A9C1A5 /* Authenticator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Authenticator.swift; path = Sources/CryptoSwift/Authenticator.swift; sourceTree = "<group>"; };
 		2984FA74B150DB4C0FA2C25943C55BA5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		298A3A641B787C13367BDE28EA5E9497 /* Pods-platonWeb3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-platonWeb3.release.xcconfig"; sourceTree = "<group>"; };
 		29D34B9E4E8BD1E3A2CE058868DACFB8 /* ecdsa_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdsa_impl.h; path = secp256k1/Classes/secp256k1/src/ecdsa_impl.h; sourceTree = "<group>"; };
 		2A06AC58A45CC529F12E14808581148C /* AES.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.swift; path = Sources/CryptoSwift/AES.swift; sourceTree = "<group>"; };
+		2A94781B871EAD84B4A0D053BC3968EC /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SipHash.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B8DF7E68B2EC2D48A416597C0B486A6 /* GCM.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GCM.swift; path = Sources/CryptoSwift/BlockMode/GCM.swift; sourceTree = "<group>"; };
 		2BDCE89872CE14382A47F76E7DB9CF2F /* Subtraction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Subtraction.swift; path = sources/Subtraction.swift; sourceTree = "<group>"; };
+		2C02ADFB48F7C244A1F0F3C541B9A1D4 /* Pods-platonWeb3-demoUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-platonWeb3-demoUITests-umbrella.h"; sourceTree = "<group>"; };
 		2C44D41D46DD5EB1ACE759F50727F6C4 /* group.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = group.h; path = secp256k1/Classes/secp256k1/src/group.h; sourceTree = "<group>"; };
 		2D7D0A5D8BCCF88A3BE186CD58B5F901 /* UInt64+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt64+Extension.swift"; path = "Sources/CryptoSwift/UInt64+Extension.swift"; sourceTree = "<group>"; };
 		2FC66B2E30E09BFF40F2155A6E735DDF /* BigUInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BigUInt.swift; path = sources/BigUInt.swift; sourceTree = "<group>"; };
+		30B10B87614B314E94F31699005D9A3A /* secp256k1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = secp256k1.framework; path = secp256k1.swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		345C5C796C5CD698931B0D152D656BCE /* BigInt-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BigInt-prefix.pch"; sourceTree = "<group>"; };
 		35AEDE78076B9CC2016C84E88784DF5A /* UInt8+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt8+Extension.swift"; path = "Sources/CryptoSwift/UInt8+Extension.swift"; sourceTree = "<group>"; };
 		3893245F383AA6EE8520A0BADB737FAF /* hash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hash.h; path = secp256k1/Classes/secp256k1/src/hash.h; sourceTree = "<group>"; };
@@ -290,20 +330,25 @@
 		424467AE664AA503E4F1179CC5F86B6B /* Localize_Swift.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Localize_Swift.h; path = Sources/Localize_Swift.h; sourceTree = "<group>"; };
 		45BB56486B22EA09FE3A2681BEA15886 /* NoPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NoPadding.swift; path = Sources/CryptoSwift/NoPadding.swift; sourceTree = "<group>"; };
 		46933EB80BB7BAEFF9BD4E589513FF8B /* Int+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Int+Extension.swift"; path = "Sources/CryptoSwift/Int+Extension.swift"; sourceTree = "<group>"; };
+		4AE3441B14167EC8BA02E498BD8E3062 /* Pods-platonWeb3-demoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-platonWeb3-demoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4E99996D3F7EDAA772B20D39EF546FB2 /* AEAD.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEAD.swift; path = Sources/CryptoSwift/AEAD/AEAD.swift; sourceTree = "<group>"; };
 		5123A90221F42327371F006F9AD01D94 /* ecmult_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_impl.h; path = secp256k1/Classes/secp256k1/src/ecmult_impl.h; sourceTree = "<group>"; };
+		549A8ED6736DDBB49B75759E0C64674D /* Pods-platonWeb3-demoUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-platonWeb3-demoUITests-resources.sh"; sourceTree = "<group>"; };
 		58F3473C9DA253D40799098C29C7343E /* Hashable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Hashable.swift; path = sources/Hashable.swift; sourceTree = "<group>"; };
 		5AB00761495EB9E8E14C39995857D850 /* eckey_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = eckey_impl.h; path = secp256k1/Classes/secp256k1/src/eckey_impl.h; sourceTree = "<group>"; };
 		5B8FB06E6BEE0FBBA33036B54C669358 /* lax_der_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; name = lax_der_parsing.c; path = secp256k1/Classes/secp256k1/contrib/lax_der_parsing.c; sourceTree = "<group>"; };
 		5D8AC2DE98B747CDC095CCF970D8DDAC /* CMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CMAC.swift; path = Sources/CryptoSwift/CMAC.swift; sourceTree = "<group>"; };
-		5E66EEE87A161EF1EE10896B833E5FC3 /* Pods-platonWeb3-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-platonWeb3-acknowledgements.markdown"; sourceTree = "<group>"; };
+		5DB5980D588FCB8C475D62206BBE8524 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CryptoSwift.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6029FA76BF599CFCA554D591787B3ED7 /* lax_der_privatekey_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; name = lax_der_privatekey_parsing.c; path = secp256k1/Classes/secp256k1/contrib/lax_der_privatekey_parsing.c; sourceTree = "<group>"; };
 		607BC4DBF003914BA77DA8192982ABEA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		609D6718CD944951B77D8927DC926C7A /* Comparable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Comparable.swift; path = sources/Comparable.swift; sourceTree = "<group>"; };
+		618A6BFBA4AD88121994197C187BCABD /* Pods-platonWeb3-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-platonWeb3-resources.sh"; sourceTree = "<group>"; };
+		61E39A2CD2F5910E545139CF29EB7C22 /* Pods-platonWeb3-demoUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-platonWeb3-demoUITests-dummy.m"; sourceTree = "<group>"; };
 		626E4D2700B694A4936CB95131F45E22 /* PBKDF2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF2.swift; path = Sources/CryptoSwift/PKCS/PBKDF2.swift; sourceTree = "<group>"; };
 		64827676A50994ADC7011305B9BF59EC /* SipHash-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SipHash-prefix.pch"; sourceTree = "<group>"; };
 		659B2DC026F456DC9B783CEF078F5F64 /* secp256k1_recovery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_recovery.h; path = secp256k1/Classes/secp256k1/include/secp256k1_recovery.h; sourceTree = "<group>"; };
-		6919011A2DDD081164340604AFBF378B /* Pods-platonWeb3.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-platonWeb3.modulemap"; sourceTree = "<group>"; };
+		66F153BEC31058DB4677EDF99D1DB983 /* Pods-platonWeb3-demoUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-platonWeb3-demoUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		67E4F484416F815F44FCE86F79012B1B /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BigInt.framework; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		697C328D5C0B3DD18785953D4BD2434F /* SHA2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA2.swift; path = Sources/CryptoSwift/SHA2.swift; sourceTree = "<group>"; };
 		69D360036A0FA6903257D4056C596996 /* SHA3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA3.swift; path = Sources/CryptoSwift/SHA3.swift; sourceTree = "<group>"; };
 		69E566F95C47FFFFF4200821B4DDDF8B /* BlockEncryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockEncryptor.swift; path = Sources/CryptoSwift/BlockEncryptor.swift; sourceTree = "<group>"; };
@@ -319,10 +364,11 @@
 		7212186B08C6F2E7FE7056B4F85F4E12 /* scratch_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scratch_impl.h; path = secp256k1/Classes/secp256k1/src/scratch_impl.h; sourceTree = "<group>"; };
 		7225039A16B3088379D25AE0325781FC /* BigInt.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BigInt.xcconfig; sourceTree = "<group>"; };
 		73F4FCBC4FC5ED630B07D33F1847E308 /* CryptoSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CryptoSwift.modulemap; sourceTree = "<group>"; };
-		771A2D15B25A107D70A8F2FBDE418DA0 /* secp256k1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = secp256k1.framework; path = secp256k1.swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B593F38AD981EABBC56952C489195A4 /* String+LocalizedBundleTableName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+LocalizedBundleTableName.swift"; path = "Sources/String+LocalizedBundleTableName.swift"; sourceTree = "<group>"; };
+		7C44084227FBF8EF736C1C3255250D83 /* Localize_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Localize_Swift.framework; path = "Localize-Swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD71D6F4E6639FCBDE3F40E203F01B7 /* Rabbit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Rabbit.swift; path = Sources/CryptoSwift/Rabbit.swift; sourceTree = "<group>"; };
 		7F65425B79DFD6E5B3F29A2D2B017076 /* scalar_8x32_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_8x32_impl.h; path = secp256k1/Classes/secp256k1/src/scalar_8x32_impl.h; sourceTree = "<group>"; };
+		802D3EE7256D7DEE424D5459AB9EBD1B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		819C2F5168ECB55823143BB9BA48CBCC /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = Sources/CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
 		820B85FC57C549B744AEEBED463ED455 /* CBCMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBCMAC.swift; path = Sources/CryptoSwift/CBCMAC.swift; sourceTree = "<group>"; };
 		82BEE2D44B2C9FDAD9106B62DFFA29A4 /* hash_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hash_impl.h; path = secp256k1/Classes/secp256k1/src/hash_impl.h; sourceTree = "<group>"; };
@@ -330,7 +376,9 @@
 		82F2C36FB37873189B500CB16AA3F14E /* BigInt-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BigInt-dummy.m"; sourceTree = "<group>"; };
 		8348B6A973CFBCC939B9E5B64739FA13 /* Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = Sources/CryptoSwift/Padding.swift; sourceTree = "<group>"; };
 		83A9A5B83F79B0D1128A84E536867ACC /* secp256k1-config.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "secp256k1-config.h"; path = "secp256k1/Classes/secp256k1-config.h"; sourceTree = "<group>"; };
+		83AE98ADC15C2C203FDF63B5F50FA801 /* Pods-platonWeb3-demoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-platonWeb3-demoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		851CA65FD973FA82610949C08A37DDBE /* Localize-Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Localize-Swift-dummy.m"; sourceTree = "<group>"; };
+		853C66D4E47FAA7FD4FF81F69AF7CA3A /* Pods-platonWeb3-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-platonWeb3-acknowledgements.plist"; sourceTree = "<group>"; };
 		8601DF0CE3D160EF99AC57A7B20E34A8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8663C0AFFD280E3C2DE98CA7A7BCA2F3 /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1/Classes/secp256k1/src/modules/recovery/main_impl.h; sourceTree = "<group>"; };
 		868666DFA012E747069A0D7D2A51266A /* Shifts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Shifts.swift; path = sources/Shifts.swift; sourceTree = "<group>"; };
@@ -345,20 +393,18 @@
 		8D9DA172A9C2A9E84276A2D40F8F75AF /* BlockMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockMode.swift; path = Sources/CryptoSwift/BlockMode/BlockMode.swift; sourceTree = "<group>"; };
 		902FE3DA8A87A0EB7B6DBCB3DDBD89AB /* String+LocalizeBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+LocalizeBundle.swift"; path = "Sources/String+LocalizeBundle.swift"; sourceTree = "<group>"; };
 		90947ECA4AA19D2EE4D48E501810BCA3 /* Utils+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Utils+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Utils+Foundation.swift"; sourceTree = "<group>"; };
-		92AFE9439A4FE5250796A44D4B2A520B /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CryptoSwift.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93640737EAFE7179D1993A3155435AE0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93B0F9BEDE3CDB66B35A831FA88A6730 /* Pods-platonWeb3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-platonWeb3.debug.xcconfig"; sourceTree = "<group>"; };
 		94325A28D2E66C1B981EE93B9CDEAB06 /* BatchedCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BatchedCollection.swift; path = Sources/CryptoSwift/BatchedCollection.swift; sourceTree = "<group>"; };
 		94E60E5EB62C6615EE79F6300895C54B /* BigInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BigInt.swift; path = sources/BigInt.swift; sourceTree = "<group>"; };
 		96C6C2385BDABEAF1802CAD77E8541BD /* Localize-Swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Localize-Swift-prefix.pch"; sourceTree = "<group>"; };
+		99A7D1FF570388EFC61AEAE295B96B3B /* Pods-platonWeb3-demoUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-platonWeb3-demoUITests-frameworks.sh"; sourceTree = "<group>"; };
 		9A224E2BAA061CB45D248362B8A4329D /* scratch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scratch.h; path = secp256k1/Classes/secp256k1/src/scratch.h; sourceTree = "<group>"; };
 		9A9AF393F54FE9F34C23F0117F4C8A10 /* num.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num.h; path = secp256k1/Classes/secp256k1/src/num.h; sourceTree = "<group>"; };
 		9CDAAF7125ABD5022CD82B6E53B03407 /* Localize-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Localize-Swift.modulemap"; sourceTree = "<group>"; };
 		9CF44CFA961D2E386879C562F0219BBF /* ECB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ECB.swift; path = Sources/CryptoSwift/BlockMode/ECB.swift; sourceTree = "<group>"; };
 		A0B4B247120AD92202F2A9AC017727D6 /* UInt16+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt16+Extension.swift"; path = "Sources/CryptoSwift/UInt16+Extension.swift"; sourceTree = "<group>"; };
 		A153255B3B2DDC95CAB92F5EC3A733ED /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A2128DE4E3F208AB56AE389E2CC63268 /* Pods-platonWeb3-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-platonWeb3-dummy.m"; sourceTree = "<group>"; };
+		A510040EDA077F2FC617F3E8B3A35B45 /* Pods-platonWeb3-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-platonWeb3-dummy.m"; sourceTree = "<group>"; };
 		A57DFB60AFF5046E94B912E55281CD28 /* field_5x52.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52.h; path = secp256k1/Classes/secp256k1/src/field_5x52.h; sourceTree = "<group>"; };
 		A5E58E679E1E12C15009E1AD40F4EE44 /* GCD.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GCD.swift; path = sources/GCD.swift; sourceTree = "<group>"; };
 		A643D356ECB23DA11229B09040C1BC7E /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/CryptoSwift/Operators.swift; sourceTree = "<group>"; };
@@ -374,38 +420,42 @@
 		B52020076EA3FF283D331F987892BFD9 /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1/Classes/secp256k1/src/modules/ecdh/main_impl.h; sourceTree = "<group>"; };
 		B5777AA68A2BD109C9453077DB698C5D /* field_5x52_asm_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52_asm_impl.h; path = secp256k1/Classes/secp256k1/src/field_5x52_asm_impl.h; sourceTree = "<group>"; };
 		B5FFFC592191AC89DEF1B180CD82D38A /* Prime Test.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Prime Test.swift"; path = "sources/Prime Test.swift"; sourceTree = "<group>"; };
+		B808B53AF1DE23A69A7A21B9A42A4607 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_platonWeb3.framework; path = "Pods-platonWeb3.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAC0B927E4857731F5E553DA444401E9 /* Localize-Swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Localize-Swift.xcconfig"; sourceTree = "<group>"; };
 		BC5DDBBE75C697C49540DA58FA7EA7FA /* ecmult_const.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_const.h; path = secp256k1/Classes/secp256k1/src/ecmult_const.h; sourceTree = "<group>"; };
 		BCA476CD590895D5FA02CAF53CFD0CD1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD70271A2A2878596E08522F503A7200 /* HKDF.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HKDF.swift; path = Sources/CryptoSwift/HKDF.swift; sourceTree = "<group>"; };
 		BF64F9622F291D1092EB089E54C44BE0 /* util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = util.h; path = secp256k1/Classes/secp256k1/src/util.h; sourceTree = "<group>"; };
+		C005596E49FE0B2575633DB1DDAEE746 /* Pods_platonWeb3_demoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_platonWeb3_demoUITests.framework; path = "Pods-platonWeb3-demoUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C005FA915F51C117C44E740BF8FA5D3F /* secp256k1.c */ = {isa = PBXFileReference; includeInIndex = 1; name = secp256k1.c; path = secp256k1/Classes/secp256k1/src/secp256k1.c; sourceTree = "<group>"; };
 		C2E790B0945DB79552404F48A3782668 /* ecmult_gen_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_gen_impl.h; path = secp256k1/Classes/secp256k1/src/ecmult_gen_impl.h; sourceTree = "<group>"; };
 		C3005E350A424969FF19A3435A521B03 /* secp256k1_ec_mult_static_context.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_ec_mult_static_context.h; path = secp256k1/Classes/secp256k1_ec_mult_static_context.h; sourceTree = "<group>"; };
 		C4310B7F3FC4D2FBD967766CB23B0183 /* StreamEncryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StreamEncryptor.swift; path = Sources/CryptoSwift/StreamEncryptor.swift; sourceTree = "<group>"; };
 		C5D487D3AC19FA6CD9B0163F46B3D432 /* BlockCipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockCipher.swift; path = Sources/CryptoSwift/BlockCipher.swift; sourceTree = "<group>"; };
 		C76DACE7CA3378561EED7E5755AA3B99 /* secp256k1_main.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_main.h; path = secp256k1/Classes/secp256k1_main.h; sourceTree = "<group>"; };
+		C7EE6DA64A4E46466F41833F065D3557 /* Pods-platonWeb3-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-platonWeb3-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C99F600BD216CEDAA7796BBC89C22697 /* scalar_4x64_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_4x64_impl.h; path = secp256k1/Classes/secp256k1/src/scalar_4x64_impl.h; sourceTree = "<group>"; };
 		C9B2B86A6ED4D9D316C516C3BC4A2E96 /* secp256k1_ecdh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_ecdh.h; path = secp256k1/Classes/secp256k1/include/secp256k1_ecdh.h; sourceTree = "<group>"; };
 		CA0E8096D795EDD980971AA1A6104706 /* ZeroPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeroPadding.swift; path = Sources/CryptoSwift/ZeroPadding.swift; sourceTree = "<group>"; };
+		CE5A3E43D3745BC8EC7EB0926E368650 /* Pods-platonWeb3.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-platonWeb3.modulemap"; sourceTree = "<group>"; };
 		CF02FB5BEF984DB4485BCFB925E21104 /* CryptoSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CryptoSwift.xcconfig; sourceTree = "<group>"; };
 		CF2447FE7AA44E488645493756C0DF0E /* scalar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar.h; path = secp256k1/Classes/secp256k1/src/scalar.h; sourceTree = "<group>"; };
 		D108C8D39BBBECF917C4A70473160CF8 /* UInt128.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UInt128.swift; path = Sources/CryptoSwift/UInt128.swift; sourceTree = "<group>"; };
 		D110DAC8A94CD798FE2EEFEF8C051CAF /* Array+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Array+Extension.swift"; path = "Sources/CryptoSwift/Array+Extension.swift"; sourceTree = "<group>"; };
 		D1DE5B56B1C1472572624AA1DE67E430 /* Words and Bits.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Words and Bits.swift"; path = "sources/Words and Bits.swift"; sourceTree = "<group>"; };
-		D247BF270F8D9A66ED5DD73033FA9BA1 /* Pods-platonWeb3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-platonWeb3.release.xcconfig"; sourceTree = "<group>"; };
 		D403928283EC4CC0817237AE2660E6DE /* Poly1305.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Poly1305.swift; path = Sources/CryptoSwift/Poly1305.swift; sourceTree = "<group>"; };
 		D4488C7B27209E7254D1B05B1251F5E8 /* Integer Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Integer Conversion.swift"; path = "sources/Integer Conversion.swift"; sourceTree = "<group>"; };
 		D73D29A0BE2A263F4B7B861B5C7F2CF2 /* Multiplication.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Multiplication.swift; path = sources/Multiplication.swift; sourceTree = "<group>"; };
 		D74DAFBD29988685E61E78DE5030CF46 /* Primitive Types.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Primitive Types.swift"; path = "SipHash/Primitive Types.swift"; sourceTree = "<group>"; };
 		D871549B3AF5519E40B86D79E9623B16 /* PKCS5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS5.swift; path = Sources/CryptoSwift/PKCS/PKCS5.swift; sourceTree = "<group>"; };
+		D9ADF1602A985B7011CD76AF2B3FEECF /* Pods-platonWeb3-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-platonWeb3-umbrella.h"; sourceTree = "<group>"; };
+		D9DC119625D727858732BFA1E043B65E /* Pods-platonWeb3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-platonWeb3.debug.xcconfig"; sourceTree = "<group>"; };
 		D9E9641C1BA6E5AC383830901C89CFC9 /* CompactMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompactMap.swift; path = Sources/CryptoSwift/CompactMap.swift; sourceTree = "<group>"; };
 		DA2CAF19DE3021BD41521FB032F4DF1F /* num_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_impl.h; path = secp256k1/Classes/secp256k1/src/num_impl.h; sourceTree = "<group>"; };
 		DA506B250305BD4EA44D1FF7BD212316 /* Collection+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Extension.swift"; path = "Sources/CryptoSwift/Collection+Extension.swift"; sourceTree = "<group>"; };
 		DB904A9C24E99DA4F70EEF8854462F42 /* CFB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CFB.swift; path = Sources/CryptoSwift/BlockMode/CFB.swift; sourceTree = "<group>"; };
 		DC6569D1D1E514E419F9060EC36D714C /* num_gmp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_gmp.h; path = secp256k1/Classes/secp256k1/src/num_gmp.h; sourceTree = "<group>"; };
 		DDB620CF735B1F5C1C6277F1F39F3D27 /* Bit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bit.swift; path = Sources/CryptoSwift/Bit.swift; sourceTree = "<group>"; };
-		DFB3093A4FD51B94702E02DEB2032DA5 /* Pods-platonWeb3-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-platonWeb3-acknowledgements.plist"; sourceTree = "<group>"; };
 		E15D3E0F913CDCDF6227DBD7B72282E7 /* String+FoundationExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+FoundationExtension.swift"; path = "Sources/CryptoSwift/Foundation/String+FoundationExtension.swift"; sourceTree = "<group>"; };
 		E24EF69944F94D27D08FC38FB48923A6 /* Square Root.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Square Root.swift"; path = "sources/Square Root.swift"; sourceTree = "<group>"; };
 		E2734420D0680F255B1638C4E0E03CBA /* SipHash.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SipHash.xcconfig; sourceTree = "<group>"; };
@@ -414,25 +464,24 @@
 		E371DFF18BD90D800B11BF07862CC7DA /* Addition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Addition.swift; path = sources/Addition.swift; sourceTree = "<group>"; };
 		E55E9F812A3CB36E089F5F68BA78A166 /* Exponentiation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Exponentiation.swift; path = sources/Exponentiation.swift; sourceTree = "<group>"; };
 		E5DA17A5032A35A7469E8D5B73E9DE7E /* secp256k1.swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "secp256k1.swift-dummy.m"; sourceTree = "<group>"; };
+		E6CDC43EFB6204F197F3001814B5C04F /* Pods-platonWeb3-demoUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-platonWeb3-demoUITests.modulemap"; sourceTree = "<group>"; };
 		E8089CA2C42FC88FB243845EDBFA0234 /* CipherModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CipherModeWorker.swift; path = Sources/CryptoSwift/BlockMode/CipherModeWorker.swift; sourceTree = "<group>"; };
 		E930E0B9A3681F6998BD639CF9B114AC /* secp256k1.swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = secp256k1.swift.xcconfig; sourceTree = "<group>"; };
 		E9A96F5402B0B39182BE4CB963DF14DB /* SipHash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SipHash-dummy.m"; sourceTree = "<group>"; };
-		ECBA13BDE8A0C75AE78289DF89594050 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_platonWeb3.framework; path = "Pods-platonWeb3.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE0FC0C35C54D6AF199C715F5AF9736A /* Localize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Localize.swift; path = Sources/Localize.swift; sourceTree = "<group>"; };
-		EF23C68DF53219E010C2FBC461544BE2 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SipHash.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF62615B1A25BF576027155B82BA11D1 /* num_gmp_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_gmp_impl.h; path = secp256k1/Classes/secp256k1/src/num_gmp_impl.h; sourceTree = "<group>"; };
 		F0292CC233B8E808307980EDAC2682F9 /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Sources/CryptoSwift/Utils.swift; sourceTree = "<group>"; };
 		F0A029691ACC6DF728DB49006DC773BA /* String+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Sources/CryptoSwift/String+Extension.swift"; sourceTree = "<group>"; };
 		F15A321746B3BC19566E5AA5FD257FAD /* Data Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data Conversion.swift"; path = "sources/Data Conversion.swift"; sourceTree = "<group>"; };
 		F18C244541CEACEC8B628D392922D86D /* CTR.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CTR.swift; path = Sources/CryptoSwift/BlockMode/CTR.swift; sourceTree = "<group>"; };
 		F2EB6242471B0A3523BF972715E9C93F /* Cipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cipher.swift; path = Sources/CryptoSwift/Cipher.swift; sourceTree = "<group>"; };
-		F4684A82807F0730B4C9B5B8A15B957C /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BigInt.framework; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F934D9F58D252D81DB0885914F48A935 /* Random.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Random.swift; path = sources/Random.swift; sourceTree = "<group>"; };
 		F9C1953EE2156A6F9D661B495638106D /* eckey.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = eckey.h; path = secp256k1/Classes/secp256k1/src/eckey.h; sourceTree = "<group>"; };
 		FA8C5C08F54A3994C08E0A7E798C5813 /* BlockDecryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockDecryptor.swift; path = Sources/CryptoSwift/BlockDecryptor.swift; sourceTree = "<group>"; };
 		FBF1DC7DC5FFEEA3807FFE47FC31086D /* SipHash-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SipHash-umbrella.h"; sourceTree = "<group>"; };
 		FD16C362E66642BA481DD0C733744FCA /* BigInt-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BigInt-umbrella.h"; sourceTree = "<group>"; };
 		FEB7CF77DBCDDF73508FD52F5FCAF1B7 /* scalar_low.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_low.h; path = secp256k1/Classes/secp256k1/src/scalar_low.h; sourceTree = "<group>"; };
+		FFB7903D675B5E1FF1FEFE7740391156 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFE0520DE90B03E21CA018CA0B783CFF /* PCBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCBC.swift; path = Sources/CryptoSwift/BlockMode/PCBC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -467,6 +516,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				23916C64C98204C928896ABA4BE1DAE6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EC0F43A2749F4D9E3FA2AEBE230E1AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E661353DF81352408068BB0AC2A82D0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +606,20 @@
 			path = secp256k1.swift;
 			sourceTree = "<group>";
 		};
+		3990B36C9A84B402843CD8A292C1A4BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67E4F484416F815F44FCE86F79012B1B /* BigInt.framework */,
+				5DB5980D588FCB8C475D62206BBE8524 /* CryptoSwift.framework */,
+				7C44084227FBF8EF736C1C3255250D83 /* Localize_Swift.framework */,
+				B808B53AF1DE23A69A7A21B9A42A4607 /* Pods_platonWeb3.framework */,
+				C005596E49FE0B2575633DB1DDAEE746 /* Pods_platonWeb3_demoUITests.framework */,
+				30B10B87614B314E94F31699005D9A3A /* secp256k1.framework */,
+				2A94781B871EAD84B4A0D053BC3968EC /* SipHash.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		41C43B7F76B34D31B1A47C211E7FDA77 /* Localize-Swift */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,6 +632,23 @@
 			);
 			name = "Localize-Swift";
 			path = "Localize-Swift";
+			sourceTree = "<group>";
+		};
+		4A938FC44344017741F687F2ECAF0ED1 /* Pods-platonWeb3 */ = {
+			isa = PBXGroup;
+			children = (
+				FFB7903D675B5E1FF1FEFE7740391156 /* Info.plist */,
+				CE5A3E43D3745BC8EC7EB0926E368650 /* Pods-platonWeb3.modulemap */,
+				C7EE6DA64A4E46466F41833F065D3557 /* Pods-platonWeb3-acknowledgements.markdown */,
+				853C66D4E47FAA7FD4FF81F69AF7CA3A /* Pods-platonWeb3-acknowledgements.plist */,
+				A510040EDA077F2FC617F3E8B3A35B45 /* Pods-platonWeb3-dummy.m */,
+				618A6BFBA4AD88121994197C187BCABD /* Pods-platonWeb3-resources.sh */,
+				D9ADF1602A985B7011CD76AF2B3FEECF /* Pods-platonWeb3-umbrella.h */,
+				D9DC119625D727858732BFA1E043B65E /* Pods-platonWeb3.debug.xcconfig */,
+				298A3A641B787C13367BDE28EA5E9497 /* Pods-platonWeb3.release.xcconfig */,
+			);
+			name = "Pods-platonWeb3";
+			path = "Target Support Files/Pods-platonWeb3";
 			sourceTree = "<group>";
 		};
 		588ED8A93772A6338EEBE4756E262048 /* CryptoSwift */ = {
@@ -646,19 +734,6 @@
 			path = CryptoSwift;
 			sourceTree = "<group>";
 		};
-		76FB3957BD32A742C73725E00CBA7B25 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F4684A82807F0730B4C9B5B8A15B957C /* BigInt.framework */,
-				92AFE9439A4FE5250796A44D4B2A520B /* CryptoSwift.framework */,
-				0F9D8EB275004DEFB5B9FC73B846DAF8 /* Localize_Swift.framework */,
-				ECBA13BDE8A0C75AE78289DF89594050 /* Pods_platonWeb3.framework */,
-				771A2D15B25A107D70A8F2FBDE418DA0 /* secp256k1.framework */,
-				EF23C68DF53219E010C2FBC461544BE2 /* SipHash.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		79D3DA702A597A8450ACF3D6EB25A459 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,14 +746,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/secp256k1.swift";
-			sourceTree = "<group>";
-		};
-		7A208084354BAF8EAACC5DB15BE1E0F9 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F774EE91A62450965A638F22153463FD /* Pods-platonWeb3 */,
-			);
-			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		7AAC71C908F9623558DCA462D00CB3C9 /* Support Files */ = {
@@ -701,8 +768,8 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				9295658AC311BA67B42C4DEB7A5EB1F7 /* Frameworks */,
 				E5792F7E007778BFDB430C99E405BB0B /* Pods */,
-				76FB3957BD32A742C73725E00CBA7B25 /* Products */,
-				7A208084354BAF8EAACC5DB15BE1E0F9 /* Targets Support Files */,
+				3990B36C9A84B402843CD8A292C1A4BD /* Products */,
+				D7207B4B35E79753694023103BBFE72A /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -717,6 +784,24 @@
 			);
 			name = SipHash;
 			path = SipHash;
+			sourceTree = "<group>";
+		};
+		8E861AAAA493C268482E6DC3558F45E2 /* Pods-platonWeb3-demoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				802D3EE7256D7DEE424D5459AB9EBD1B /* Info.plist */,
+				E6CDC43EFB6204F197F3001814B5C04F /* Pods-platonWeb3-demoUITests.modulemap */,
+				17905DCC80C7FC3388675B3605C0CB93 /* Pods-platonWeb3-demoUITests-acknowledgements.markdown */,
+				66F153BEC31058DB4677EDF99D1DB983 /* Pods-platonWeb3-demoUITests-acknowledgements.plist */,
+				61E39A2CD2F5910E545139CF29EB7C22 /* Pods-platonWeb3-demoUITests-dummy.m */,
+				99A7D1FF570388EFC61AEAE295B96B3B /* Pods-platonWeb3-demoUITests-frameworks.sh */,
+				549A8ED6736DDBB49B75759E0C64674D /* Pods-platonWeb3-demoUITests-resources.sh */,
+				2C02ADFB48F7C244A1F0F3C541B9A1D4 /* Pods-platonWeb3-demoUITests-umbrella.h */,
+				83AE98ADC15C2C203FDF63B5F50FA801 /* Pods-platonWeb3-demoUITests.debug.xcconfig */,
+				4AE3441B14167EC8BA02E498BD8E3062 /* Pods-platonWeb3-demoUITests.release.xcconfig */,
+			);
+			name = "Pods-platonWeb3-demoUITests";
+			path = "Target Support Files/Pods-platonWeb3-demoUITests";
 			sourceTree = "<group>";
 		};
 		9295658AC311BA67B42C4DEB7A5EB1F7 /* Frameworks */ = {
@@ -787,6 +872,15 @@
 			path = "../Target Support Files/BigInt";
 			sourceTree = "<group>";
 		};
+		D7207B4B35E79753694023103BBFE72A /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4A938FC44344017741F687F2ECAF0ED1 /* Pods-platonWeb3 */,
+				8E861AAAA493C268482E6DC3558F45E2 /* Pods-platonWeb3-demoUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
 		D8BADBDC1F3671AC9F0D5F60070974ED /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -813,23 +907,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		F774EE91A62450965A638F22153463FD /* Pods-platonWeb3 */ = {
-			isa = PBXGroup;
-			children = (
-				93640737EAFE7179D1993A3155435AE0 /* Info.plist */,
-				6919011A2DDD081164340604AFBF378B /* Pods-platonWeb3.modulemap */,
-				5E66EEE87A161EF1EE10896B833E5FC3 /* Pods-platonWeb3-acknowledgements.markdown */,
-				DFB3093A4FD51B94702E02DEB2032DA5 /* Pods-platonWeb3-acknowledgements.plist */,
-				A2128DE4E3F208AB56AE389E2CC63268 /* Pods-platonWeb3-dummy.m */,
-				1452DA2C2299FF760BEBD424BDE7313D /* Pods-platonWeb3-resources.sh */,
-				1463DD54E1E7527B2F37902B02CF34FE /* Pods-platonWeb3-umbrella.h */,
-				93B0F9BEDE3CDB66B35A831FA88A6730 /* Pods-platonWeb3.debug.xcconfig */,
-				D247BF270F8D9A66ED5DD73033FA9BA1 /* Pods-platonWeb3.release.xcconfig */,
-			);
-			name = "Pods-platonWeb3";
-			path = "Target Support Files/Pods-platonWeb3";
-			sourceTree = "<group>";
-		};
 		F7B9AC58403E1F2C2B3E068EB59C4063 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -846,6 +923,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				60F020078907CC571799F8EEE8657FD0 /* SipHash-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B9337D43580C397456A3694C5E4588F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03FA6B58A6ECEA700110C4CDDBA3967C /* Pods-platonWeb3-demoUITests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,7 +1042,30 @@
 			);
 			name = BigInt;
 			productName = BigInt;
-			productReference = F4684A82807F0730B4C9B5B8A15B957C /* BigInt.framework */;
+			productReference = 67E4F484416F815F44FCE86F79012B1B /* BigInt.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		561ADCAB5ACA905443B8C0271BCFD089 /* Pods-platonWeb3-demoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AE063EDECB61048A93C42C8E1791B89 /* Build configuration list for PBXNativeTarget "Pods-platonWeb3-demoUITests" */;
+			buildPhases = (
+				3B9337D43580C397456A3694C5E4588F /* Headers */,
+				5DA7A23808F15540505D8A22A42490D9 /* Sources */,
+				7EC0F43A2749F4D9E3FA2AEBE230E1AF /* Frameworks */,
+				1147928836973FFEE98E68E6BB721465 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D44AE30C04D911DF95D6C6C072B43C93 /* PBXTargetDependency */,
+				440DF4158755F6E9DE19CBA33D42BE4D /* PBXTargetDependency */,
+				4458D2DD2DFE41489C092CD132F3F820 /* PBXTargetDependency */,
+				DC59BB4C7E10A4A87773B238CB09A0EC /* PBXTargetDependency */,
+				FDA38DA5D82BB85101D294FC1F20F9A6 /* PBXTargetDependency */,
+			);
+			name = "Pods-platonWeb3-demoUITests";
+			productName = "Pods-platonWeb3-demoUITests";
+			productReference = C005596E49FE0B2575633DB1DDAEE746 /* Pods_platonWeb3_demoUITests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		56E8CE6BA3ABC88700A06F0A40DF8074 /* Pods-platonWeb3 */ = {
@@ -980,7 +1088,7 @@
 			);
 			name = "Pods-platonWeb3";
 			productName = "Pods-platonWeb3";
-			productReference = ECBA13BDE8A0C75AE78289DF89594050 /* Pods_platonWeb3.framework */;
+			productReference = B808B53AF1DE23A69A7A21B9A42A4607 /* Pods_platonWeb3.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		5A3378D548D165B83BF3BC2870118934 /* secp256k1.swift */ = {
@@ -998,7 +1106,7 @@
 			);
 			name = secp256k1.swift;
 			productName = secp256k1.swift;
-			productReference = 771A2D15B25A107D70A8F2FBDE418DA0 /* secp256k1.framework */;
+			productReference = 30B10B87614B314E94F31699005D9A3A /* secp256k1.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6F5F8CED7C3379A0404E745819F8B311 /* CryptoSwift */ = {
@@ -1016,7 +1124,7 @@
 			);
 			name = CryptoSwift;
 			productName = CryptoSwift;
-			productReference = 92AFE9439A4FE5250796A44D4B2A520B /* CryptoSwift.framework */;
+			productReference = 5DB5980D588FCB8C475D62206BBE8524 /* CryptoSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		76A09AF65442095303C5F208A524E123 /* Localize-Swift */ = {
@@ -1034,7 +1142,7 @@
 			);
 			name = "Localize-Swift";
 			productName = "Localize-Swift";
-			productReference = 0F9D8EB275004DEFB5B9FC73B846DAF8 /* Localize_Swift.framework */;
+			productReference = 7C44084227FBF8EF736C1C3255250D83 /* Localize_Swift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7FF8752D2607B0617A8EA59CB6F52DA7 /* SipHash */ = {
@@ -1052,7 +1160,7 @@
 			);
 			name = SipHash;
 			productName = SipHash;
-			productReference = EF23C68DF53219E010C2FBC461544BE2 /* SipHash.framework */;
+			productReference = 2A94781B871EAD84B4A0D053BC3968EC /* SipHash.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1072,7 +1180,7 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 76FB3957BD32A742C73725E00CBA7B25 /* Products */;
+			productRefGroup = 3990B36C9A84B402843CD8A292C1A4BD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1080,6 +1188,7 @@
 				6F5F8CED7C3379A0404E745819F8B311 /* CryptoSwift */,
 				76A09AF65442095303C5F208A524E123 /* Localize-Swift */,
 				56E8CE6BA3ABC88700A06F0A40DF8074 /* Pods-platonWeb3 */,
+				561ADCAB5ACA905443B8C0271BCFD089 /* Pods-platonWeb3-demoUITests */,
 				5A3378D548D165B83BF3BC2870118934 /* secp256k1.swift */,
 				7FF8752D2607B0617A8EA59CB6F52DA7 /* SipHash */,
 			);
@@ -1087,6 +1196,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1147928836973FFEE98E68E6BB721465 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1AF3324DAB2C8E0DD11A0DEC66CD5799 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1137,6 +1253,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F46811BA37B7824A8AB0C56EB2A039C2 /* Pods-platonWeb3-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DA7A23808F15540505D8A22A42490D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AAD42D9E343BF715BCFE3E97812194F /* Pods-platonWeb3-demoUITests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1296,6 +1420,18 @@
 			target = 5A3378D548D165B83BF3BC2870118934 /* secp256k1.swift */;
 			targetProxy = 675C7FD98AE8A5C9A108E1D0008E536A /* PBXContainerItemProxy */;
 		};
+		440DF4158755F6E9DE19CBA33D42BE4D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			target = 6F5F8CED7C3379A0404E745819F8B311 /* CryptoSwift */;
+			targetProxy = A45E9F6617D066317EE8E24BB1D35F5C /* PBXContainerItemProxy */;
+		};
+		4458D2DD2DFE41489C092CD132F3F820 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Localize-Swift";
+			target = 76A09AF65442095303C5F208A524E123 /* Localize-Swift */;
+			targetProxy = 1ECE5A50054DCC211F866E762946CC6B /* PBXContainerItemProxy */;
+		};
 		61069262FD5BCD41F1C291E25CAF599B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SipHash;
@@ -1325,6 +1461,24 @@
 			name = BigInt;
 			target = 137411A4D3CCDCAE6EE1A79271E0889C /* BigInt */;
 			targetProxy = 86AAC0834A1862AC42BFC68F9A978A90 /* PBXContainerItemProxy */;
+		};
+		D44AE30C04D911DF95D6C6C072B43C93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BigInt;
+			target = 137411A4D3CCDCAE6EE1A79271E0889C /* BigInt */;
+			targetProxy = 4C459387076C624EAEF92A1B8334A4AB /* PBXContainerItemProxy */;
+		};
+		DC59BB4C7E10A4A87773B238CB09A0EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SipHash;
+			target = 7FF8752D2607B0617A8EA59CB6F52DA7 /* SipHash */;
+			targetProxy = 37CFF939AF76AFB7B48EAD54E3B2768A /* PBXContainerItemProxy */;
+		};
+		FDA38DA5D82BB85101D294FC1F20F9A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = secp256k1.swift;
+			target = 5A3378D548D165B83BF3BC2870118934 /* secp256k1.swift */;
+			targetProxy = 9815E9CCBAC0CA007E4997C63F59D2D9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1367,7 +1521,7 @@
 		};
 		11C878A6FA273EB5A01C37D9A0A38F2A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D247BF270F8D9A66ED5DD73033FA9BA1 /* Pods-platonWeb3.release.xcconfig */;
+			baseConfigurationReference = 298A3A641B787C13367BDE28EA5E9497 /* Pods-platonWeb3.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1545,6 +1699,43 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		571EEBB36F5862E41CD2E0AA2DEAE9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83AE98ADC15C2C203FDF63B5F50FA801 /* Pods-platonWeb3-demoUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-platonWeb3-demoUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		5DE19CECB206ACCCACF04D62F93FFDA6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1852,7 +2043,7 @@
 		};
 		C1D920437CA8FB8BB3F18C5E940B5D72 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93B0F9BEDE3CDB66B35A831FA88A6730 /* Pods-platonWeb3.debug.xcconfig */;
+			baseConfigurationReference = D9DC119625D727858732BFA1E043B65E /* Pods-platonWeb3.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1887,6 +2078,44 @@
 			};
 			name = Debug;
 		};
+		FDC3A696EAC101AFBC079F9E993E8298 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4AE3441B14167EC8BA02E498BD8E3062 /* Pods-platonWeb3-demoUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-platonWeb3-demoUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1895,6 +2124,15 @@
 			buildConfigurations = (
 				83CFC77C4E1C0220BE517EE0D08289C4 /* Debug */,
 				5097676D665A580CFB4E932F03AAFF6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2AE063EDECB61048A93C42C8E1791B89 /* Build configuration list for PBXNativeTarget "Pods-platonWeb3-demoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				571EEBB36F5862E41CD2E0AA2DEAE9CD /* Debug */,
+				FDC3A696EAC101AFBC079F9E993E8298 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

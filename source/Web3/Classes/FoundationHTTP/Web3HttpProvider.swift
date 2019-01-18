@@ -46,17 +46,13 @@ public struct Web3HttpProvider: Web3Provider {
                 body = try self.encoder.encode(request)
             } catch {
                 let err = Web3Response<Result>(error: .requestFailed(error))
-                DispatchQueue.main.async {
-                    response(err)
-                }
+               response(err)
                 return
             }
 
             guard let url = URL(string: self.rpcURL) else {
                 let err = Web3Response<Result>(error: .requestFailed(nil))
-                DispatchQueue.main.async {
-                    response(err)
-                }
+                response(err)
                 return
             }
 
@@ -70,9 +66,7 @@ public struct Web3HttpProvider: Web3Provider {
             let task = self.session.dataTask(with: req) { data, urlResponse, error in
                 guard let urlResponse = urlResponse as? HTTPURLResponse, let data = data, error == nil else {
                     let err = Web3Response<Result>(error: .serverError(error))
-                    DispatchQueue.main.async {
-                        response(err)
-                    }
+                    response(err)
                     return
                 }
 
@@ -80,9 +74,7 @@ public struct Web3HttpProvider: Web3Provider {
                 guard status >= 200 && status < 300 else {
                     // This is a non typical rpc error response and should be considered a server error.
                     let err = Web3Response<Result>(error: .serverError(nil))
-                    DispatchQueue.main.async {
-                        response(err)
-                    }
+                    response(err)
                     return
                 }
                 
@@ -91,17 +83,11 @@ public struct Web3HttpProvider: Web3Provider {
                     let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data)
                     // We got the Result object
                     let res = Web3Response(rpcResponse: rpcResponse)
-                    DispatchQueue.main.async {
-                        response(res)
-                    }
-
-                    
+                    response(res)
                 } catch {
                     // We don't have the response we expected...
                     let err = Web3Response<Result>(error: .decodingError(error))
-                    DispatchQueue.main.async {
-                        response(err)
-                    }
+                    response(err)
                     
                 }
             }
