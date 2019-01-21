@@ -7,12 +7,49 @@ import Foundation
 import BigInt
 import Localize_Swift
 
-let PlatonTxTypeDeploy = Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01])
-let PlatonTxTypeFunc = Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02])
+public enum ExecuteCode {
+    case Transfer
+    case ContractDeploy
+    case ContractExecute
+    case Vote
+    case Authority
+    case MPCTransaction
+    case CampaignPledge
+    case ReducePledge
+    case DrawPledge
+    case InnerContract
+    
+    public var DataValue: Data{
+        switch self {
+        case .Transfer:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00])
+        case .ContractDeploy:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01])
+        case .ContractExecute:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02])
+        case .Vote:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xE8])
+        case .Authority:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x04])
+        case .MPCTransaction:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x05])
+        case .CampaignPledge:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xE9])
+        case .ReducePledge:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEA])
+        case .DrawPledge:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEB])
+        case .InnerContract:
+            return Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xEC])
+        }
+    }
+}
+
 
 let web3RPCWaitTimeout = 60.0
 
 public extension Web3.Eth{
+    
     
     func platonDeployContract(abi : String,
                               bin : Data,
@@ -21,12 +58,13 @@ public extension Web3.Eth{
                               gasPrice : BigUInt,
                               gas : BigUInt,
                               estimateGas : Bool,
+                              waitForTransactionReceipt: Bool,
                               timeout: dispatch_time_t,
                               completion : ContractDeployCompletion?
         ){
         
         var completion = completion
-        let txTypePart = RLPItem(bytes: PlatonTxTypeDeploy.bytes)
+        let txTypePart = RLPItem(bytes: ExecuteCode.ContractDeploy.DataValue.bytes)
         let binPart = RLPItem(bytes: (bin.bytes))
         let abiPart = RLPItem(bytes: (abi.data(using: .utf8)?.bytes)!)
         
@@ -42,18 +80,18 @@ public extension Web3.Eth{
         if estimateGas{
             deployQueue.async {
                 let from = EthereumAddress(hexString: sender)
-                print("platonDeployContract estimatedGas begin 💪 semaphone\(semaphore)")
+                Debugger.debugPrint("platonDeployContract estimatedGas begin 💪 semaphone\(semaphore)")
                 let call = EthereumCall(from: from, to: nil, gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: rawRlp!))
                 self.estimateGas(call: call) { (gasestResp) in
                     switch gasestResp.status{
                     case .success(_):
                         do {
                             estimatedGas = gasestResp.result
-                            print("platonDeployContract estimatedGas done😀")
+                            Debugger.debugPrint("platonDeployContract estimatedGas done😀")
                             semaphore.signal()
                         }
                     case .failure(_):
-                        print("platonDeployContract estimatedGas fail😭")
+                        Debugger.debugPrint("platonDeployContract estimatedGas fail😭")
                         self.deploy_fail(code: gasestResp.getErrorCode(), errorMsg: gasestResp.getErrorLocalizedDescription(), completion: &completion)
                         semaphore.signal()
                     }
@@ -86,11 +124,11 @@ public extension Web3.Eth{
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
-                    print("platonDeployContract get nonce done😀" + "nonce:" + String((nonceResp.result?.quantity)!))
+                    Debugger.debugPrint("platonDeployContract get nonce done😀" + "nonce:" + String((nonceResp.result?.quantity)!))
                     semaphore.signal()
                 case .failure(_):
                     self.deploy_fail(code: nonceResp.getErrorCode(), errorMsg: nonceResp.getErrorLocalizedDescription(), completion: &completion)
-                    print("platonDeployContract get nonce fail😭")
+                    Debugger.debugPrint("platonDeployContract get nonce fail😭")
                     semaphore.signal()
                     
                 }
@@ -126,11 +164,11 @@ public extension Web3.Eth{
                 switch sendTxResp.status{
                 case .success(_):
                     txHash = sendTxResp.result!
-                    print("platonDeployContract Deploy done😀")
+                    Debugger.debugPrint("platonDeployContract Deploy done😀")
                     semaphore.signal()
                 case .failure(_):
                     self.deploy_fail(code: sendTxResp.getErrorCode(), errorMsg: sendTxResp.getErrorLocalizedDescription(), completion: &completion)
-                    print("platonDeployContract Deploy fail😭")
+                    Debugger.debugPrint("platonDeployContract Deploy fail😭")
                     semaphore.signal()
                     return
                 }
@@ -145,53 +183,33 @@ public extension Web3.Eth{
             
             if txHash.bytes.count == 0{
                 semaphore.signal()
+                self.deploy_fail(code: -1, errorMsg: "empty hash", completion: &completion)
                 return
             }
             
-            self.platongetTransactionReceipt(txHash: txHash.hex(), loopTime: 10, completion: { (ret, data) in
+            if !waitForTransactionReceipt{
+                self.deploy_success(txHash.hex(), nil ,nil, completion: &completion)
+                return
+            }
+            
+            self.platonGetTransactionReceipt(txHash: txHash.hex(), loopTime: 15, completion: { (ret, data) in
                 switch ret{
                 case .success:
                     guard let receptionresp = data as? EthereumTransactionReceiptObject else{
                         self.deploy_empty(completion: &completion)
                         return
                     }
-                    completion?(PlatonCommonResult.success,receptionresp.contractAddress?.hex(), txHash.hex())
-                    self.deploy_success(receptionresp.contractAddress?.hex(), txHash.hex(), completion: &completion)
-                    
-                    print("platonDeployContract Receipt done😀")
+                    self.deploy_success(txHash.hex(),receptionresp.contractAddress?.hex(), receptionresp, completion: &completion)
+                    Debugger.debugPrint("platonDeployContract Receipt done😀")
                     semaphore.signal()
                 case .fail(let code, let errMsg):
                     self.deploy_fail(code: code!, errorMsg: errMsg!, completion: &completion)
-                    print("platonDeployContract Receipt fail😭")
+                    Debugger.debugPrint("platonDeployContract Receipt fail😭")
                     semaphore.signal()
                     return
                 }
             })
         }
-    }
-    
-    
-    func parserEvent(){
-        
-        self.getTransactionReceipt(transactionHash: EthereumData(bytes: [0x00]), response: { receptionresp in
-            switch receptionresp.status{
-            case .success(_):
-                do {
-                    /*
-                     let firstTopicBytes = receptionresp.result??.logs[0].topics[0].bytes
-                     let logdata = receptionresp.result??.logs[0].data
-                     let decoderesult = try? RLPDecoder().decode((logdata?.bytes)!)
-                     let value = decoderesult?.array![0].bytes
-                     let result = String(bytes: (decoderesult?.array![1].bytes)!)
-                     */
-                }
-            case .failure(_):
-                do {
-                    
-                }
-            }
-            
-        })
     }
     
     func platonCall(contractAddress : String ,data: Data, from: String?,gas: EthereumQuantity?, gasPrice: EthereumQuantity?, value: EthereumQuantity?,outputs: [SolidityParameter],completion : ContractCallCompletion?) {
@@ -209,7 +227,6 @@ public extension Web3.Eth{
             case .success(_):
                 let data = Data(bytes: (resp.result?.bytes)!)
                 let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexString())
-                //NSLog("\(functionName) call result:\n\(dictionary)")
                 if dictionary != nil && (dictionary?.count)! > 0{
                     self.call_success(dictionary: dictionary as AnyObject, completion: &completion)
                 }else{
@@ -221,10 +238,10 @@ public extension Web3.Eth{
         }
     }
     
-    func platonCall(contractAddress : String,functionName : String, from: String?, params : [Data], outputs: [SolidityParameter],completion : ContractCallCompletion?) {
+    func platonCall(code: ExecuteCode, contractAddress : String,functionName : String, from: String?, params : [Data], outputs: [SolidityParameter],completion : ContractCallCompletion?) {
         
         var completion = completion
-        let txTypePart = RLPItem(bytes: PlatonTxTypeFunc.bytes)
+        let txTypePart = RLPItem(bytes: code.DataValue.bytes)
         let funcItemPart = RLPItem(bytes: (functionName.data(using: .utf8)?.bytes)!)
         var items : [RLPItem] = []
         items.append(txTypePart)
@@ -246,7 +263,7 @@ public extension Web3.Eth{
             case .success(_):
                 let data = Data(bytes: (resp.result?.bytes)!)
                 let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexString())
-                //NSLog("\(functionName) call result:\n\(dictionary)")
+                //Debugger.debugPrint("\(functionName) call result:\n\(dictionary)")
                 if dictionary != nil && (dictionary?.count)! > 0{
                     self.call_success(dictionary: dictionary as AnyObject, completion: &completion)
                 }else{
@@ -260,12 +277,12 @@ public extension Web3.Eth{
     }
     
     
-    func plantonSendRawTransaction(contractAddress : String,data: Bytes, sender: String, privateKey: String, gasPrice : BigUInt, gas : BigUInt, value: EthereumQuantity?, estimated: Bool ,completion: ContractSendRawCompletion?){
+    func platonSendRawTransaction(contractAddress : String,data: Bytes, sender: String, privateKey: String, gasPrice : BigUInt, gas : BigUInt, value: EthereumQuantity?, estimated: Bool ,completion: ContractSendRawCompletion?){
         
         var completion = completion
         
         let semaphore = DispatchSemaphore(value: 0)
-        let queue = DispatchQueue(label: "plantonSendRawTransactionQueue")
+        let queue = DispatchQueue(label: "platonSendRawTransactionQueue")
         
         var nonce : EthereumQuantity?
         queue.async {
@@ -276,6 +293,7 @@ public extension Web3.Eth{
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
+                    Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
                     semaphore.signal()
                 case .failure(_):
                     self.sendRawTransaction_fail(code: nonceResp.getErrorCode(), errorMsg: nonceResp.getErrorLocalizedDescription(), completion: &completion)
@@ -309,10 +327,7 @@ public extension Web3.Eth{
                         semaphore.signal()
                         
                     case .failure(_):
-                        DispatchQueue.main.async {
-                            completion?(PlatonCommonResult.fail(gasestResp.getErrorCode(), gasestResp.getErrorLocalizedDescription()),nil)
-                            completion = nil
-                        }
+                        self.sendRawTransaction_fail(code: gasestResp.getErrorCode(), errorMsg: gasestResp.getErrorLocalizedDescription(), completion: &completion)
                         semaphore.signal()
                         return
                     }
@@ -363,9 +378,10 @@ public extension Web3.Eth{
         
     }
 
-    func plantonSendRawTransaction(contractAddress : String,
+    func platonSendRawTransaction(code: ExecuteCode,
+                                   contractAddress : String,
                                    functionName : String,
-                                   _ params : [Data],
+                                   params : [Data],
                                    sender: String,
                                    privateKey: String,
                                    gasPrice : BigUInt,
@@ -374,7 +390,7 @@ public extension Web3.Eth{
                                    estimated: Bool,
                                    completion: ContractSendRawCompletion?){
         
-        let txTypePart = RLPItem(bytes: PlatonTxTypeFunc.bytes)
+        let txTypePart = RLPItem(bytes: code.DataValue.bytes)
         let funcItemPart = RLPItem(bytes: (functionName.data(using: .utf8)?.bytes)!)
         var items : [RLPItem] = []
         items.append(txTypePart)
@@ -386,7 +402,7 @@ public extension Web3.Eth{
         let rlp = RLPItem.array(items)
         let rawRlp = try? RLPEncoder().encode(rlp)
         
-        self.plantonSendRawTransaction(contractAddress: contractAddress, data: rawRlp!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: value, estimated: estimated, completion: completion)
+        self.platonSendRawTransaction(contractAddress: contractAddress, data: rawRlp!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: value, estimated: estimated, completion: completion)
         
     }
     
@@ -397,30 +413,30 @@ public extension Web3.Eth{
     }
     
     
-    func platongetTransactionReceipt(txHash: String, loopTime: Int, completion: PlatonCommonCompletion?) {
+    func platonGetTransactionReceipt(txHash: String, loopTime: Int, completion: PlatonCommonCompletion?) {
         
         var completion = completion
         
         let semaphore = DispatchSemaphore(value: 0)
-        let queue = DispatchQueue(label: "platongetTransactionReceipt")
+        let queue = DispatchQueue(label: "platonGetTransactionReceipt")
         var time = loopTime
         queue.async {
             repeat{
-                NSLog("begin getTransactionReceipt 💪:\(txHash)")
+                Debugger.debugPrint("begin getTransactionReceipt 💪:\(txHash)")
                 self.getTransactionReceipt(transactionHash: EthereumData(bytes: Data(hex: txHash).bytes)) { (response) in
                     time = time - 1
                     switch response.status{
                     case .success(_):
                         
                         DispatchQueue.main.async {
-                            NSLog("success getTransactionReceipt 🙂")
+                            Debugger.debugPrint("success getTransactionReceipt 🙂")
                             completion?(.success,response.result as AnyObject)
                             completion = nil
                         }
                         semaphore.signal()
                         time = 0
                     case .failure(_):
-                        NSLog("fail getTransactionReceipt 😭")
+                        Debugger.debugPrint("fail getTransactionReceipt 😭")
                         if time == 0{
                             DispatchQueue.main.async {
                                 completion?(PlatonCommonResult.fail(response.getErrorCode(), response.getErrorLocalizedDescription()),nil)
@@ -432,8 +448,13 @@ public extension Web3.Eth{
                         semaphore.signal()
                     }
                 }
-                sleep(UInt32(3.0))
-                semaphore.wait(timeout: .now() + 3)
+                
+                if semaphore.wait(timeout: .now() + 3) == .timedOut{
+                    
+                }else{
+                    //sleep for one second
+                    sleep(1)
+                }
             }while time > 0
         }
        
@@ -443,4 +464,11 @@ public extension Web3.Eth{
     
     
        
+}
+
+public extension EthereumTransactionReceiptObject{
+    
+    func decodeEvent(event: SolidityEvent){
+        
+    }
 }
