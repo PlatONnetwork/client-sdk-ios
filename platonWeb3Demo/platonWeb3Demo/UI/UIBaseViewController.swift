@@ -1,16 +1,14 @@
 //
-//  ViewController.swift
+//  UIBaseViewController.swift
 //  platonWeb3Demo
 //
-//  Created by Ned on 9/1/2019.
+//  Created by Ned on 23/1/2019.
 //  Copyright © 2019 ju. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import SVProgressHUD
-
-class ViewController: UIViewController {
-
+class BaseTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification), name: NSNotification.Name.SVProgressHUDDidReceiveTouchEvent, object: nil)
@@ -19,7 +17,4 @@ class ViewController: UIViewController {
     @objc func onNotification(){
         SVProgressHUD.dismiss()
     }
-
-
 }
-
