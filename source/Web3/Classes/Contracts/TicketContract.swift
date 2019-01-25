@@ -1,5 +1,5 @@
 //
-//  VoteContract.swift
+//  TicketContract.swift
 //  platonWeb3Demo
 //
 //  Created by Ned on 22/1/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VoteContract: Contract{
+class TicketContract: Contract{
     
     private var web3 : Web3
     
@@ -190,7 +190,7 @@ class VoteContract: Contract{
     
 }
 
-extension VoteContract{
+extension TicketContract{
     
     private func build_commonInternalCall(funcName: String, param: String? = nil) -> Data {
         

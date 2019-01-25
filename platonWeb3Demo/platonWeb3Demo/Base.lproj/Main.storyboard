@@ -66,7 +66,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Inner Contract:candidate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j7g-fi-eU6">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Inner Contract:CandidateContract" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j7g-fi-eU6">
                                                     <rect key="frame" x="16" y="0.0" width="324" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -88,7 +88,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Inner Contract:vote" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RJe-fa-Gvv">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Inner Contract:TicketContract" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RJe-fa-Gvv">
                                                     <rect key="frame" x="16" y="0.0" width="324" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -404,7 +404,7 @@
             </objects>
             <point key="canvasLocation" x="1854" y="134"/>
         </scene>
-        <!--VoteContract-->
+        <!--TicketContract-->
         <scene sceneID="Ieu-cn-6E2">
             <objects>
                 <tableViewController id="jql-s7-Inb" customClass="VoteViewController" customModule="platonWeb3Demo" customModuleProvider="target" sceneMemberID="viewController">
@@ -549,7 +549,7 @@
                             <outlet property="delegate" destination="jql-s7-Inb" id="ZiA-b6-YvE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="VoteContract" id="jpT-fn-oO1"/>
+                    <navigationItem key="navigationItem" title="TicketContract" id="jpT-fn-oO1"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1MN-MV-7Np" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

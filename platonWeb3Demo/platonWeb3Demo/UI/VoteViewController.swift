@@ -11,9 +11,11 @@ import BigInt
 
 class VoteViewController: BaseTableViewController {
 
-    let contract : VoteContract = VoteContract(web3: web3)
+    let contract : TicketContract = TicketContract(web3: web3)
     
     var ticketIDs : [String] = []
+    
+    var ticketPrice: BigUInt?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,7 @@ class VoteViewController: BaseTableViewController {
                 if let price = data as? String{
                     let text = "price is:\(price)"
                     self.showMessage(text: text)
+                    self.ticketPrice = BigUInt(price)!
                 }
             case .fail(let code, let errMsg):
                 let text = "error code:\(code ?? 0) errMsg:\(errMsg ?? "")"
@@ -147,8 +150,14 @@ class VoteViewController: BaseTableViewController {
     }
     
     func VoteTicket(){
+        
+        guard (self.ticketPrice != nil) else {
+            print("Get ticket price first!")
+            return
+        }
+        
         self.showLoading()
-        contract.VoteTicket(count: 5, price: BigUInt("1")!, nodeId: "0xaafbc9c699270bd33c77f1b2a5c3653eaf756f1860891327dfd8c29960a51c9aebb6c081cbfe2499db71e9f4c19e609f44cbd9514e59b6066e5e895b8b592abf", sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas) { (result, data) in
+        contract.VoteTicket(count: 5, price: self.ticketPrice!, nodeId: "0xaafbc9c699270bd33c77f1b2a5c3653eaf756f1860891327dfd8c29960a51c9aebb6c081cbfe2499db71e9f4c19e609f44cbd9514e59b6066e5e895b8b592abf", sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas) { (result, data) in
             switch result{
                 
             case .success:
@@ -172,7 +181,7 @@ class VoteViewController: BaseTableViewController {
                                     
                                     //variable count is the vote numbers that take effect on chain
                                     //generate ticket from transaction hash
-                                    let tickets = VoteContract.generateTickets(txHash: data, count: UInt32(count))
+                                    let tickets = TicketContract.generateTickets(txHash: data, count: UInt32(count))
                                     let text = "ticket id:\(tickets)"
                                     print(text)
                                     self.showMessage(text: text)
