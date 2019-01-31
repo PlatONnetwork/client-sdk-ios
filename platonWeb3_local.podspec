@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
   s.name         = "platonWeb3_local"
 
-  s.version      = "0.3.0.14"
+  s.version      = "0.3.0_dev"
 
   s.summary      = "platonWeb3 SDK is a Swift development kit for PlatON public chain provided by PlatON for iOS developers."
 
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   
   s.author = { "admin" => "support@platon.network" }
 
-  s.source       = { :git => "git@192.168.9.66:PlatON/client-sdk-ios.git", :tag => "#{s.version}" }
+  s.source       = { :git => "git@192.168.9.66:PlatON/client-sdk-ios.git", :branch => "#{s.version}" }
 
   s.source_files = "source/**/*.swift"
 
