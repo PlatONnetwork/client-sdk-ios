@@ -163,3 +163,9 @@ public extension ABI{
     }
     
 }
+
+extension Data {
+    var toHexOptimized: String {
+        return map { String(format: "%02hhx", $0) }.joined()
+    }
+}
