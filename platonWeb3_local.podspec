@@ -1,9 +1,9 @@
 
 Pod::Spec.new do |s|
 
-  s.name         = "platonWeb3"
+  s.name         = "platonWeb3_local"
 
-  s.version      = "0.3.0.13"
+  s.version      = "0.3.0.14"
 
   s.summary      = "platonWeb3 SDK is a Swift development kit for PlatON public chain provided by PlatON for iOS developers."
 
