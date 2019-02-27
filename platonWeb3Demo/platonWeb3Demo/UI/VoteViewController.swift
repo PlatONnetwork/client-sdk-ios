@@ -17,9 +17,34 @@ class VoteViewController: BaseTableViewController {
     
     var ticketPrice: BigUInt?
     
+    let candidateContract = CandidateContract(web3: web3)
+    
+    var nodeId : String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
+        
+        candidateContract.CandidateList { (result, data) in
+            switch result{
+                
+            case .success:
+                if let data = data as? String{
+                    let obj = try? JSONSerialization.jsonObject(with: data.data(using: .utf8)!, options: [])
+                    if let theArray = obj as? Array<Any>{
+                        if let tmp = theArray.first as? Dictionary<String, Any>{
+                            let nodeid = tmp["CandidateId"]
+                            self.nodeId = nodeid as? String
+                        }
+                    }
+                    
+                }else{
+                    self.showMessage(text: "error json rpc result")
+                }
+            case .fail(let _, let _):
+                do{}
+            }
+        }
     }
     
 
@@ -79,7 +104,13 @@ class VoteViewController: BaseTableViewController {
     }
     
     func GetCandidateEpoch(){
-        contract.GetCandidateEpoch(candidateId: "0xaafbc9c699270bd33c77f1b2a5c3653eaf756f1860891327dfd8c29960a51c9aebb6c081cbfe2499db71e9f4c19e609f44cbd9514e59b6066e5e895b8b592abf") { (result, data) in
+        
+        guard self.nodeId != nil else {
+            self.showMessage(text: "nodeId is empty")
+            return
+        }
+        
+        contract.GetCandidateEpoch(candidateId: self.nodeId!) { (result, data) in
             switch result{
                 
             case .success:
@@ -135,7 +166,13 @@ class VoteViewController: BaseTableViewController {
     }
     
     func GetBatchCandidateTicketIds(){
-        contract.GetBatchCandidateTicketIds(nodeIds: ["0xaafbc9c699270bd33c77f1b2a5c3653eaf756f1860891327dfd8c29960a51c9aebb6c081cbfe2499db71e9f4c19e609f44cbd9514e59b6066e5e895b8b592abf"]) { (result, data) in
+        
+        guard self.nodeId != nil else {
+            self.showMessage(text: "nodeId is empty")
+            return
+        }
+        
+        contract.GetBatchCandidateTicketIds(nodeIds: [self.nodeId!]) { (result, data) in
             switch result{
                 
             case .success:
@@ -158,7 +195,7 @@ class VoteViewController: BaseTableViewController {
         
         
         
-        var candidateContract = CandidateContract(web3: web3)
+        
         candidateContract.CandidateList { (result, data) in
             switch result{
                 
@@ -166,8 +203,10 @@ class VoteViewController: BaseTableViewController {
                 if let data = data as? String{
                     let obj = try? JSONSerialization.jsonObject(with: data.data(using: .utf8)!, options: [])
                     if let theArray = obj as? Array<Any>{
-                      let tmp = theArray.first
-                        print("\(tmp)")
+                        if let tmp = theArray.first as? Dictionary<String, Any>{
+                            let nodeid = tmp["CandidateId"]
+                            self.onVoteWithNodeId(nodeId: nodeid as! String)
+                        }
                     }
                     
                 }else{
@@ -179,9 +218,11 @@ class VoteViewController: BaseTableViewController {
             }
         }
         
-        
+    }
+    
+    func onVoteWithNodeId(nodeId : String) {
         self.showLoading()
-        contract.VoteTicket(count: 5, price: self.ticketPrice!, nodeId: "0xaafbc9c699270bd33c77f1b2a5c3653eaf756f1860891327dfd8c29960a51c9aebb6c081cbfe2499db71e9f4c19e609f44cbd9514e59b6066e5e895b8b592abf", sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas) { (result, data) in
+        contract.VoteTicket(count: 5, price: self.ticketPrice!, nodeId: nodeId, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas) { (result, data) in
             switch result{
                 
             case .success:
@@ -225,4 +266,6 @@ class VoteViewController: BaseTableViewController {
             }
         }
     }
+    
+    
 }
