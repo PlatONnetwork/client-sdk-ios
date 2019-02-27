@@ -156,6 +156,30 @@ class VoteViewController: BaseTableViewController {
             return
         }
         
+        
+        
+        var candidateContract = CandidateContract(web3: web3)
+        candidateContract.CandidateList { (result, data) in
+            switch result{
+                
+            case .success:
+                if let data = data as? String{
+                    let obj = try? JSONSerialization.jsonObject(with: data.data(using: .utf8)!, options: [])
+                    if let theArray = obj as? Array<Any>{
+                      let tmp = theArray.first
+                        print("\(tmp)")
+                    }
+                    
+                }else{
+                    self.showMessage(text: "error json rpc result")
+                }
+            case .fail(let code, let errMsg):
+                let text = "error code:\(code ?? 0) errMsg:\(errMsg ?? "")"
+                self.showMessage(text: text)
+            }
+        }
+        
+        
         self.showLoading()
         contract.VoteTicket(count: 5, price: self.ticketPrice!, nodeId: "0xaafbc9c699270bd33c77f1b2a5c3653eaf756f1860891327dfd8c29960a51c9aebb6c081cbfe2499db71e9f4c19e609f44cbd9514e59b6066e5e895b8b592abf", sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas) { (result, data) in
             switch result{
@@ -188,7 +212,7 @@ class VoteViewController: BaseTableViewController {
                                     self.ticketIDs.append(contentsOf: tickets)
                                 }
                             }else if String((receipt.status?.quantity)!) == "0"{
-                                let message = "VoteTicket receipt status: 0"
+                                let message = "ERROR:VoteTicket receipt status: 0"
                                 print(message)
                                 self.showMessage(text: message)
                             }

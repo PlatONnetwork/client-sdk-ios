@@ -88,7 +88,7 @@ class CandidateViewController: BaseTableViewController {
                                 }
                                 print("CandidateDeposit success")
                             }else if String((receipt.status?.quantity)!) == "0"{
-                                let message = "CandidateDeposit receipt status: 0"
+                                let message = "ERROR:CandidateDeposit receipt status: 0"
                                 self.showMessage(text: message)
                             }
                         }
@@ -132,7 +132,7 @@ class CandidateViewController: BaseTableViewController {
                                 print(message)
                                 self.showMessage(text: message)
                             }else if String((receipt.status?.quantity)!) == "0"{
-                                let message = "CandidateApplyWithdraw receipt status: 0"
+                                let message = "ERROR:CandidateApplyWithdraw receipt status: 0"
                                 print(message)
                                 self.showMessage(text: message)
                             }
@@ -174,7 +174,7 @@ class CandidateViewController: BaseTableViewController {
                                 print(message)
                                 self.showMessage(text: message)
                             }else if String((receipt.status?.quantity)!) == "0"{
-                                let message = "CandidateWithdraw receipt status: 0"
+                                let message = "ERROR:CandidateWithdraw receipt status: 0"
                                 print(message)
                                 self.showMessage(text: message)
                             }
@@ -228,7 +228,7 @@ class CandidateViewController: BaseTableViewController {
                                 print(message)
                                 self.showMessage(text: message)
                             }else if String((receipt.status?.quantity)!) == "0"{
-                                let message = "SetCandidateExtra receipt status: 0"
+                                let message = "ERROR:SetCandidateExtra receipt status: 0"
                                 print(message)
                                 self.showMessage(text: message)
                             }
