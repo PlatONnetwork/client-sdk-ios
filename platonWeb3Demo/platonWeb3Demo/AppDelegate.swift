@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 
 
 @UIApplicationMain
@@ -23,7 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
     
-        
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
+        SVProgressHUD.setMinimumDismissTimeInterval(100)
+        SVProgressHUD.setMaximumDismissTimeInterval(100)
         return true
     }
 

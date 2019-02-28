@@ -225,8 +225,12 @@ public extension Web3.Eth{
         call(call: callParam, block: .latest) { (resp) in
             switch resp.status{
             case .success(_):
+                guard resp.result?.bytes != nil, (resp.result?.bytes.count)! > 0 else{
+                    self.call_empty(completion: &completion)
+                    return
+                }
                 let data = Data(bytes: (resp.result?.bytes)!)
-                let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexString())
+                let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexOptimized)
                 if dictionary != nil && (dictionary?.count)! > 0{
                     self.call_success(dictionary: dictionary as AnyObject, completion: &completion)
                 }else{
@@ -261,8 +265,12 @@ public extension Web3.Eth{
         call(call: callParam, block: .latest) { (resp) in
             switch resp.status{
             case .success(_):
+                guard resp.result?.bytes != nil, (resp.result?.bytes.count)! > 0 else{
+                    self.call_empty(completion: &completion)
+                    return
+                }
                 let data = Data(bytes: (resp.result?.bytes)!)
-                let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexString())
+                let dictionary = try? ABI.decodeParameters(outputs, from: data.toHexOptimized)
                 //Debugger.debugPrint("\(functionName) call result:\n\(dictionary)")
                 if dictionary != nil && (dictionary?.count)! > 0{
                     self.call_success(dictionary: dictionary as AnyObject, completion: &completion)

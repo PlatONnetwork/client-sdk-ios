@@ -9,7 +9,7 @@
 import UIKit
 import BigInt
 
-class FirstDemoViewController: UITableViewController {
+class FirstDemoViewController: BaseTableViewController {
 
     var firstdemoContract = firstdemo()
     
