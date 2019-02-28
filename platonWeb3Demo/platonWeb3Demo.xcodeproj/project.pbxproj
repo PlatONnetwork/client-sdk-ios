@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		812D4B5821F6E6E500053C42 /* TicketContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D4B5721F6E6E500053C42 /* TicketContract.swift */; };
+		812D4B5A21F6E7C300053C42 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D4B5921F6E7C300053C42 /* VoteViewController.swift */; };
 		8141DDB321E5C36600F803DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DDB221E5C36600F803DA /* AppDelegate.swift */; };
 		8141DDB521E5C36600F803DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DDB421E5C36600F803DA /* ViewController.swift */; };
 		8141DDB821E5C36600F803DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8141DDB621E5C36600F803DA /* Main.storyboard */; };
@@ -92,6 +94,8 @@
 		817A9C7821E72D3500C94CB4 /* Web3ResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C3021E72D3500C94CB4 /* Web3ResponseHelper.swift */; };
 		817A9C7C21E752FC00C94CB4 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C7A21E752FB00C94CB4 /* Contract.swift */; };
 		817A9C7D21E752FC00C94CB4 /* CandidateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C7B21E752FB00C94CB4 /* CandidateContract.swift */; };
+		81AC35A721F8460D0054E917 /* ViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC35A621F8460D0054E917 /* ViewController+extension.swift */; };
+		81AC35A921F84DBF0054E917 /* UIBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC35A821F84DBF0054E917 /* UIBaseViewController.swift */; };
 		9570941F1ADCA6FFD66D88D6 /* Pods_platonWeb3DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */; };
 		CC6B53092747AF973335F624 /* Pods_platonWeb3Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB9103C53618EC9C119E1BF /* Pods_platonWeb3Demo.framework */; };
 /* End PBXBuildFile section */
@@ -122,6 +126,8 @@
 /* Begin PBXFileReference section */
 		0BC329738C1983A4FF1254B4 /* Pods-platonWeb3DemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoUITests/Pods-platonWeb3DemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6DC32B1E064729AAD9B74992 /* Pods-platonWeb3Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3Demo/Pods-platonWeb3Demo.release.xcconfig"; sourceTree = "<group>"; };
+		812D4B5721F6E6E500053C42 /* TicketContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketContract.swift; sourceTree = "<group>"; };
+		812D4B5921F6E7C300053C42 /* VoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
 		8141DDAF21E5C36600F803DA /* platonWeb3Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = platonWeb3Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8141DDB221E5C36600F803DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8141DDB421E5C36600F803DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +218,8 @@
 		817A9C3021E72D3500C94CB4 /* Web3ResponseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3ResponseHelper.swift; sourceTree = "<group>"; };
 		817A9C7A21E752FB00C94CB4 /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
 		817A9C7B21E752FB00C94CB4 /* CandidateContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateContract.swift; sourceTree = "<group>"; };
+		81AC35A621F8460D0054E917 /* ViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+extension.swift"; sourceTree = "<group>"; };
+		81AC35A821F84DBF0054E917 /* UIBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBaseViewController.swift; sourceTree = "<group>"; };
 		9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C2D1A01CDA4F71E53689CA /* Pods-platonWeb3DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoUITests/Pods-platonWeb3DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BA5F8F4002A0DD861594D32C /* Pods-platonWeb3Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3Demo/Pods-platonWeb3Demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -315,10 +323,13 @@
 		8141DF1921E5D29000F803DA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				812D4B5921F6E7C300053C42 /* VoteViewController.swift */,
 				8141DF1A21E5D2B900F803DA /* FirstDemoViewController.swift */,
 				8141DF1C21E5D2C600F803DA /* CandidateViewController.swift */,
 				8141DF2021E6116000F803DA /* firstdemo.swift */,
 				8141DF2421E61A5F00F803DA /* config.swift */,
+				81AC35A621F8460D0054E917 /* ViewController+extension.swift */,
+				81AC35A821F84DBF0054E917 /* UIBaseViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -521,6 +532,7 @@
 			children = (
 				817A9C7A21E752FB00C94CB4 /* Contract.swift */,
 				817A9C7B21E752FB00C94CB4 /* CandidateContract.swift */,
+				812D4B5721F6E6E500053C42 /* TicketContract.swift */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -639,6 +651,7 @@
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
 				"${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework",
 			);
@@ -649,6 +662,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1.framework",
 			);
@@ -715,7 +729,9 @@
 				817A9C6521E72D3500C94CB4 /* EthereumContract.swift in Sources */,
 				817A9C4021E72D3500C94CB4 /* RPCRequest.swift in Sources */,
 				817A9C6E21E72D3500C94CB4 /* Data+extension.swift in Sources */,
+				81AC35A721F8460D0054E917 /* ViewController+extension.swift in Sources */,
 				817A9C6F21E72D3500C94CB4 /* SolidityTuple.swift in Sources */,
+				812D4B5A21F6E7C300053C42 /* VoteViewController.swift in Sources */,
 				817A9C4321E72D3500C94CB4 /* EthereumQuantity.swift in Sources */,
 				817A9C7D21E752FC00C94CB4 /* CandidateContract.swift in Sources */,
 				817A9C7721E72D3500C94CB4 /* Config.swift in Sources */,
@@ -753,6 +769,7 @@
 				817A9C4C21E72D3500C94CB4 /* Bytes+HexString.swift in Sources */,
 				817A9C3421E72D3500C94CB4 /* EthereumPrivateKey.swift in Sources */,
 				817A9C6B21E72D3500C94CB4 /* SolidityType+Codable.swift in Sources */,
+				812D4B5821F6E6E500053C42 /* TicketContract.swift in Sources */,
 				8141DF2521E61A5F00F803DA /* config.swift in Sources */,
 				8141DF2121E6116000F803DA /* firstdemo.swift in Sources */,
 				817A9C7121E72D3500C94CB4 /* PlatonWeb3Test.swift in Sources */,
@@ -778,6 +795,7 @@
 				817A9C3F21E72D3500C94CB4 /* EthereumData.swift in Sources */,
 				817A9C6721E72D3500C94CB4 /* Eth+ABI.swift in Sources */,
 				817A9C7021E72D3500C94CB4 /* ABIConvertible.swift in Sources */,
+				81AC35A921F84DBF0054E917 /* UIBaseViewController.swift in Sources */,
 				817A9C7321E72D3500C94CB4 /* Web3HttpProvider.swift in Sources */,
 				817A9C3C21E72D3500C94CB4 /* Types+RLPItemConvertible.swift in Sources */,
 				817A9C6221E72D3500C94CB4 /* ERC165.swift in Sources */,

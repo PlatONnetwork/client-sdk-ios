@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification), name: NSNotification.Name.SVProgressHUDDidReceiveTouchEvent, object: nil)
+    }
+    
+    @objc func onNotification(){
+        SVProgressHUD.dismiss()
     }
 
 
