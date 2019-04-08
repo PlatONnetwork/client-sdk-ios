@@ -125,12 +125,12 @@ class CandidateContract : Contract{
     }
     
     
-    func CandidateWithdrawInfos(nodeId: String, completion: PlatonCommonCompletion?){
+    func GetCandidateWithdrawInfos(nodeId: String, completion: PlatonCommonCompletion?){
         
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateWithdrawInfos", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateWithdrawInfos", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -163,11 +163,11 @@ class CandidateContract : Contract{
         }
     }
     
-    func GetBatchCandidateDetail(batchNodeIds: String,completion: PlatonCommonCompletion?){
+    func GetCandidateDetails(batchNodeIds: String,completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetBatchCandidateDetail", from: nil, params: [batchNodeIds.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateDetails", from: nil, params: [batchNodeIds.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -181,11 +181,11 @@ class CandidateContract : Contract{
         }
     }
     
-    func CandidateList(completion: PlatonCommonCompletion?){
+    func GetCandidateList(completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateList", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -199,11 +199,11 @@ class CandidateContract : Contract{
         }
     }
     
-    func VerifiersList(completion: PlatonCommonCompletion?){
+    func GetVerifiersList(completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "VerifiersList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetVerifiersList", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{

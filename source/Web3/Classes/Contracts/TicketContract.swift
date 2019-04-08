@@ -104,9 +104,9 @@ class TicketContract: Contract{
         
     }
     
-    func GetBatchTicketDetail(ticketIds: [String], completion: PlatonCommonCompletion?){
+    func GetTicketCountByTxHash(ticketIds: [String], completion: PlatonCommonCompletion?){
         var completion = completion
-        let data = self.build_GetBatchTicketDetail(ticketIds: ticketIds)
+        let data = self.build_GetTicketCountByTxHash(ticketIds: ticketIds)
         web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
             switch res{
@@ -123,9 +123,9 @@ class TicketContract: Contract{
         
     }
     
-    func GetBatchCandidateTicketIds(nodeIds: [String], completion: PlatonCommonCompletion?){
+    func GetCandidateTicketCount(nodeIds: [String], completion: PlatonCommonCompletion?){
         var completion = completion
-        let data = self.build_GetBatchCandidateTicketIds(nodeIds: nodeIds)
+        let data = self.build_GetCandidateTicketCount(nodeIds: nodeIds)
         
         web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
@@ -142,28 +142,7 @@ class TicketContract: Contract{
         }
     }
     
-    func GetBatchCandidateDetail(nodeIds:[String], completion: PlatonCommonCompletion?) {
-        
-        var completion = completion
-        let data = self.build_GetBatchCandidateDetail(nodeIds: nodeIds)
-        
-        web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
-            
-            switch res{
-            case .success:
-                guard let dic = data as? [String:String], let resp = dic[""] else {
-                    self.failCompletionOnMainThread(code: -2, errorMsg: "data parse Error", completion: &completion)
-                    return
-                }
-                self.successCompletionOnMain(obj: resp as AnyObject, completion: &completion)
-            case .fail(let code, let msg):
-                self.failCompletionOnMainThread(code: code ?? -1, errorMsg: msg ?? "failed", completion: &completion)
-            }
-        }
-        
-    }
-    
-    func VoteTicket(count: UInt64, price: BigUInt, nodeId: String, sender: String, privateKey: String, gasPrice: BigUInt, gas: BigUInt, completion: PlatonCommonCompletion?){
+    func VoteTicket(count: UInt32, price: BigUInt, nodeId: String, sender: String, privateKey: String, gasPrice: BigUInt, gas: BigUInt, completion: PlatonCommonCompletion?){
         var completion = completion
         let data = self.build_VoteTicket(count: count, price: price, nodeId: nodeId)
         
@@ -245,10 +224,10 @@ extension TicketContract{
         return build_commonInternalCall(funcName: "GetTicketDetail", param: ticketId)
     }
     
-    func build_GetBatchTicketDetail(ticketIds: [String]) -> Data{
+    func build_GetTicketCountByTxHash(ticketIds: [String]) -> Data{
         
         let concatenate = ticketIds.joined(separator: ":")
-        return build_commonInternalCall(funcName: "GetBatchTicketDetail", param: concatenate)
+        return build_commonInternalCall(funcName: "GetTicketCountByTxHash", param: concatenate)
         
     }
     
@@ -259,16 +238,16 @@ extension TicketContract{
         
     }
     
-    func build_GetBatchCandidateTicketIds(nodeIds:[String]) -> Data {
+    func build_GetCandidateTicketCount(nodeIds:[String]) -> Data {
         
         let concatenate = nodeIds.joined(separator: ":")
-        return build_commonInternalCall(funcName: "GetBatchCandidateTicketIds", param: concatenate)
+        return build_commonInternalCall(funcName: "GetCandidateTicketCount", param: concatenate)
         
     }
     
-    func build_VoteTicket(count: UInt64, price: BigUInt,nodeId: String) -> Data{
+    func build_VoteTicket(count: UInt32, price: BigUInt,nodeId: String) -> Data{
         
-        let count_d = Data.newData(unsignedLong: count, bigEndian: true)
+        let count_d = Data.newData(uint32data: UInt32(count), bigEndian: false)
         
         
         let priceV = SolidityWrappedValue(value: price, type: SolidityType.uint256)
