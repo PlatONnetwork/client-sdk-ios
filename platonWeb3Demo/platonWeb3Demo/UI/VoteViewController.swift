@@ -63,7 +63,7 @@ class VoteViewController: BaseTableViewController {
         case 3:
             self.GetTicketCountByTxHash()
         case 4:
-            self.GetBatchCandidateTicketIds()
+            self.GetCandidateTicketCount()
         case 5:
             self.VoteTicket()
         case 6:
@@ -128,7 +128,6 @@ class VoteViewController: BaseTableViewController {
     }
     
     func GetTicketCountByTxHash(){
-        
         guard self.txHashs.count > 0 else {
             self.showMessage(text: "txHashs count is 0, vote for candidate first!")
             return
@@ -136,7 +135,6 @@ class VoteViewController: BaseTableViewController {
         self.showLoading()
         contract.GetTicketCountByTxHash(ticketIds: self.txHashs) { (result, data) in
             switch result{
-                
             case .success:
                 if let detail = data as? String{
                     self.showMessage(text: "GetTicketCountByTxHash :" + detail)
@@ -148,19 +146,16 @@ class VoteViewController: BaseTableViewController {
         }
     }
     
-    func GetBatchCandidateTicketIds(){
-        
+    func GetCandidateTicketCount(){
         guard self.nodeId != nil else {
             self.showMessage(text: "nodeId is empty")
             return
         }
-        
         contract.GetCandidateTicketCount(nodeIds: [self.nodeId!]) { (result, data) in
             switch result{
-                
             case .success:
                 if let tickets = data as? String{
-                    self.showMessage(text: "GetBatchCandidateTicketIds :" + tickets)
+                    self.showMessage(text: "GetCandidateTicketCount :" + tickets)
                 }
             case .fail(let code, let errMsg):
                 let text = "error code:\(code ?? 0) errMsg:\(errMsg ?? "")"
