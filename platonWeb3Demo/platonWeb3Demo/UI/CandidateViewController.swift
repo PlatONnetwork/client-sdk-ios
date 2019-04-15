@@ -287,9 +287,9 @@ class CandidateViewController: BaseTableViewController {
     }
     
     func GetCandidateDetails(){
-       var nodes = "0xe4556b211eb6712ab94d743990d995c0d3cd15e9d78ec0096bba24c48d34f9f79a52ca1f835cec589c5e7daff30620871ba37d6f5f722678af4b2554a24dd75c"
-        nodes = nodes + ":"
-        nodes = nodes + "0x97e424be5e58bfd4533303f8f515211599fd4ffe208646f7bfdf27885e50b6dd85d957587180988e76ae77b4b6563820a27b16885419e5ba6f575f19f6cb36b0"
+       var nodes = "114e48f21d4d83ec9ac39a62062a804a0566742d80b191de5ba23a4dc25f7beda0e78dd169352a7ad3b11584d06a01a09ce047ad88de9bdcb63885e81de00a4d"
+        //nodes = nodes + ":"
+        //nodes = nodes + "0x97e424be5e58bfd4533303f8f515211599fd4ffe208646f7bfdf27885e50b6dd85d957587180988e76ae77b4b6563820a27b16885419e5ba6f575f19f6cb36b0"
         self.showLoading()
         contract.GetCandidateDetails(batchNodeIds: nodes) { (result, data) in
             switch result{

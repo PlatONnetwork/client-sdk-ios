@@ -10,11 +10,11 @@ import Foundation
 import BigInt
 
 
-class CandidateContract : Contract{
+open class CandidateContract : Contract{
     
     private var web3 : Web3
     
-    required init(web3: Web3) {
+    public required init(web3: Web3) {
         self.web3 = web3
     }
     
@@ -34,7 +34,7 @@ class CandidateContract : Contract{
                           completion: PlatonCommonCompletion?
                           ){
         
-        let fee_d = Data.newData(unsignedLong: 500, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
+        let fee_d = Data.newData(unsignedLong: fee, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
 
         let params = [
             nodeId.data(using: .utf8)!,

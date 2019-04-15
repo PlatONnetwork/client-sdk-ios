@@ -8,11 +8,11 @@
 
 import Foundation
 
-class TicketContract: Contract{
+open class TicketContract: Contract{
     
     private var web3 : Web3
     
-    required init(web3: Web3) {
+    required public init(web3: Web3) {
         self.web3 = web3
     }
     
