@@ -10,17 +10,17 @@ import Foundation
 import BigInt
 
 
-public class CandidateContract : Contract{
+open class CandidateContract : Contract{
     
     private var web3 : Web3
     
-    required public init(web3: Web3) {
+    public required init(web3: Web3) {
         self.web3 = web3
     }
     
     private let contractAddress = "0x1000000000000000000000000000000000000001"
     
-    public func CandidateDeposit(nodeId: String,
+    func CandidateDeposit(nodeId: String,
                           owner: String,
                           fee: UInt64,
                           host: String,
@@ -34,7 +34,7 @@ public class CandidateContract : Contract{
                           completion: PlatonCommonCompletion?
                           ){
         
-        let fee_d = Data.newData(unsignedLong: 500, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
+        let fee_d = Data.newData(unsignedLong: fee, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
 
         let params = [
             nodeId.data(using: .utf8)!,
@@ -57,7 +57,7 @@ public class CandidateContract : Contract{
         
     }
     
-    public func CandidateApplyWithdraw(nodeId: String,
+    func CandidateApplyWithdraw(nodeId: String,
                                 withdraw: BigUInt,
                                 sender: String,
                                 privateKey: String,
@@ -82,7 +82,7 @@ public class CandidateContract : Contract{
         }
     }
     
-    public func CandidateWithdraw(nodeId: String,
+    func CandidateWithdraw(nodeId: String,
                            sender: String,
                            privateKey: String,
                            gasPrice: BigUInt,
