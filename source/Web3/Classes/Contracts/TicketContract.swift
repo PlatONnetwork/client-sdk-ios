@@ -16,9 +16,9 @@ open class TicketContract: Contract{
         self.web3 = web3
     }
     
-    private let contractAddress = "0x1000000000000000000000000000000000000002"
+    public let contractAddress = "0x1000000000000000000000000000000000000002"
     
-    func GetTicketPrice(completion: PlatonCommonCompletion?){
+    public func GetTicketPrice(completion: PlatonCommonCompletion?){
         
         var completion = completion
         let data = self.build_GetTicketPrice()
@@ -39,7 +39,7 @@ open class TicketContract: Contract{
     }
     
     
-    func GetPoolRemainder(completion: PlatonCommonCompletion?){
+    public func GetPoolRemainder(completion: PlatonCommonCompletion?){
         
         var completion = completion
         let data = build_GetPoolRemainder()
@@ -59,7 +59,7 @@ open class TicketContract: Contract{
         }
     }
     
-    func GetCandidateEpoch(candidateId: String, completion: PlatonCommonCompletion?) {
+    public func GetCandidateEpoch(candidateId: String, completion: PlatonCommonCompletion?) {
         
         var completion = completion
         
@@ -81,7 +81,7 @@ open class TicketContract: Contract{
         
     }
     
-    func GetTicketDetail(ticketId: String, completion: PlatonCommonCompletion?) {
+    public func GetTicketDetail(ticketId: String, completion: PlatonCommonCompletion?) {
         
         var completion = completion
         
@@ -104,7 +104,7 @@ open class TicketContract: Contract{
         
     }
     
-    func GetTicketCountByTxHash(ticketIds: [String], completion: PlatonCommonCompletion?){
+    public func GetTicketCountByTxHash(ticketIds: [String], completion: PlatonCommonCompletion?){
         var completion = completion
         let data = self.build_GetTicketCountByTxHash(ticketIds: ticketIds)
         web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
@@ -123,7 +123,7 @@ open class TicketContract: Contract{
         
     }
     
-    func GetCandidateTicketCount(nodeIds: [String], completion: PlatonCommonCompletion?){
+    public func GetCandidateTicketCount(nodeIds: [String], completion: PlatonCommonCompletion?){
         var completion = completion
         let data = self.build_GetCandidateTicketCount(nodeIds: nodeIds)
         
@@ -142,7 +142,7 @@ open class TicketContract: Contract{
         }
     }
     
-    func VoteTicket(count: UInt32, price: BigUInt, nodeId: String, sender: String, privateKey: String, gasPrice: BigUInt, gas: BigUInt, completion: PlatonCommonCompletion?){
+    public func VoteTicket(count: UInt32, price: BigUInt, nodeId: String, sender: String, privateKey: String, gasPrice: BigUInt, gas: BigUInt, completion: PlatonCommonCompletion?){
         var completion = completion
         let data = self.build_VoteTicket(count: count, price: price, nodeId: nodeId)
         
@@ -287,7 +287,7 @@ extension TicketContract{
         return tickets
     }
     
-    static func generateTicketId(txHash: Data, index: UInt32) -> String {
+    public static func generateTicketId(txHash: Data, index: UInt32) -> String {
         var data = txHash
         for c in String(index).unicodeScalars {
             data.append(UInt8(c.value))

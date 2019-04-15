@@ -18,9 +18,9 @@ open class CandidateContract : Contract{
         self.web3 = web3
     }
     
-    private let contractAddress = "0x1000000000000000000000000000000000000001"
+    public let contractAddress = "0x1000000000000000000000000000000000000001"
     
-    func CandidateDeposit(nodeId: String,
+    public func CandidateDeposit(nodeId: String,
                           owner: String,
                           fee: UInt64,
                           host: String,
@@ -57,7 +57,7 @@ open class CandidateContract : Contract{
         
     }
     
-    func CandidateApplyWithdraw(nodeId: String,
+    public func CandidateApplyWithdraw(nodeId: String,
                                 withdraw: BigUInt,
                                 sender: String,
                                 privateKey: String,
@@ -82,7 +82,7 @@ open class CandidateContract : Contract{
         }
     }
     
-    func CandidateWithdraw(nodeId: String,
+    public func CandidateWithdraw(nodeId: String,
                            sender: String,
                            privateKey: String,
                            gasPrice: BigUInt,
@@ -103,7 +103,7 @@ open class CandidateContract : Contract{
         }
     }
     
-    func SetCandidateExtra(nodeId: String,
+    public func SetCandidateExtra(nodeId: String,
                            extra: String,
                            sender: String,
                            privateKey: String,
@@ -125,7 +125,7 @@ open class CandidateContract : Contract{
     }
     
     
-    func GetCandidateWithdrawInfos(nodeId: String, completion: PlatonCommonCompletion?){
+    public func GetCandidateWithdrawInfos(nodeId: String, completion: PlatonCommonCompletion?){
         
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
@@ -145,7 +145,7 @@ open class CandidateContract : Contract{
         
     }
     
-    func CandidateDetails(nodeId: String,completion: PlatonCommonCompletion?){
+    public func CandidateDetails(nodeId: String,completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
@@ -163,7 +163,7 @@ open class CandidateContract : Contract{
         }
     }
     
-    func GetCandidateDetails(batchNodeIds: String,completion: PlatonCommonCompletion?){
+    public func GetCandidateDetails(batchNodeIds: String,completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
@@ -181,7 +181,7 @@ open class CandidateContract : Contract{
         }
     }
     
-    func GetCandidateList(completion: PlatonCommonCompletion?){
+    public func GetCandidateList(completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
@@ -199,7 +199,7 @@ open class CandidateContract : Contract{
         }
     }
     
-    func GetVerifiersList(completion: PlatonCommonCompletion?){
+    public func GetVerifiersList(completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
