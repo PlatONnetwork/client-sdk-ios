@@ -10,17 +10,17 @@ import Foundation
 import BigInt
 
 
-class CandidateContract : Contract{
+public class CandidateContract : Contract{
     
     private var web3 : Web3
     
-    required init(web3: Web3) {
+    required public init(web3: Web3) {
         self.web3 = web3
     }
     
     private let contractAddress = "0x1000000000000000000000000000000000000001"
     
-    func CandidateDeposit(nodeId: String,
+    public func CandidateDeposit(nodeId: String,
                           owner: String,
                           fee: UInt64,
                           host: String,
@@ -57,7 +57,7 @@ class CandidateContract : Contract{
         
     }
     
-    func CandidateApplyWithdraw(nodeId: String,
+    public func CandidateApplyWithdraw(nodeId: String,
                                 withdraw: BigUInt,
                                 sender: String,
                                 privateKey: String,
@@ -82,7 +82,7 @@ class CandidateContract : Contract{
         }
     }
     
-    func CandidateWithdraw(nodeId: String,
+    public func CandidateWithdraw(nodeId: String,
                            sender: String,
                            privateKey: String,
                            gasPrice: BigUInt,

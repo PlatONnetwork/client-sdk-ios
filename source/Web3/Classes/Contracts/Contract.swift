@@ -9,7 +9,7 @@
 import Foundation
 import Localize_Swift
 
-class Contract {
+public class Contract {
     
     func timeOutCompletionOnMainThread(completion: inout PlatonCommonCompletion?){
         if Thread.current == Thread.main{
