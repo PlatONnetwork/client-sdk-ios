@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "platonWeb3Demo/platonWeb3Demo/AppDelegate.swift"
-            timestampString = "568707614.905664"
+            filePath = "platonWeb3Demo/UI/VoteViewController.swift"
+            timestampString = "576419042.9289089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "GetCandidateTicketCount()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
