@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A255D7E899C2279DBB08C64 /* Pods_platonWeb3DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF182C070A2F272D0AFF2F4 /* Pods_platonWeb3DemoTests.framework */; };
 		812D4B5A21F6E7C300053C42 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D4B5921F6E7C300053C42 /* VoteViewController.swift */; };
 		8141DDB321E5C36600F803DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DDB221E5C36600F803DA /* AppDelegate.swift */; };
 		8141DDB521E5C36600F803DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DDB421E5C36600F803DA /* ViewController.swift */; };
@@ -133,6 +134,8 @@
 
 /* Begin PBXFileReference section */
 		0BC329738C1983A4FF1254B4 /* Pods-platonWeb3DemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoUITests/Pods-platonWeb3DemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1E30D386226C21329FC394BD /* Pods-platonWeb3DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoTests/Pods-platonWeb3DemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		47A4E689F87CAD2711011958 /* Pods-platonWeb3DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoTests/Pods-platonWeb3DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6DC32B1E064729AAD9B74992 /* Pods-platonWeb3Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3Demo/Pods-platonWeb3Demo.release.xcconfig"; sourceTree = "<group>"; };
 		812D4B5921F6E7C300053C42 /* VoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
 		8141DDAF21E5C36600F803DA /* platonWeb3Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = platonWeb3Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,6 +236,7 @@
 		9A24303C225B36C4007A886C /* Web3ResponseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3ResponseHelper.swift; sourceTree = "<group>"; };
 		9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C2D1A01CDA4F71E53689CA /* Pods-platonWeb3DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoUITests/Pods-platonWeb3DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		ABF182C070A2F272D0AFF2F4 /* Pods_platonWeb3DemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3DemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5F8F4002A0DD861594D32C /* Pods-platonWeb3Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3Demo/Pods-platonWeb3Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		CEB9103C53618EC9C119E1BF /* Pods_platonWeb3Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -258,6 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A255D7E899C2279DBB08C64 /* Pods_platonWeb3DemoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +276,8 @@
 				6DC32B1E064729AAD9B74992 /* Pods-platonWeb3Demo.release.xcconfig */,
 				0BC329738C1983A4FF1254B4 /* Pods-platonWeb3DemoUITests.debug.xcconfig */,
 				A7C2D1A01CDA4F71E53689CA /* Pods-platonWeb3DemoUITests.release.xcconfig */,
+				47A4E689F87CAD2711011958 /* Pods-platonWeb3DemoTests.debug.xcconfig */,
+				1E30D386226C21329FC394BD /* Pods-platonWeb3DemoTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -328,6 +335,7 @@
 				8141DDDF21E5C9F400F803DA /* platonWeb3.framework */,
 				CEB9103C53618EC9C119E1BF /* Pods_platonWeb3Demo.framework */,
 				9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */,
+				ABF182C070A2F272D0AFF2F4 /* Pods_platonWeb3DemoTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -604,6 +612,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8192E8D422656CBB00A8EB40 /* Build configuration list for PBXNativeTarget "platonWeb3DemoTests" */;
 			buildPhases = (
+				CC4884A276DF78207C79CA72 /* [CP] Check Pods Manifest.lock */,
 				8192E8C922656CBB00A8EB40 /* Sources */,
 				8192E8CA22656CBB00A8EB40 /* Frameworks */,
 				8192E8CB22656CBB00A8EB40 /* Resources */,
@@ -738,6 +747,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-platonWeb3Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC4884A276DF78207C79CA72 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-platonWeb3DemoTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1112,6 +1143,7 @@
 		};
 		8192E8D522656CBB00A8EB40 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47A4E689F87CAD2711011958 /* Pods-platonWeb3DemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1133,6 +1165,7 @@
 		};
 		8192E8D622656CBB00A8EB40 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E30D386226C21329FC394BD /* Pods-platonWeb3DemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

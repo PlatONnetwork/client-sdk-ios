@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "76A09AF65442095303C5F208A524E123"
+               BlueprintIdentifier = "9CBA00ECB659A0DE76E162D62B097B31"
                BuildableName = "Localize_Swift.framework"
                BlueprintName = "Localize-Swift"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "76A09AF65442095303C5F208A524E123"
+            BlueprintIdentifier = "9CBA00ECB659A0DE76E162D62B097B31"
             BuildableName = "Localize_Swift.framework"
             BlueprintName = "Localize-Swift"
             ReferencedContainer = "container:Pods.xcodeproj">
