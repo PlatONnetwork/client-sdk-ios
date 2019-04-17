@@ -14,7 +14,6 @@
 		8141DDB821E5C36600F803DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8141DDB621E5C36600F803DA /* Main.storyboard */; };
 		8141DDBA21E5C36800F803DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8141DDB921E5C36800F803DA /* Assets.xcassets */; };
 		8141DDBD21E5C36800F803DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8141DDBB21E5C36800F803DA /* LaunchScreen.storyboard */; };
-		8141DDC821E5C36800F803DA /* platonWeb3DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DDC721E5C36800F803DA /* platonWeb3DemoUITests.swift */; };
 		8141DF1821E5CB1900F803DA /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8141DF1721E5CB1800F803DA /* assets */; };
 		8141DF1B21E5D2B900F803DA /* FirstDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF1A21E5D2B900F803DA /* FirstDemoViewController.swift */; };
 		8141DF1D21E5D2C600F803DA /* CandidateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF1C21E5D2C600F803DA /* CandidateViewController.swift */; };
@@ -23,7 +22,6 @@
 		8192E8D822656CF800A8EB40 /* platonWeb3DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192E8D722656CF800A8EB40 /* platonWeb3DemoTests.swift */; };
 		81AC35A721F8460D0054E917 /* ViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC35A621F8460D0054E917 /* ViewController+extension.swift */; };
 		81AC35A921F84DBF0054E917 /* UIBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC35A821F84DBF0054E917 /* UIBaseViewController.swift */; };
-		9570941F1ADCA6FFD66D88D6 /* Pods_platonWeb3DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */; };
 		9A24303D225B36C4007A886C /* Web3+completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A242FE5225B36C4007A886C /* Web3+completion.swift */; };
 		9A24303E225B36C4007A886C /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A242FE8225B36C4007A886C /* EthereumPublicKey.swift */; };
 		9A24303F225B36C4007A886C /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A242FE9225B36C4007A886C /* EthereumAddress.swift */; };
@@ -103,13 +101,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8141DDC421E5C36800F803DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8141DDA721E5C36600F803DA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8141DDAE21E5C36600F803DA;
-			remoteInfo = platonWeb3Demo;
-		};
 		8192E8D222656CBB00A8EB40 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8141DDA721E5C36600F803DA /* Project object */;
@@ -145,9 +136,6 @@
 		8141DDB921E5C36800F803DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8141DDBC21E5C36800F803DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8141DDBE21E5C36800F803DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8141DDC321E5C36800F803DA /* platonWeb3DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = platonWeb3DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8141DDC721E5C36800F803DA /* platonWeb3DemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = platonWeb3DemoUITests.swift; sourceTree = "<group>"; };
-		8141DDC921E5C36800F803DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8141DDDF21E5C9F400F803DA /* platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8141DF1721E5CB1800F803DA /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		8141DF1A21E5D2B900F803DA /* FirstDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDemoViewController.swift; sourceTree = "<group>"; };
@@ -250,14 +238,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8141DDC021E5C36800F803DA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9570941F1ADCA6FFD66D88D6 /* Pods_platonWeb3DemoUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8192E8CA22656CBB00A8EB40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				8141DDB121E5C36600F803DA /* platonWeb3Demo */,
-				8141DDC621E5C36800F803DA /* platonWeb3DemoUITests */,
 				8192E8CE22656CBB00A8EB40 /* platonWeb3DemoTests */,
 				8141DDB021E5C36600F803DA /* Products */,
 				8141DDDE21E5C9F400F803DA /* Frameworks */,
@@ -298,7 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				8141DDAF21E5C36600F803DA /* platonWeb3Demo.app */,
-				8141DDC321E5C36800F803DA /* platonWeb3DemoUITests.xctest */,
 				8192E8CD22656CBB00A8EB40 /* platonWeb3DemoTests.xctest */,
 			);
 			name = Products;
@@ -318,15 +296,6 @@
 				8141DDBE21E5C36800F803DA /* Info.plist */,
 			);
 			path = platonWeb3Demo;
-			sourceTree = "<group>";
-		};
-		8141DDC621E5C36800F803DA /* platonWeb3DemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8141DDC721E5C36800F803DA /* platonWeb3DemoUITests.swift */,
-				8141DDC921E5C36800F803DA /* Info.plist */,
-			);
-			path = platonWeb3DemoUITests;
 			sourceTree = "<group>";
 		};
 		8141DDDE21E5C9F400F803DA /* Frameworks */ = {
@@ -589,25 +558,6 @@
 			productReference = 8141DDAF21E5C36600F803DA /* platonWeb3Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8141DDC221E5C36800F803DA /* platonWeb3DemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8141DDCF21E5C36800F803DA /* Build configuration list for PBXNativeTarget "platonWeb3DemoUITests" */;
-			buildPhases = (
-				DCEABDCEDBD6937EE45E8AB4 /* [CP] Check Pods Manifest.lock */,
-				8141DDBF21E5C36800F803DA /* Sources */,
-				8141DDC021E5C36800F803DA /* Frameworks */,
-				8141DDC121E5C36800F803DA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8141DDC521E5C36800F803DA /* PBXTargetDependency */,
-			);
-			name = platonWeb3DemoUITests;
-			productName = platonWeb3DemoUITests;
-			productReference = 8141DDC321E5C36800F803DA /* platonWeb3DemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		8192E8CC22656CBB00A8EB40 /* platonWeb3DemoTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8192E8D422656CBB00A8EB40 /* Build configuration list for PBXNativeTarget "platonWeb3DemoTests" */;
@@ -640,10 +590,6 @@
 					8141DDAE21E5C36600F803DA = {
 						CreatedOnToolsVersion = 10.0;
 					};
-					8141DDC221E5C36800F803DA = {
-						CreatedOnToolsVersion = 10.0;
-						TestTargetID = 8141DDAE21E5C36600F803DA;
-					};
 					8192E8CC22656CBB00A8EB40 = {
 						CreatedOnToolsVersion = 10.1;
 						TestTargetID = 8141DDAE21E5C36600F803DA;
@@ -664,7 +610,6 @@
 			projectRoot = "";
 			targets = (
 				8141DDAE21E5C36600F803DA /* platonWeb3Demo */,
-				8141DDC221E5C36800F803DA /* platonWeb3DemoUITests */,
 				8192E8CC22656CBB00A8EB40 /* platonWeb3DemoTests */,
 			);
 		};
@@ -679,13 +624,6 @@
 				8141DF1821E5CB1900F803DA /* assets in Resources */,
 				8141DDBA21E5C36800F803DA /* Assets.xcassets in Resources */,
 				8141DDB821E5C36600F803DA /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8141DDC121E5C36800F803DA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,28 +707,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-platonWeb3DemoTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DCEABDCEDBD6937EE45E8AB4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-platonWeb3DemoUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -891,14 +807,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8141DDBF21E5C36800F803DA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8141DDC821E5C36800F803DA /* platonWeb3DemoUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8192E8C922656CBB00A8EB40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -910,11 +818,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8141DDC521E5C36800F803DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8141DDAE21E5C36600F803DA /* platonWeb3Demo */;
-			targetProxy = 8141DDC421E5C36800F803DA /* PBXContainerItemProxy */;
-		};
 		8192E8D322656CBB00A8EB40 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8141DDAE21E5C36600F803DA /* platonWeb3Demo */;
@@ -1099,48 +1002,6 @@
 			};
 			name = Release;
 		};
-		8141DDD021E5C36800F803DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BC329738C1983A4FF1254B4 /* Pods-platonWeb3DemoUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VB6ZNYSGTC;
-				INFOPLIST_FILE = platonWeb3DemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ju.platonWeb3DemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = platonWeb3Demo;
-			};
-			name = Debug;
-		};
-		8141DDD121E5C36800F803DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7C2D1A01CDA4F71E53689CA /* Pods-platonWeb3DemoUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VB6ZNYSGTC;
-				INFOPLIST_FILE = platonWeb3DemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ju.platonWeb3DemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = platonWeb3Demo;
-			};
-			name = Release;
-		};
 		8192E8D522656CBB00A8EB40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47A4E689F87CAD2711011958 /* Pods-platonWeb3DemoTests.debug.xcconfig */;
@@ -1202,15 +1063,6 @@
 			buildConfigurations = (
 				8141DDCD21E5C36800F803DA /* Debug */,
 				8141DDCE21E5C36800F803DA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8141DDCF21E5C36800F803DA /* Build configuration list for PBXNativeTarget "platonWeb3DemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8141DDD021E5C36800F803DA /* Debug */,
-				8141DDD121E5C36800F803DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

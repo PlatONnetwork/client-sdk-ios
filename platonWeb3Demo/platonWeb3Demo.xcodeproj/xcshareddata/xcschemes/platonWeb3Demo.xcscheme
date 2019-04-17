@@ -32,16 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8141DDC221E5C36800F803DA"
-               BuildableName = "platonWeb3DemoUITests.xctest"
-               BlueprintName = "platonWeb3DemoUITests"
-               ReferencedContainer = "container:platonWeb3Demo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "8192E8CC22656CBB00A8EB40"
                BuildableName = "platonWeb3DemoTests.xctest"
                BlueprintName = "platonWeb3DemoTests"

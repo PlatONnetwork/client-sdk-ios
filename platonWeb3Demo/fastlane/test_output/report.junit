@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='platonWeb3DemoTests.xctest' tests='17' failures='0'>
+  <testsuite name='platonWeb3DemoTests.platonWeb3DemoTests' tests='17' failures='0'>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='test1' time='0.007'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testCandidateDeposit' time='0.171'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testExample' time='0.046'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetCandidateDetails' time='0.164'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetCandidateEpoch' time='0.184'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetCandidateList' time='0.048'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetCandidateTicketCount' time='0.197'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetCandidateWithdrawInfos' time='0.202'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetPoolRemainder' time='0.144'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetTicketCountByTxHash' time='0.058'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetTicketPrice' time='0.029'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testGetVerifiersList' time='0.136'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testPlatonCall' time='0.091'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testPlatonDeployContract' time='1.780'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testPlatonGetTransactionReceipt' time='0.150'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testPlatonSendRawTransaction' time='0.405'/>
+    <testcase classname='platonWeb3DemoTests.platonWeb3DemoTests' name='testSetCandidateExtra' time='0.554'/>
+  </testsuite>
+</testsuites>

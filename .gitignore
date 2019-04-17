@@ -65,10 +65,10 @@ Carthage/Build
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-platonWeb3Demo/fastlane/report.xml
-platonWeb3Demo/fastlane/Preview.html
-platonWeb3Demo/fastlane/screenshots/**/*.png
-platonWeb3Demo/fastlane/test_output
+# platonWeb3Demo/fastlane/report.xml
+# platonWeb3Demo/fastlane/Preview.html
+# platonWeb3Demo/fastlane/screenshots/**/*.png
+# platonWeb3Demo/fastlane/test_output
 
 # Code Injection
 #
