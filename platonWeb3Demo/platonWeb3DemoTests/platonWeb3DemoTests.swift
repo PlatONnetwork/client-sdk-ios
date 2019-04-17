@@ -217,26 +217,32 @@ class platonWeb3DemoTests: XCTestCase {
         let result1 = XCTWaiter.wait(for: [self.CandidateDepositExpection], timeout: 20)
         XCTAssertEqual(result1, XCTWaiter.Result.completed)
         
-//        let value = BigUInt("500")!
-//        let ownerPrivateKey = "a11859ce23effc663a9460e332ca09bd812acc390497f8dc7542b6938e13f8d7"
-//        cContract.CandidateApplyWithdraw(nodeId: nodeId,withdraw: value,sender: owner,privateKey: ownerPrivateKey,gasPrice: gasPrice,gas: gas,value: BigUInt(0)) { (result, data) in
-//            switch result{
-//            case .success:
-//                print("CandidateApplyWithdraw success")
-//                if let data = data as? Data{
-//                    print(data.toHexString())
-//                }else{
-//                    print("CandidateApplyWithdraw empty transaction hash")
-//                }
-//                self.CandidateApplyWithdrawExpection.fulfill()
-//            case .fail(_, let errorMsg):
-//                XCTAssertNil(errorMsg, errorMsg!)
-//                self.CandidateApplyWithdrawExpection.fulfill()
-//            }
-//        }
-//        let result2 = XCTWaiter.wait(for: [self.CandidateApplyWithdrawExpection], timeout: 20)
-//        XCTAssertEqual(result2, XCTWaiter.Result.completed)
         
+    }
+    
+    func testCandidateApplyWithdraw() {
+        //退款金额, 单位 wei
+        let sender_1 = "0xc82bee7CD0AeAE05f098013bb976Cd5f4DF831AA"
+        let privateKey_1 = "6f0e1cbe07af716c96094dd5f5d18d875becdb7d5b9407ef196aeb31484ce2ee"
+        let value = BigUInt("500")!
+        cContract.CandidateApplyWithdraw(nodeId: nodeId,withdraw: value,sender: sender_1,privateKey: privateKey_1,gasPrice: gasPrice,gas: gas,value: BigUInt(0)) { (result, data) in
+            switch result{
+            case .success:
+                print("CandidateApplyWithdraw success")
+                if let data = data as? Data{
+                    print(data.toHexString())
+                }else{
+                    print("CandidateApplyWithdraw empty transaction hash")
+                }
+                self.CandidateApplyWithdrawExpection.fulfill()
+            case .fail(_, let errorMsg):
+                XCTAssertNil(errorMsg, errorMsg!)
+                self.CandidateApplyWithdrawExpection.fulfill()
+            }
+        }
+        let result2 = XCTWaiter.wait(for: [self.CandidateApplyWithdrawExpection], timeout: 20)
+        XCTAssertEqual(result2, XCTWaiter.Result.completed)
+
 //        cContract.CandidateWithdraw(nodeId: nodeId,sender: sender,privateKey: privateKey,gasPrice: gasPrice,gas: gas,value: nil) { (result, data) in
 //            switch result{
 //            case .success:
@@ -254,59 +260,29 @@ class platonWeb3DemoTests: XCTestCase {
 //        }
 //        let result3 = XCTWaiter.wait(for: [self.CandidateWithdrawExpection], timeout: 20)
 //        XCTAssertEqual(result3, XCTWaiter.Result.completed)
-        
-//        let expection = expectation(description: "SetCandidateExtra")
-//
-//        var extra1 : Dictionary<String,String> = [:]
-//        extra1["nodeName"] = "xxxx-noedeName"
-//        extra1["nodePortrait"] = "group2/M00/00/12/wKgJVlw0XSyAY78cAAH3BKJzz9Y83.jpeg"
-//        extra1["nodeDiscription"] = "xxxx-nodeDiscription1"
-//        extra1["nodeDepartment"] = "xxxx-nodeDepartment"
-//        extra1["officialWebsite"] = "xxxx-officialWebsite"
-//
-//        var theJSONText1 : String = ""
-//        if let theJSONData = try? JSONSerialization.data(withJSONObject: extra,options: []) {
-//            theJSONText1 = String(data: theJSONData,
-//                                 encoding: .utf8)!
-//        }
-//
-//        cContract.SetCandidateExtra(nodeId: nodeId, extra: theJSONText1, sender: owner, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: nil) { (result, data) in
-//            switch result{
-//            case .success:
-//                expection.fulfill()
-//            case .fail(_, let errorMsg):
-//                XCTAssertNil(errorMsg, errorMsg!)
-//                expection.fulfill()
-//            }
-//        }
-//        let result4 = XCTWaiter.wait(for: [expection], timeout: 20)
-//        XCTAssertEqual(result4, XCTWaiter.Result.completed)
     }
-    
-//    func testCandidateApplyWithdraw() {
-//        //退款金额, 单位 wei
-//
-//    }
-//
-//    func testCandidateWithdraw() {
-//        cContract.CandidateWithdraw(nodeId: nodeId,sender: sender,privateKey: privateKey,gasPrice: gasPrice,gas: gas,value: nil) { (result, data) in
-//            switch result{
-//            case .success:
-//                print("send Transaction success")
-//                if let data = data as? Data{
-//                    print(data.toHexString())
-//                }else{
-//                    print("CandidateWithdraw empty transaction hash")
-//                }
-//                self.CandidateWithdrawExpection.fulfill()
-//            case .fail(_, let errorMsg):
-//                XCTAssertNil(errorMsg, errorMsg!)
-//                self.CandidateWithdrawExpection.fulfill()
-//            }
-//        }
-//        let result = XCTWaiter.wait(for: [CandidateWithdrawExpection], timeout: 20)
-//        XCTAssertEqual(result, .completed)
-//    }
+
+    func testCandidateWithdraw() {
+        let sender_3 = "0xdC8B6Fa7B75f99580e59D5DF4600f1e2AF6a0078"
+        let privateKey_3 = "62f947e5df36b82bc828167617b6e5cb67003da7bc8e297aa5aa65bfea15325d"
+        cContract.CandidateWithdraw(nodeId: nodeId,sender: sender_3,privateKey: privateKey_3,gasPrice: gasPrice,gas: gas,value: nil) { (result, data) in
+            switch result{
+            case .success:
+                print("send Transaction success")
+                if let data = data as? Data{
+                    print(data.toHexString())
+                }else{
+                    print("CandidateWithdraw empty transaction hash")
+                }
+                self.CandidateWithdrawExpection.fulfill()
+            case .fail(_, let errorMsg):
+                XCTAssertNil(errorMsg, errorMsg!)
+                self.CandidateWithdrawExpection.fulfill()
+            }
+        }
+        let result = XCTWaiter.wait(for: [CandidateWithdrawExpection], timeout: 20)
+        XCTAssertEqual(result, .completed)
+    }
 
     //测试节点附加信息
     func testSetCandidateExtra() {
