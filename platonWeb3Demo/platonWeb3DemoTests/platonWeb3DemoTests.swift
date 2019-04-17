@@ -101,8 +101,8 @@ class platonWeb3DemoTests: XCTestCase {
     // 部署合约测试
     func testPlatonDeployContract() {
         let expection = expectation(description: "deploy contract")
-        let sender_1 = "0xc82bee7CD0AeAE05f098013bb976Cd5f4DF831AA"
-        let privateKey_1 = "6f0e1cbe07af716c96094dd5f5d18d875becdb7d5b9407ef196aeb31484ce2ee"
+        let sender_1 = "0xC586573734D551AC4e6ce73FE0d366EeE47E0499"
+        let privateKey_1 = "95cf249cfe2d773244285644b879630ce22e057874e4437436c4eee8272f614c"
         
         web3.eth.platonDeployContract(abi: self.tgetABI()!, bin: self.tgetBIN()!, sender: sender_1, privateKey: privateKey_1, gasPrice: gasPrice, gas: gas, estimateGas: false, waitForTransactionReceipt: true, timeout: 20, completion:{
             (result,hash,contractAddress,receipt) in
