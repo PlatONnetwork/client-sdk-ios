@@ -9,9 +9,9 @@
 import Foundation
 import Localize_Swift
 
-class Contract {
+open class Contract {
     
-    func timeOutCompletionOnMainThread(completion: inout PlatonCommonCompletion?){
+    public func timeOutCompletionOnMainThread(completion: inout PlatonCommonCompletion?){
         if Thread.current == Thread.main{
             completion?(PlatonCommonResult.fail(-1, Localized("Request_timeout")),nil)
             completion = nil
@@ -30,7 +30,7 @@ class Contract {
         
     }
     
-    func failCompletionOnMainThread(code: Int, errorMsg: String, completion: inout PlatonCommonCompletion?){
+    public func failCompletionOnMainThread(code: Int, errorMsg: String, completion: inout PlatonCommonCompletion?){
         if Thread.current == Thread.main{
             completion?(PlatonCommonResult.fail(code, errorMsg),nil)
             completion = nil
@@ -51,7 +51,7 @@ class Contract {
     }
     
     
-    func failWithEmptyResponseCompletionOnMainThread(completion: inout PlatonCommonCompletion?){
+    public func failWithEmptyResponseCompletionOnMainThread(completion: inout PlatonCommonCompletion?){
         if Thread.current == Thread.main{
             completion?(PlatonCommonResult.fail(-1, Localized("RPC_Response_empty")),nil)
             completion = nil
@@ -70,7 +70,7 @@ class Contract {
         
     }
     
-    func successCompletionOnMain(obj : AnyObject?,completion: inout PlatonCommonCompletion?){
+    public func successCompletionOnMain(obj : AnyObject?,completion: inout PlatonCommonCompletion?){
         if Thread.current == Thread.main{
             completion?(PlatonCommonResult.success,obj)
             completion = nil

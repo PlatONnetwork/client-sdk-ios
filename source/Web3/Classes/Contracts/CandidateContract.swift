@@ -10,17 +10,17 @@ import Foundation
 import BigInt
 
 
-class CandidateContract : Contract{
+open class CandidateContract : Contract{
     
     private var web3 : Web3
     
-    required init(web3: Web3) {
+    public required init(web3: Web3) {
         self.web3 = web3
     }
     
-    private let contractAddress = "0x1000000000000000000000000000000000000001"
+    public let contractAddress = "0x1000000000000000000000000000000000000001"
     
-    func CandidateDeposit(nodeId: String,
+    public func CandidateDeposit(nodeId: String,
                           owner: String,
                           fee: UInt64,
                           host: String,
@@ -34,7 +34,7 @@ class CandidateContract : Contract{
                           completion: PlatonCommonCompletion?
                           ){
         
-        let fee_d = Data.newData(unsignedLong: 500, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
+        let fee_d = Data.newData(unsignedLong: fee, bigEndian: true) //出块奖励佣金比，以10000为基数(eg：5%，则fee=500)
 
         let params = [
             nodeId.data(using: .utf8)!,
@@ -57,7 +57,7 @@ class CandidateContract : Contract{
         
     }
     
-    func CandidateApplyWithdraw(nodeId: String,
+    public func CandidateApplyWithdraw(nodeId: String,
                                 withdraw: BigUInt,
                                 sender: String,
                                 privateKey: String,
@@ -82,7 +82,7 @@ class CandidateContract : Contract{
         }
     }
     
-    func CandidateWithdraw(nodeId: String,
+    public func CandidateWithdraw(nodeId: String,
                            sender: String,
                            privateKey: String,
                            gasPrice: BigUInt,
@@ -103,7 +103,7 @@ class CandidateContract : Contract{
         }
     }
     
-    func SetCandidateExtra(nodeId: String,
+    public func SetCandidateExtra(nodeId: String,
                            extra: String,
                            sender: String,
                            privateKey: String,
@@ -125,12 +125,12 @@ class CandidateContract : Contract{
     }
     
     
-    func CandidateWithdrawInfos(nodeId: String, completion: PlatonCommonCompletion?){
+    public func GetCandidateWithdrawInfos(nodeId: String, completion: PlatonCommonCompletion?){
         
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateWithdrawInfos", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateWithdrawInfos", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -145,7 +145,7 @@ class CandidateContract : Contract{
         
     }
     
-    func CandidateDetails(nodeId: String,completion: PlatonCommonCompletion?){
+    public func CandidateDetails(nodeId: String,completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
@@ -163,11 +163,11 @@ class CandidateContract : Contract{
         }
     }
     
-    func GetBatchCandidateDetail(batchNodeIds: String,completion: PlatonCommonCompletion?){
+    public func GetCandidateDetails(batchNodeIds: String,completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetBatchCandidateDetail", from: nil, params: [batchNodeIds.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateDetails", from: nil, params: [batchNodeIds.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -181,11 +181,11 @@ class CandidateContract : Contract{
         }
     }
     
-    func CandidateList(completion: PlatonCommonCompletion?){
+    public func GetCandidateList(completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateList", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -199,11 +199,11 @@ class CandidateContract : Contract{
         }
     }
     
-    func VerifiersList(completion: PlatonCommonCompletion?){
+    public func GetVerifiersList(completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "VerifiersList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetVerifiersList", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{

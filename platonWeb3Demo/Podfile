@@ -15,5 +15,10 @@ target 'platonWeb3Demo' do
     inherit! :search_paths
     # Pods for testing
   end
+  
+  target 'platonWeb3DemoTests' do
+      inherit! :search_paths
+      # Pods for testing
+  end
 
 end

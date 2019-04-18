@@ -30,16 +30,14 @@ class CandidateViewController: BaseTableViewController {
         case 3:
             self.SetCandidateExtra()
         case 4:
-            self.CandidateWithdrawInfos()
+            self.GetCandidateWithdrawInfos()
         case 5:
-            self.CandidateDetails()
+            self.GetCandidateDetails()
         case 6:
-            self.GetBatchCandidateDetail()
+            self.GetCandidateList()
         case 7:
-            self.CandidateList()
+            self.GetVerifiersList()
         case 8:
-            self.VerifiersList()
-        case 9:
             do{}
         default:
             do{}
@@ -78,6 +76,11 @@ class CandidateViewController: BaseTableViewController {
                 if let data = data as? Data{
                     web3.eth.platonGetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
                         if let receipt = receipt as? EthereumTransactionReceiptObject{
+                            guard receipt.logs.count > 0 else{
+                                let message = "ERROR:receipt.logs count is zero"
+                                self.showMessage(text: message)
+                                return
+                            }
                             if String((receipt.status?.quantity)!) == "1"{
                                 let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
                                 if (rlpItem?.array?.count)! > 0{
@@ -247,9 +250,9 @@ class CandidateViewController: BaseTableViewController {
         }
     }
     
-    func CandidateWithdrawInfos() {
+    func GetCandidateWithdrawInfos() {
         self.showLoading()
-        contract.CandidateWithdrawInfos(nodeId: "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3") { (result, data) in
+        contract.GetCandidateWithdrawInfos(nodeId: "0x97e424be5e58bfd4533303f8f515211599fd4ffe208646f7bfdf27885e50b6dd85d957587180988e76ae77b4b6563820a27b16885419e5ba6f575f19f6cb36b0") { (result, data) in
             switch result{
             case .success:
                 if let data = data as? String{
@@ -267,7 +270,7 @@ class CandidateViewController: BaseTableViewController {
     
     func CandidateDetails(){
         self.showLoading()
-        contract.CandidateDetails(nodeId: "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3") { (result, data) in
+        contract.CandidateDetails(nodeId: "0xe4556b211eb6712ab94d743990d995c0d3cd15e9d78ec0096bba24c48d34f9f79a52ca1f835cec589c5e7daff30620871ba37d6f5f722678af4b2554a24dd75c") { (result, data) in
             switch result{
             case .success:
                 if let data = data as? String{
@@ -283,12 +286,12 @@ class CandidateViewController: BaseTableViewController {
         }
     }
     
-    func GetBatchCandidateDetail(){
-       var nodes = "0x6bad331aa2ec6096b2b6034570e1761d687575b38c3afc3a3b5f892dac4c86d0fc59ead0f0933ae041c0b6b43a7261f1529bad5189be4fba343875548dc9efd3"
-        nodes = nodes + ":"
-        nodes = nodes + "0xc0e69057ec222ab257f68ca79d0e74fdb720261bcdbdfa83502d509a5ad032b29d57c6273f1c62f51d689644b4d446064a7c8279ff9abd01fa846a3555395535"
+    func GetCandidateDetails(){
+       var nodes = "114e48f21d4d83ec9ac39a62062a804a0566742d80b191de5ba23a4dc25f7beda0e78dd169352a7ad3b11584d06a01a09ce047ad88de9bdcb63885e81de00a4d"
+        //nodes = nodes + ":"
+        //nodes = nodes + "0x97e424be5e58bfd4533303f8f515211599fd4ffe208646f7bfdf27885e50b6dd85d957587180988e76ae77b4b6563820a27b16885419e5ba6f575f19f6cb36b0"
         self.showLoading()
-        contract.GetBatchCandidateDetail(batchNodeIds: nodes) { (result, data) in
+        contract.GetCandidateDetails(batchNodeIds: nodes) { (result, data) in
             switch result{
             case .success:
                 if let data = data as? String{
@@ -305,9 +308,9 @@ class CandidateViewController: BaseTableViewController {
     }
     
     
-    func CandidateList(){
+    func GetCandidateList(){
         self.showLoading()
-        contract.CandidateList { (result, data) in
+        contract.GetCandidateList { (result, data) in
             switch result{
             case .success:
                 if let data = data as? String{
@@ -323,9 +326,9 @@ class CandidateViewController: BaseTableViewController {
         }
     }
     
-    func VerifiersList(){
+    func GetVerifiersList(){
         self.showLoading()
-        contract.VerifiersList { (result, data) in
+        contract.GetVerifiersList { (result, data) in
             switch result{
             case .success:
                 if let data = data as? String{
