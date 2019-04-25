@@ -9,10 +9,16 @@ target 'platonWeb3Demo' do
   pod 'CryptoSwift', '~> 0.8'
   pod 'secp256k1.swift', '~> 0.1'
   pod 'Localize-Swift', '~> 2.0'
+  pod 'SVProgressHUD'
 
   target 'platonWeb3DemoUITests' do
     inherit! :search_paths
     # Pods for testing
+  end
+  
+  target 'platonWeb3DemoTests' do
+      inherit! :search_paths
+      # Pods for testing
   end
 
 end
