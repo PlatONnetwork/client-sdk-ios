@@ -8,7 +8,7 @@
 
 
 ```
-pod 'platonWeb3', '~> 0.4.0'
+pod 'platonWeb3', '~> 0.6.0'
 ```
 
 
