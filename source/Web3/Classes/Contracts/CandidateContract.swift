@@ -145,24 +145,6 @@ open class CandidateContract : Contract{
         
     }
     
-    public func CandidateDetails(nodeId: String,completion: PlatonCommonCompletion?){
-        var completion = completion
-        let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
-        
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "CandidateDetails", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
-            switch result{
-            case .success:
-                if let dic = data as? Dictionary<String, String>{
-                    self.successCompletionOnMain(obj: dic["whateverkey"] as AnyObject, completion: &completion)
-                }else{
-                    self.successCompletionOnMain(obj: "" as AnyObject, completion: &completion)
-                }
-            case .fail(let code, let errorMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errorMsg!, completion: &completion)
-            }
-        }
-    }
-    
     public func GetCandidateDetails(batchNodeIds: String,completion: PlatonCommonCompletion?){
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)

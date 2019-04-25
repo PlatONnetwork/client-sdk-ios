@@ -126,7 +126,7 @@ class VoteViewController: BaseTableViewController {
             }
         }
     }
-    
+     
     func GetTicketCountByTxHash(){
         guard self.txHashs.count > 0 else {
             self.showMessage(text: "txHashs count is 0, vote for candidate first!")
