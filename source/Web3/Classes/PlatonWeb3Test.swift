@@ -8,7 +8,7 @@
 
 import Foundation
 
-let platonWeb3 = Web3(rpcURL: "http://192.168.7.184:8545")
+let platonWeb3 = Web3(rpcURL: "http://10.10.8.21:6789")
 
 class PlatonWeb3Test {
     
@@ -130,25 +130,6 @@ class PlatonWeb3Test {
             }
         }
         
-        let uncleIndex = EthereumQuantity(quantity: BigUInt("1")!)
-        platonWeb3.eth.getUncleByBlockNumberAndIndex(block: .latest, uncleIndex: uncleIndex) { (result) in
-            switch result.status{
-            case .success(_):
-                do{}
-            case .failure(_):
-                do{}
-            }
-        }
-        
-        platonWeb3.eth.getUncleCountByBlockNumber(block: .latest) { (result) in
-            switch result.status{
-            case .success(_):
-                do{}
-            case .failure(_):
-                do{}
-            }
-        }
-        
         //let blockHash = EthereumData(bytes: Data(hex: "0x..."))
         platonWeb3.eth.getBlockTransactionCountByHash(blockHash: blockHash) { (result) in
             switch result.status{
@@ -215,24 +196,6 @@ class PlatonWeb3Test {
         let thecall = EthereumCall(from: nil, to: contractAddress!, gas: nil, gasPrice: nil, value: nil, data: callData)
         platonWeb3.eth.estimateGas(call: thecall) { (gasestResp) in
             switch gasestResp.status{
-            case .success(_):
-                do{}
-            case .failure(_):
-                do{}
-            }
-        }
-        
-        platonWeb3.eth.mining { (result) in
-            switch result.status{
-            case .success(_):
-                do{}
-            case .failure(_):
-                do{}
-            }
-        }
-        
-        platonWeb3.eth.hashrate { (result) in
-            switch result.status{
             case .success(_):
                 do{}
             case .failure(_):

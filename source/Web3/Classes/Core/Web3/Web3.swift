@@ -118,7 +118,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_protocolVersion",
+                method: "platon_protocolVersion",
                 params: []
             )
 
@@ -126,31 +126,19 @@ public struct Web3 {
         }
 
         public func syncing(response: @escaping Web3ResponseCompletion<EthereumSyncStatusObject>) {
-            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_syncing", params: [])
-
-            properties.provider.send(request: req, response: response)
-        }
-
-        public func mining(response: @escaping Web3ResponseCompletion<Bool>) {
-            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_mining", params: [])
-
-            properties.provider.send(request: req, response: response)
-        }
-
-        public func hashrate(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
-            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_hashrate", params: [])
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "platon_syncing", params: [])
 
             properties.provider.send(request: req, response: response)
         }
 
         public func gasPrice(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
-            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_gasPrice", params: [])
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "platon_gasPrice", params: [])
 
             properties.provider.send(request: req, response: response)
         }
 
         public func accounts(response: @escaping Web3ResponseCompletion<[EthereumAddress]>) {
-            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_accounts", params: [])
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "platon_accounts", params: [])
 
             properties.provider.send(request: req, response: response)
         }
@@ -159,7 +147,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_blockNumber",
+                method: "platon_blockNumber",
                 params: []
             )
 
@@ -174,7 +162,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getBalance",
+                method: "platon_getBalance",
                 params: [address, block]
             )
 
@@ -190,7 +178,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getStorageAt",
+                method: "platon_getStorageAt",
                 params: [address, position, block]
             )
 
@@ -205,7 +193,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getTransactionCount",
+                method: "platon_getTransactionCount",
                 params: [address, block]
             )
 
@@ -219,7 +207,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getBlockTransactionCountByHash",
+                method: "platon_getBlockTransactionCountByHash",
                 params: [blockHash]
             )
 
@@ -233,35 +221,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getBlockTransactionCountByNumber",
-                params: [block]
-            )
-
-            properties.provider.send(request: req, response: response)
-        }
-
-        public func getUncleCountByBlockHash(
-            blockHash: EthereumData,
-            response: @escaping Web3ResponseCompletion<EthereumQuantity>
-        ) {
-            let req = BasicRPCRequest(
-                id: properties.rpcId,
-                jsonrpc: Web3.jsonrpc,
-                method: "eth_getUncleCountByBlockHash",
-                params: [blockHash]
-            )
-
-            properties.provider.send(request: req, response: response)
-        }
-
-        public func getUncleCountByBlockNumber(
-            block: EthereumQuantityTag,
-            response: @escaping Web3ResponseCompletion<EthereumQuantity>
-        ) {
-            let req = BasicRPCRequest(
-                id: properties.rpcId,
-                jsonrpc: Web3.jsonrpc,
-                method: "eth_getUncleCountByBlockNumber",
+                method: "platon_getBlockTransactionCountByNumber",
                 params: [block]
             )
 
@@ -276,7 +236,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getCode",
+                method: "platon_getCode",
                 params: [address, block]
             )
 
@@ -295,7 +255,7 @@ public struct Web3 {
             let req = RPCRequest<[EthereumTransaction]>(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_sendTransaction",
+                method: "platon_sendTransaction",
                 params: [transaction]
             )
             properties.provider.send(request: req, response: response)
@@ -308,7 +268,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_sendRawTransaction",
+                method: "platon_sendRawTransaction",
                 params: [transaction.rlp()]
             )
 
@@ -323,7 +283,7 @@ public struct Web3 {
             let req = RPCRequest<EthereumCallParams>(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_call",
+                method: "platon_call",
                 params: EthereumCallParams(call: call, block: block)
             )
 
@@ -334,7 +294,7 @@ public struct Web3 {
             let req = RPCRequest<[EthereumCall]>(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_estimateGas",
+                method: "platon_estimateGas",
                 params: [call]
             )
 
@@ -349,7 +309,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getBlockByHash",
+                method: "platon_getBlockByHash",
                 params: [blockHash, fullTransactionObjects]
             )
 
@@ -364,7 +324,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getBlockByNumber",
+                method: "platon_getBlockByNumber",
                 params: [block, fullTransactionObjects]
             )
 
@@ -378,7 +338,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getTransactionByHash",
+                method: "platon_getTransactionByHash",
                 params: [blockHash]
             )
 
@@ -393,7 +353,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getTransactionByBlockHashAndIndex",
+                method: "platon_getTransactionByBlockHashAndIndex",
                 params: [blockHash, transactionIndex]
             )
 
@@ -408,7 +368,7 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getTransactionByBlockNumberAndIndex",
+                method: "platon_getTransactionByBlockNumberAndIndex",
                 params: [block, transactionIndex]
             )
 
@@ -422,38 +382,8 @@ public struct Web3 {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
-                method: "eth_getTransactionReceipt",
+                method: "platon_getTransactionReceipt",
                 params: [transactionHash]
-            )
-
-            properties.provider.send(request: req, response: response)
-        }
-
-        public func getUncleByBlockHashAndIndex(
-            blockHash: EthereumData,
-            uncleIndex: EthereumQuantity,
-            response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
-        ) {
-            let req = BasicRPCRequest(
-                id: properties.rpcId,
-                jsonrpc: Web3.jsonrpc,
-                method: "eth_getUncleByBlockHashAndIndex",
-                params: [blockHash, uncleIndex]
-            )
-
-            properties.provider.send(request: req, response: response)
-        }
-
-        public func getUncleByBlockNumberAndIndex(
-            block: EthereumQuantityTag,
-            uncleIndex: EthereumQuantity,
-            response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
-        ) {
-            let req = BasicRPCRequest(
-                id: properties.rpcId,
-                jsonrpc: Web3.jsonrpc,
-                method: "eth_getUncleByBlockNumberAndIndex",
-                params: [block, uncleIndex]
             )
 
             properties.provider.send(request: req, response: response)
