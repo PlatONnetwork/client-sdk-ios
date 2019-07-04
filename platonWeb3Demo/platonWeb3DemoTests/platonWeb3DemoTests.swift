@@ -20,6 +20,7 @@ class platonWeb3DemoTests: XCTestCase {
     var cContract: CandidateContract!
     var tContract: TicketContract!
     let nodeId = "0x11f00fd6ea74431c04d336428a5e95736673ee17547c1ccb58d3a64d7224bc7affac84a44b64500f7f35d3875be37078cfc95537a433c764e1921623718c8fdf";
+    var senderAddress: EthereumAddress!
     
     let CandidateDepositExpection = XCTestExpectation(description: "CandidateDeposit")
     let CandidateApplyWithdrawExpection = XCTestExpectation(description: "CandidateApplyWithdraw")
@@ -27,7 +28,7 @@ class platonWeb3DemoTests: XCTestCase {
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        web3 = Web3(rpcURL: "http://192.168.9.76:6789")
+        web3 = Web3(rpcURL: "http://10.10.8.21:6789")
         sender = "0x493301712671Ada506ba6Ca7891F436D29185821"
         privateKey = "a11859ce23effc663a9460e332ca09bd812acc390497f8dc7542b6938e13f8d7"
         gasPrice = BigUInt("1000000000")!
@@ -35,6 +36,8 @@ class platonWeb3DemoTests: XCTestCase {
         deployedContractAddress = "0x093acd8ff0b8ac2cd1491571142205474342e887"
         cContract = CandidateContract(web3: web3)
         tContract = TicketContract(web3: web3)
+        
+        senderAddress = EthereumAddress(hexString: sender)
     }
 
     override func tearDown() {
@@ -57,50 +60,9 @@ class platonWeb3DemoTests: XCTestCase {
         return bin
     }
     
-    func test1() {
-        
-        DispatchQueue.global().async {
-            print("1111")
-            self.CandidateDepositExpection.fulfill()
-        }
-        print("1111===")
-        let result = XCTWaiter.wait(for: [CandidateDepositExpection], timeout: 20)
-        print("444444")
-        
-        XCTAssertEqual(result, XCTWaiter.Result.completed)
-        
-        DispatchQueue.global().async {
-            print("2222")
-            self.CandidateApplyWithdrawExpection.fulfill()
-        }
-        print("2222===")
-        let result2 = XCTWaiter.wait(for: [CandidateApplyWithdrawExpection], timeout: 20)
-        XCTAssertEqual(result2, XCTWaiter.Result.completed)
-        
-        DispatchQueue.global().async {
-            print("3333")
-            self.CandidateWithdrawExpection.fulfill()
-        }
-        print("3333===")
-        let result3 = XCTWaiter.wait(for: [CandidateWithdrawExpection], timeout: 20)
-        XCTAssertEqual(result3, XCTWaiter.Result.completed)
-        
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let expection = expectation(description: "async tesst")
-        web3.eth.getBalance(address: EthereumAddress(hexString: "0x493301712671Ada506ba6Ca7891F436D29185821")!, block: EthereumQuantityTag.latest) { (result) in
-            print(result)
-            expection.fulfill()
-        }
-        waitForExpectations(timeout: 20, handler: nil)
-    }
-    
     // 部署合约测试
     func testPlatonDeployContract() {
-        let expection = expectation(description: "deploy contract")
+        let expection = expectation(description: "PlatonDeployContract")
         let sender_1 = "0xC586573734D551AC4e6ce73FE0d366EeE47E0499"
         let privateKey_1 = "95cf249cfe2d773244285644b879630ce22e057874e4437436c4eee8272f614c"
         
@@ -123,7 +85,7 @@ class platonWeb3DemoTests: XCTestCase {
 
     func testPlatonCall() {
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
-        let expection = expectation(description: "platon call")
+        let expection = expectation(description: "PlatonCall")
 
         web3.eth.platonCall(code: .ContractExecute, contractAddress: deployedContractAddress, functionName: "getName", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
@@ -503,39 +465,4 @@ class platonWeb3DemoTests: XCTestCase {
         }
         wait(for: [expection], timeout: 20)
     }
-//
-////    // 测试给节点投票
-////    func testVoteTicket() {
-////        let expection: XCTestExpectation = expectation(description: "GetCandidateTicketCount")
-////        let tContract = TicketContract(web3: Web3(rpcURL: "http://192.168.9.76:6789"))
-////        let price = BigUInt("100000000000000000000")!
-////        let nodeId = "0x858d6f6ae871e291d3b7b2b91f7369f46deb6334e9dacb66fa8ba6746ee1f025bd4c090b17d17e0d9d5c19fdf81eb8bde3d40a383c9eecbe7ebda9ca95a3fb94"
-////        let sender = "0x493301712671Ada506ba6Ca7891F436D29185821"
-////        let privateKey = "a11859ce23effc663a9460e332ca09bd812acc390497f8dc7542b6938e13f8d7"
-////        let gasPrice = BigUInt("1000000000")!
-////        let gas = BigUInt("240943980")!
-////        tContract.VoteTicket(count: 2, price: price, nodeId: nodeId, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas) { (result, data) in
-////            switch result{
-////            case .success:
-////                XCTAssertNotNil((data as? Data)!.toHexString(), "vote hash为空")
-////                if let data = data as? Data{
-////                    print("vote hash is is:\(data.toHexString())")
-////                }
-////                expection.fulfill()
-////            case .fail(_, let errorMsg):
-////                XCTAssertNil(errorMsg, errorMsg!)
-////                expection.fulfill()
-////            }
-////        }
-////        wait(for: [expection], timeout: 20)
-////    }
-//
-//
-////    func testPerformanceExample() {
-////        // This is an example of a performance test case.
-////        self.measure {
-////            // Put the code you want to measure the time of here.
-////        }
-////    }
-
 }

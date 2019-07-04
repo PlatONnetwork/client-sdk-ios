@@ -21,11 +21,11 @@ public enum PlatonCommonResult : Error{
 
 public extension Web3.Eth{
     
-    public typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ transactionHash: String?, _ contractAddress : String?, _ receipt: EthereumTransactionReceiptObject?) -> ()
+    typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ transactionHash: String?, _ contractAddress : String?, _ receipt: EthereumTransactionReceiptObject?) -> ()
     
-    public typealias ContractCallCompletion = (_ result : PlatonCommonResult, _ data : AnyObject?) -> ()
+    typealias ContractCallCompletion = (_ result : PlatonCommonResult, _ data : AnyObject?) -> ()
     
-    public typealias ContractSendRawCompletion = (_ result : PlatonCommonResult, _ data : Data?) -> ()
+    typealias ContractSendRawCompletion = (_ result : PlatonCommonResult, _ data : Data?) -> ()
     
     //MARK: - Deploy
     

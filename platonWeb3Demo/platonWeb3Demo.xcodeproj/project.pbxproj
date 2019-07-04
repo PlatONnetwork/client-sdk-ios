@@ -22,6 +22,7 @@
 		8192E8D822656CF800A8EB40 /* platonWeb3DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192E8D722656CF800A8EB40 /* platonWeb3DemoTests.swift */; };
 		81AC35A721F8460D0054E917 /* ViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC35A621F8460D0054E917 /* ViewController+extension.swift */; };
 		81AC35A921F84DBF0054E917 /* UIBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC35A821F84DBF0054E917 /* UIBaseViewController.swift */; };
+		81CBDBD622AE2DEA005F85E6 /* platonWeb3SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CBDBD522AE2DEA005F85E6 /* platonWeb3SDKTests.swift */; };
 		9A24303D225B36C4007A886C /* Web3+completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A242FE5225B36C4007A886C /* Web3+completion.swift */; };
 		9A24303E225B36C4007A886C /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A242FE8225B36C4007A886C /* EthereumPublicKey.swift */; };
 		9A24303F225B36C4007A886C /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A242FE9225B36C4007A886C /* EthereumAddress.swift */; };
@@ -147,6 +148,7 @@
 		8192E8D722656CF800A8EB40 /* platonWeb3DemoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = platonWeb3DemoTests.swift; sourceTree = "<group>"; };
 		81AC35A621F8460D0054E917 /* ViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+extension.swift"; sourceTree = "<group>"; };
 		81AC35A821F84DBF0054E917 /* UIBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBaseViewController.swift; sourceTree = "<group>"; };
+		81CBDBD522AE2DEA005F85E6 /* platonWeb3SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = platonWeb3SDKTests.swift; sourceTree = "<group>"; };
 		9A242FE5225B36C4007A886C /* Web3+completion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+completion.swift"; sourceTree = "<group>"; };
 		9A242FE8225B36C4007A886C /* EthereumPublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPublicKey.swift; sourceTree = "<group>"; };
 		9A242FE9225B36C4007A886C /* EthereumAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddress.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			children = (
 				8192E8D722656CF800A8EB40 /* platonWeb3DemoTests.swift */,
 				8192E8D122656CBB00A8EB40 /* Info.plist */,
+				81CBDBD522AE2DEA005F85E6 /* platonWeb3SDKTests.swift */,
 			);
 			path = platonWeb3DemoTests;
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8192E8D822656CF800A8EB40 /* platonWeb3DemoTests.swift in Sources */,
+				81CBDBD622AE2DEA005F85E6 /* platonWeb3SDKTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,7 +1012,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VB6ZNYSGTC;
+				DEVELOPMENT_TEAM = VQHC4XR7AG;
 				INFOPLIST_FILE = platonWeb3DemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1030,7 +1034,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VB6ZNYSGTC;
+				DEVELOPMENT_TEAM = VQHC4XR7AG;
 				INFOPLIST_FILE = platonWeb3DemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
