@@ -41,7 +41,20 @@ public struct Web3 {
     public let net: Net
 
     /// The struct holding all `eth` requests
-    public let eth: Eth
+    public let platon: Platon
+    
+    /// The struct holding all `staking` contract requests
+    public let staking: StakingContract
+    
+    /// The struct holding all `proposal` contract requests
+    public let proposal: ProposalContract
+    
+    /// The struct holding all `slash` contract requests
+    public let slash: SlashContract
+    
+    /// The struct holding all `restricting` contract requests
+    public let restricting: RestrictingPlanContract
+    
 
     // MARK: - Initialization
 
@@ -55,7 +68,12 @@ public struct Web3 {
         let properties = Properties(provider: provider, rpcId: rpcId)
         self.properties = properties
         self.net = Net(properties: properties)
-        self.eth = Eth(properties: properties)
+        self.platon = Platon(properties: properties)
+        
+        self.staking = StakingContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.stakingContractAddress)
+        self.proposal = ProposalContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.proposalContractAddress)
+        self.slash = SlashContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.slashContractAddress)
+        self.restricting = RestrictingPlanContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.restrictingContractAddress)
     }
 
     // MARK: - Web3 methods
@@ -108,7 +126,7 @@ public struct Web3 {
 
     // MARK: - Eth methods
 
-    public struct Eth {
+    public struct Platon {
 
         public let properties: Properties
         

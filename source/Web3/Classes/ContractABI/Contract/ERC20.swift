@@ -34,7 +34,7 @@ public protocol AnnotatedERC20: EthereumContract {
 /// Generic implementation class. Use directly, or subclass to conveniently add your contract's events or methods.
 open class GenericERC20Contract: StaticContract, ERC20Contract, AnnotatedERC20 {
     public var address: EthereumAddress?
-    public let eth: Web3.Eth
+    public let platon: Web3.Platon
     
     open var constructor: SolidityConstructor?
     
@@ -42,9 +42,9 @@ open class GenericERC20Contract: StaticContract, ERC20Contract, AnnotatedERC20 {
         return [GenericERC20Contract.Transfer, GenericERC20Contract.Approval]
     }
     
-    public required init(address: EthereumAddress?, eth: Web3.Eth) {
+    public required init(address: EthereumAddress?, platon: Web3.Platon) {
         self.address = address
-        self.eth = eth
+        self.platon = platon
     }
 }
 

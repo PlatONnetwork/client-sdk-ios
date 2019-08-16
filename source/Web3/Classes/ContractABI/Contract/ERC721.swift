@@ -42,7 +42,7 @@ public protocol EnumeratedERC721: EthereumContract {
 /// Generic implementation class. Use directly, or subclass to conveniently add your contract's events or methods.
 open class GenericERC721Contract: StaticContract, ERC721Contract {
     public var address: EthereumAddress?
-    public let eth: Web3.Eth
+    public let platon: Web3.Platon
     
     open var constructor: SolidityConstructor?
     
@@ -50,9 +50,9 @@ open class GenericERC721Contract: StaticContract, ERC721Contract {
         return [GenericERC721Contract.Transfer, GenericERC721Contract.Approval]
     }
     
-    public required init(address: EthereumAddress?, eth: Web3.Eth) {
+    public required init(address: EthereumAddress?, platon: Web3.Platon) {
         self.address = address
-        self.eth = eth
+        self.platon = platon
     }
 }
 

@@ -46,7 +46,7 @@ open class CandidateContract : Contract{
             ]
         
         var completion = completion
-        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateDeposit", params: params as! [Data], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value), estimated: false) { (result, data) in
+        web3.platon.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateDeposit", params: params as! [Data], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value), estimated: false) { (result, data) in
             switch result{
             case .success:
                 self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
@@ -72,7 +72,7 @@ open class CandidateContract : Contract{
         let params = [nodeId.data(using: .utf8)!,withdraw_d]
         
         var completion = completion
-        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateApplyWithdraw", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
+        web3.platon.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateApplyWithdraw", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
             switch result{
             case .success:
                 self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
@@ -93,7 +93,7 @@ open class CandidateContract : Contract{
         var completion = completion
         let params = [nodeId.data(using: .utf8)!]
         
-        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateWithdraw", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
+        web3.platon.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "CandidateWithdraw", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
             switch result{
             case .success:
                 self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
@@ -114,7 +114,7 @@ open class CandidateContract : Contract{
         var completion = completion
         let params = [nodeId.data(using: .utf8)!,extra.data(using: .utf8)!]
         
-        web3.eth.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "SetCandidateExtra", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
+        web3.platon.platonSendRawTransaction(code: ExecuteCode.CampaignPledge, contractAddress: contractAddress, functionName: "SetCandidateExtra", params: params, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: EthereumQuantity(quantity: value ?? BigUInt(0)), estimated: false) { (result, data) in
             switch result{
             case .success:
                 self.successCompletionOnMain(obj: data as AnyObject, completion: &completion)
@@ -130,7 +130,7 @@ open class CandidateContract : Contract{
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateWithdrawInfos", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+        web3.platon.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateWithdrawInfos", from: nil, params: [nodeId.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -149,7 +149,7 @@ open class CandidateContract : Contract{
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateDetails", from: nil, params: [batchNodeIds.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
+        web3.platon.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateDetails", from: nil, params: [batchNodeIds.data(using: .utf8)!], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -167,7 +167,7 @@ open class CandidateContract : Contract{
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+        web3.platon.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetCandidateList", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{
@@ -185,7 +185,7 @@ open class CandidateContract : Contract{
         var completion = completion
         let paramter = SolidityFunctionParameter(name: "whateverkey", type: .string)
         
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetVerifiersList", from: nil, params: [], outputs: [paramter]) { (result, data) in
+        web3.platon.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "GetVerifiersList", from: nil, params: [], outputs: [paramter]) { (result, data) in
             switch result{
             case .success:
                 if let dic = data as? Dictionary<String, String>{

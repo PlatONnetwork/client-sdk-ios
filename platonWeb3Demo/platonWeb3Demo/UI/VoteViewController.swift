@@ -48,6 +48,19 @@ class VoteViewController: BaseTableViewController {
                 do{}
             }
         }
+        
+        
+        
+        
+        let plan1rlp = try? RestrictingPlan(epoch: UInt64(12), amount: BigUInt(integerLiteral: 45)).rlp()
+        let plan2rlp = try? RestrictingPlan(epoch: UInt64(24), amount: BigUInt(integerLiteral: 90)).rlp()
+        let rlp = RLPItem.array([plan1rlp!, plan2rlp!])
+        let rawRlp = try? RLPEncoder().encode(rlp)
+        print("======rlp======")
+        print(rawRlp)
+        let content = rawRlp!.toHexString()
+        print(content)
+        
     }
     
 
@@ -190,7 +203,7 @@ class VoteViewController: BaseTableViewController {
                     print("vote hash is is:\(data.toHexString())")
 
                     
-                    web3.eth.platonGetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
+                    web3.platon.platonGetTransactionReceipt(txHash: data.toHexString(), loopTime: 15, completion: { (result, receipt) in
                         if let receipt = receipt as? EthereumTransactionReceiptObject{
                             if String((receipt.status?.quantity)!) == "1"{
                                 guard receipt.logs.count > 0 else {

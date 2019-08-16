@@ -10,7 +10,7 @@ import Foundation
 //    import Web3
 //#endif
 
-public extension Web3.Eth {
+public extension Web3.Platon {
     
     /// The struct holding all `abi` methods
     public var abi: ABI.Type {

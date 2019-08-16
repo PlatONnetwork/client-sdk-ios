@@ -8,7 +8,7 @@
 
 import Foundation
 
-let EnableEIP155 = false
+let EnableEIP155 = true
 
 let DefaultChainId = "0"
 

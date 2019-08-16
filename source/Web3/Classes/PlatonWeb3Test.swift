@@ -36,7 +36,7 @@ class PlatonWeb3Test {
         let from = try! EthereumAddress(hex: "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219", eip55: false)
         let data = EthereumData(bytes: rawRlp!)
         let privateKey = try! EthereumPrivateKey(hexPrivateKey: "4484092b68df58d639f11d59738983e2b8b81824f3c0c759edd6773f9adadfe7")
-        platonWeb3.eth.getTransactionCount(address: from, block: .latest, response: {
+        platonWeb3.platon.getTransactionCount(address: from, block: .latest, response: {
             nonceResp in
             let tx = EthereumTransaction(nonce: nonceResp.result, gasPrice: gasPrice, gas: gas, from:nil , to: contractAddress, value: value, data: data)
             let signedTx = try? tx.sign(with: privateKey, chainId: 10) as EthereumSignedTransaction
@@ -92,7 +92,7 @@ class PlatonWeb3Test {
         
         let call = EthereumCall(from: nil, to: contractAddress!, gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: rawRlp!))
         
-        platonWeb3.eth.call(call: call, block: .latest) { (resp) in
+        platonWeb3.platon.call(call: call, block: .latest) { (resp) in
             let resutl = BigUInt(bytes: (resp.result?.bytes)!)
             NSLog("result:\(String(resutl))")
         }
@@ -101,7 +101,7 @@ class PlatonWeb3Test {
     
     func web3AllTest(){
         let address = EthereumAddress(hexString: "0x")
-        platonWeb3.eth.getCode(address: address!, block: .latest) { (result) in
+        platonWeb3.platon.getCode(address: address!, block: .latest) { (result) in
             switch result.status{
                 
             case .success(_):
@@ -112,7 +112,7 @@ class PlatonWeb3Test {
         }
     
         let blockHash = EthereumData(bytes: [0x00])
-        platonWeb3.eth.getBlockByHash(blockHash: blockHash, fullTransactionObjects: true) {  (result) in
+        platonWeb3.platon.getBlockByHash(blockHash: blockHash, fullTransactionObjects: true) {  (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -121,7 +121,7 @@ class PlatonWeb3Test {
             }
         }
         
-        platonWeb3.eth.getBlockByNumber(block: .latest, fullTransactionObjects: true) {  (result) in
+        platonWeb3.platon.getBlockByNumber(block: .latest, fullTransactionObjects: true) {  (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -131,7 +131,7 @@ class PlatonWeb3Test {
         }
         
         //let blockHash = EthereumData(bytes: Data(hex: "0x..."))
-        platonWeb3.eth.getBlockTransactionCountByHash(blockHash: blockHash) { (result) in
+        platonWeb3.platon.getBlockTransactionCountByHash(blockHash: blockHash) { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -140,7 +140,7 @@ class PlatonWeb3Test {
             }
         }
         
-        platonWeb3.eth.getBlockTransactionCountByNumber(block: .latest) { (result) in
+        platonWeb3.platon.getBlockTransactionCountByNumber(block: .latest) { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -150,7 +150,7 @@ class PlatonWeb3Test {
         }
         
         let transactionHash = EthereumData(bytes: Data(hex: "0x..").bytes)
-        platonWeb3.eth.getTransactionByHash(blockHash: transactionHash) { (result) in
+        platonWeb3.platon.getTransactionByHash(blockHash: transactionHash) { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -161,7 +161,7 @@ class PlatonWeb3Test {
         
 //        let blockHash = EthereumData(bytes: Data(hex: "0x..").bytes)
         let transactionIndex = EthereumQuantity(integerLiteral: 1)
-        platonWeb3.eth.getTransactionByBlockHashAndIndex(blockHash: blockHash, transactionIndex: transactionIndex) { (result) in
+        platonWeb3.platon.getTransactionByBlockHashAndIndex(blockHash: blockHash, transactionIndex: transactionIndex) { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -171,7 +171,7 @@ class PlatonWeb3Test {
         }
  
 //        let transactionHash = EthereumData(bytes: Data(hex: "0x..").bytes)
-        platonWeb3.eth.getTransactionReceipt(transactionHash: transactionHash) { (result) in
+        platonWeb3.platon.getTransactionReceipt(transactionHash: transactionHash) { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -181,7 +181,7 @@ class PlatonWeb3Test {
         }
         
 //        let address = EthereumAddress(hexString: "0x..")
-        platonWeb3.eth.getTransactionCount(address: address!, block: .latest) { (result) in
+        platonWeb3.platon.getTransactionCount(address: address!, block: .latest) { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -194,7 +194,7 @@ class PlatonWeb3Test {
         let callData = EthereumData(bytes: Data(hex: "0x..").bytes)
         let contractAddress = EthereumAddress(hexString: "0x..")
         let thecall = EthereumCall(from: nil, to: contractAddress!, gas: nil, gasPrice: nil, value: nil, data: callData)
-        platonWeb3.eth.estimateGas(call: thecall) { (gasestResp) in
+        platonWeb3.platon.estimateGas(call: thecall) { (gasestResp) in
             switch gasestResp.status{
             case .success(_):
                 do{}
@@ -203,7 +203,7 @@ class PlatonWeb3Test {
             }
         }
         
-        platonWeb3.eth.syncing{ (result) in
+        platonWeb3.platon.syncing{ (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -212,7 +212,7 @@ class PlatonWeb3Test {
             }
         }
         
-        platonWeb3.eth.gasPrice { (result) in
+        platonWeb3.platon.gasPrice { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -221,7 +221,7 @@ class PlatonWeb3Test {
             }
         }
         
-        platonWeb3.eth.accounts { (result) in
+        platonWeb3.platon.accounts { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -230,7 +230,7 @@ class PlatonWeb3Test {
             }
         }
         
-        platonWeb3.eth.blockNumber { (result) in
+        platonWeb3.platon.blockNumber { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -239,7 +239,7 @@ class PlatonWeb3Test {
             }
         }
         
-        platonWeb3.eth.protocolVersion { (result) in
+        platonWeb3.platon.protocolVersion { (result) in
             switch result.status{
             case .success(_):
                 do{}
@@ -277,7 +277,7 @@ class PlatonWeb3Test {
         let tmpQuan = EthereumQuantity(quantity: BigUInt("0")!)
         let call = EthereumCall(from: nil, to: tmpAddr!, gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: rawRlp!))
         
-        platonWeb3.eth.estimateGas(call: call) { (gasresp) in
+        platonWeb3.platon.estimateGas(call: call) { (gasresp) in
             print("\(gasresp)")
             print("\(String((gasresp.result?.quantity)!))")
             print("\(self)")
@@ -295,7 +295,7 @@ class PlatonWeb3Test {
             let from = try! EthereumAddress(hex: "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219", eip55: false)
             let data = EthereumData(bytes: rawRlp!)
             let privateKey = try! EthereumPrivateKey(hexPrivateKey: "4484092b68df58d639f11d59738983e2b8b81824f3c0c759edd6773f9adadfe7")
-            platonWeb3.eth.getTransactionCount(address: address, block: .latest, response: {
+            platonWeb3.platon.getTransactionCount(address: address, block: .latest, response: {
                 nonceResp in
                 let tx = EthereumTransaction(nonce: nonceResp.result, gasPrice: gasPrice, gas: gas, from:nil , to: nil, value: value, data: data)
                 let signedTx = try? tx.sign(with: privateKey, chainId: 10) as EthereumSignedTransaction
@@ -308,7 +308,7 @@ class PlatonWeb3Test {
     
     
     func handleSend(signedTx : EthereumSignedTransaction?, web3 : Web3){
-        platonWeb3.eth.sendRawTransaction(transaction: signedTx!, response: { (resp) in
+        platonWeb3.platon.sendRawTransaction(transaction: signedTx!, response: { (resp) in
             
             switch resp.status{
                 
@@ -320,7 +320,7 @@ class PlatonWeb3Test {
                     var time = 10
                     queue.async {
                         repeat{
-                            platonWeb3.eth.getTransactionReceipt(transactionHash: resp.result!, response: { receptionresp in
+                            platonWeb3.platon.getTransactionReceipt(transactionHash: resp.result!, response: { receptionresp in
                                 switch receptionresp.status{
                                     
                                 case .success(_):

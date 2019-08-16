@@ -15,8 +15,8 @@ class PlatonContractTest {
     static let sharedInstance = PlatonContractTest()
     
     func mutiplyDeploy(){
-        let gasPrice = BigUInt("22000000000")
-        let gas = BigUInt("4300000")
+        let gasPrice = BigUInt("22000000000")!
+        let gas = BigUInt("4300000")!
         let binPath = Bundle.main.path(forResource: "PlatonAssets/multisig", ofType: "wasm")
         let bin = try? Data(contentsOf: URL(fileURLWithPath: binPath!))
         
@@ -29,7 +29,7 @@ class PlatonContractTest {
         let sender = "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219"
         let privateKey = "4484092b68df58d639f11d59738983e2b8b81824f3c0c759edd6773f9adadfe7"
         
-        web3.eth.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, estimateGas: false, waitForTransactionReceipt: false, timeout: 20, completion:{
+        web3.platon.platonDeployContract(abi: abiS!, bin: bin!, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, estimateGas: false, waitForTransactionReceipt: false, timeout: 20, completion:{
             (result,hash,contractAddress,transactionHash) in
             
             switch result{
@@ -59,12 +59,12 @@ class PlatonContractTest {
         let callpraram = balanceOfAccout.data(using: .utf8)
         let rquire = Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02])
         let paramter = SolidityFunctionParameter(name: "", type: .string)
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "initWallet", from: balanceOfAccout, params :[callpraram!,rquire], outputs: [paramter], completion: {(result,data) in
+        web3.platon.platonCall(code: ExecuteCode.ContractExecute, contractAddress: contractAddress, functionName: "initWallet", from: balanceOfAccout, params :[callpraram!,rquire], outputs: [paramter], completion: {(result,data) in
             switch result{
                 
             case .success:
                 do {
-                    self.web3.eth.platonCall(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: "getOwners", from: balanceOfAccout, params: [], outputs: [paramter], completion: {(callRes,callret)in
+                    self.web3.platon.platonCall(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: "getOwners", from: balanceOfAccout, params: [], outputs: [paramter], completion: {(callRes,callret)in
                         
                     })
                 }
@@ -100,7 +100,7 @@ class PlatonContractTest {
         let balanceOfAccout = "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219"
         let callpraram = balanceOfAccout.data(using: .utf8)
         let paramter = SolidityFunctionParameter(name: "", type: .string)
-        web3.eth.platonCall(code: ExecuteCode.ContractExecute,contractAddress: "0x43355c787c50b647c425f594b441d4bd751951c1", functionName: "getBalance", from: balanceOfAccout, params :[callpraram!], outputs: [paramter],completion: nil)
+        web3.platon.platonCall(code: ExecuteCode.ContractExecute,contractAddress: "0x43355c787c50b647c425f594b441d4bd751951c1", functionName: "getBalance", from: balanceOfAccout, params :[callpraram!], outputs: [paramter],completion: nil)
     }
     
     func testSendRawTransaction(){
@@ -114,10 +114,10 @@ class PlatonContractTest {
         let param_to = "0xaa31ca9d892800aa67383bb88114b61868221ee5".data(using: .utf8)
         let param_assert = Data(bytes: [0x00,0x00,0x00,0x14])
         
-        let gasPrice = BigUInt("22000000000")
-        let gas = BigUInt("4300000")
+        let gasPrice = BigUInt("22000000000")!
+        let gas = BigUInt("4300000")!
             
-        web3.eth.platonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: functionName, params: [param_from!,param_to!,param_assert], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: nil, estimated: false, completion: nil)
+        web3.platon.platonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: functionName, params: [param_from!,param_to!,param_assert], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: nil, estimated: false, completion: nil)
     }
     
     func testABIEventDecode(){
@@ -135,12 +135,12 @@ class PlatonContractTest {
     func test(){
         let address = "0x..".data(using: .utf8)
         let amout = Data(bytes: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02])
-        let gasPrice = BigUInt("22000000000")
-        let gas = BigUInt("4300000")
+        let gasPrice = BigUInt("22000000000")!
+        let gas = BigUInt("4300000")!
         let sender = "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219"
         let privateKey = "4484092b68df58d639f11d59738983e2b8b81824f3c0c759edd6773f9adadfe7"
         let contractAddress = "0x43355c787c50b647c425f594b441d4bd751951c1"
-        web3.eth.platonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: "transfer", params: [address!, amout], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: nil, estimated: false, completion: { (result, data) in
+        web3.platon.platonSendRawTransaction(code: ExecuteCode.ContractExecute,contractAddress: contractAddress, functionName: "transfer", params: [address!, amout], sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: nil, estimated: false, completion: { (result, data) in
             switch result{
             case .success:
                 do{}

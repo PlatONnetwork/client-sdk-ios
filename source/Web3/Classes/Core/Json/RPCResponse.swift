@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum Result<T> {
+    case codableResult(T)
+    case rlpResult(T)
+}
+
 public struct RPCResponse<Result: Codable>: Codable {
 
     /// The rpc id

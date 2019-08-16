@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class TicketContract: Contract{
+open class TicketContract: Contract {
     
     private var web3 : Web3
     
@@ -23,7 +23,7 @@ open class TicketContract: Contract{
         var completion = completion
         let data = self.build_GetTicketPrice()
         
-        web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
+        web3.platon.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
             switch res{
             case .success:
@@ -44,7 +44,7 @@ open class TicketContract: Contract{
         var completion = completion
         let data = build_GetPoolRemainder()
         
-        web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
+        web3.platon.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
             switch res{
             case .success:
@@ -65,7 +65,7 @@ open class TicketContract: Contract{
         
         let data = self.build_GetCandidateEpoch(candidateId: candidateId)
         
-        web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
+        web3.platon.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
             switch res{
             case .success:
@@ -87,7 +87,7 @@ open class TicketContract: Contract{
         
         let data = self.build_GetTicketDetail(ticketId: ticketId)
         
-        web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
+        web3.platon.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
             switch res{
             case .success:
@@ -107,7 +107,7 @@ open class TicketContract: Contract{
     public func GetTicketCountByTxHash(ticketIds: [String], completion: PlatonCommonCompletion?){
         var completion = completion
         let data = self.build_GetTicketCountByTxHash(ticketIds: ticketIds)
-        web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
+        web3.platon.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
             switch res{
             case .success:
@@ -127,7 +127,7 @@ open class TicketContract: Contract{
         var completion = completion
         let data = self.build_GetCandidateTicketCount(nodeIds: nodeIds)
         
-        web3.eth.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
+        web3.platon.platonCall(contractAddress: contractAddress, data: data, from: nil, gas: nil, gasPrice: nil, value: nil, outputs: [SolidityFunctionParameter(name: "", type: .string)]) { (res, data) in
             
             switch res{
             case .success:
@@ -147,7 +147,7 @@ open class TicketContract: Contract{
         let data = self.build_VoteTicket(count: count, price: price, nodeId: nodeId)
         
         let value = EthereumQuantity(quantity: price.multiplied(by: BigUInt(count)))
-        web3.eth.platonSendRawTransaction(contractAddress: contractAddress, data: data.bytes, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: value, estimated: false) { (result, data) in
+        web3.platon.platonSendRawTransaction(contractAddress: contractAddress, data: data.bytes, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas,value: value, estimated: false) { (result, data) in
             switch result{
                 
             case .success:

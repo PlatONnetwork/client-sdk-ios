@@ -19,7 +19,7 @@ public enum PlatonCommonResult : Error{
     case fail(Int?,String?)
 }
 
-public extension Web3.Eth{
+public extension Web3.Platon {
     
     typealias ContractDeployCompletion = (_ result : PlatonCommonResult, _ transactionHash: String?, _ contractAddress : String?, _ receipt: EthereumTransactionReceiptObject?) -> ()
     
@@ -27,6 +27,7 @@ public extension Web3.Eth{
     
     typealias ContractSendRawCompletion = (_ result : PlatonCommonResult, _ data : Data?) -> ()
     
+    typealias PlatonCallCompletion<T: Codable> = (_ result: PlatonCommonResult, _ data: PlatonContractCallResponse<T>?) -> Void
     //MARK: - Deploy
     
     func deploy_timeout(completion: inout ContractDeployCompletion?){
