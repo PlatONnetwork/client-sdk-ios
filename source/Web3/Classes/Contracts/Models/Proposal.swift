@@ -8,15 +8,12 @@
 
 import Foundation
 
-struct Proposal: Codable {
-    var proposalID: String
-    var proposer: String
-    var proposalType: UInt8
-    var githubID: String
-    var topic: String
-    var desc: String
-    var submitBlock: UInt64
-    var endVotingBlock: UInt64
-    var activeBlock: UInt64
-    var newVersion: UInt
+// 文本提案
+public struct Proposal: Codable {
+    var ProposalID: String?
+    var Proposer: String?
+    var ProposalType: UInt8?
+    var PIPID: String?
+    var SubmitBlock: UInt64?
+    var EndVotingBlock: UInt64?
 }

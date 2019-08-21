@@ -18,45 +18,32 @@ public class RestrictingPlanContract: PlantonContractProtocol {
         self.contractAddress = contractAddress
     }
     
-    func createRestrictingPlan(account: String,
-                               plans: [RestrictingPlan],
-                               sender: String,
-                               privateKey: String,
-                               completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func createRestrictingPlan(
+        account: String,
+        plans: [RestrictingPlan],
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+
         let funcObject = FuncType.createRestrictingPlan(account: account, plans: plans)
-        
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
-    func getRestrictingPlanInfo(sender: String,
-                                account: String,
-                                completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func getRestrictingPlanInfo(
+        sender: String,
+        account: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<RestrictingInfo>?>?) {
         let funcObject = FuncType.restrictingInfo(account: account)
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<DelegateInfo>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
+}
+
+extension RestrictingPlanContract {
+    public func estimateCreateRestrictingPlan(account: String,
+                                      plans: [RestrictingPlan],
+                                      completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.createRestrictingPlan(account: account, plans: plans)
+        platonContractEstimateGas(funcObject, completion: completion)
     }
 }
 

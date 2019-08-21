@@ -15,7 +15,7 @@ public struct Validator: Codable {
     var StakingTxIndex: UInt32?
     var ProcessVersion: UInt32?
     var StakingBlockNum: UInt32?
-    var Shares: String?
+    var Shares: Decimal?
     var ExternalId: String?
     var NodeName: String?
     var Website: String?

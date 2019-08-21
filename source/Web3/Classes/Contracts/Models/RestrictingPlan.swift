@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RestrictingPlan {
+public struct RestrictingPlan {
     var epoch: UInt64
     var amount: BigUInt
     
@@ -28,7 +28,7 @@ extension RLPItem {
 }
 
 extension RestrictingPlan: RLPItemConvertible {
-    init(rlp: RLPItem) throws {
+    public init(rlp: RLPItem) throws {
         guard let array = rlp.array, array.count == 2 else {
             throw Error.rlpItemInvalid
         }
@@ -40,7 +40,7 @@ extension RestrictingPlan: RLPItemConvertible {
         self.init(epoch: UInt64(epoch), amount: amount)
     }
     
-    func rlp() throws -> RLPItem {
+    public func rlp() throws -> RLPItem {
         return RLPItem(epoch: epoch, amount: amount)
     }
 }

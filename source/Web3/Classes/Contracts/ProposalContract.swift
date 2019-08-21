@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum VoteOption: UInt8 {
+public enum VoteOption: UInt8 {
     case Yeas = 1
     case Nays = 2
     case Abstentions = 3
@@ -24,232 +24,204 @@ public class ProposalContract: PlantonContractProtocol {
         self.contractAddress = contractAddress
     }
     
-    func submitText(verifier: String,
-                    githubID: String,
-                    topic: String,
-                    desc: String,
-                    url: String,
-                    endVotingBlock: UInt64,
-                    sender: String,
-                    privateKey: String,
-                    completion: PlatonCommonCompletion?) {
-        var completion = completion
-        let funcObject = FuncType.submitText(verifier: verifier, githubID: githubID, topic: topic, desc: desc, url: url, endVotingBlock: endVotingBlock)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+    public func submitText(
+        verifier: String,
+        pIDID: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+
+        let funcObject = FuncType.submitText(verifier: verifier, pIDID: pIDID)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
-    func submitVersion(verifier: String,
-                       githubID: String,
-                       topic: String,
-                       desc: String,
-                       url: String,
-                       newVersion: UInt,
-                       endVotingBlock: UInt64,
-                       activeBlock: UInt64,
-                       sender: String,
-                       privateKey: String,
-                       completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func submitVersion(
+        verifier: String,
+        pIDID: String,
+        newVersion: UInt32,
+        endVotingBlock: UInt64,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
         
-        let funcObject = FuncType.submitVersion(verifier: verifier, githubID: githubID, topic: topic, desc: desc, url: url, newVersion: newVersion, endVotingBlock: endVotingBlock, activeBlock: activeBlock)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
+        let funcObject = FuncType.submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingBlock)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
+    }
+    
+    public func submitCancel(
+        verifier: String,
+        pIDID: String,
+        newVersion: UInt32,
+        endVotingRounds: UInt64,
+        tobeCanceledProposalID: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+        
+        let funcObject = FuncType.submitCancel(verifier: verifier, pIDID: pIDID, endVotingRounds: endVotingRounds, tobeCanceledProposalID: tobeCanceledProposalID)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
+    }
+    
+    public func vote(
+        verifier: String,
+        proposalID: String,
+        option: VoteOption,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+        
+        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
             guard let self = self else { return }
             switch result {
             case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
+                if
+                    let programVersion = response?.result,
+                    let PV = programVersion.ProgramVersion,
+                    let PVS = programVersion.ProgramVersionSign {
+                    
+                    let funcObject = FuncType.voteProposal(
+                        verifier: verifier,
+                        proposalID: proposalID,
+                        option: option,
+                        programVersion: PV,
+                        versionSign: PVS
+                    )
+                    
+                    self.platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
                 }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
             case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
+                completion?(PlatonCommonResult.fail(code, errMsg), nil)
+            }
+        }
+        
+    }
+    
+    public func declareVersion(
+        verifier: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+
+        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                if
+                    let programVersion = response?.result,
+                    let PV = programVersion.ProgramVersion,
+                    let PVS = programVersion.ProgramVersionSign {
+                    
+                    let funcObject = FuncType.declareVersion(verifier: verifier, programVersion: PV, versionSign: PVS)
+                    self.platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
+                }
+            case .fail(let code, let errMsg):
+                completion?(PlatonCommonResult.fail(code, errMsg), nil)
             }
         }
     }
     
-    func submitParam(verifier: String,
-                     githubID: String,
-                     topic: String,
-                     desc: String,
-                     url: String,
-                     endVotingBlock: UInt64,
-                     paramName: String,
-                     currentValue: String,
-                     newValue: String,
-                     sender: String,
-                     privateKey: String,
-                     completion: PlatonCommonCompletion?) {
-        var completion = completion
-        let funcObject = FuncType.submitParam(verifier: verifier, githubID: githubID, topic: topic, desc: desc, url: url, endVotingBlock: endVotingBlock, paramName: paramName, currentValue: currentValue, newValue: newValue)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
-    }
-    
-    func vote(verifier: String,
-              proposalID: String,
-              option: VoteOption,
-              sender: String,
-              privateKey: String,
-              completion: PlatonCommonCompletion?) {
-        var completion = completion
-        let funcObject = FuncType.voteProposal(verifier: verifier, proposalID: proposalID, option: option)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
-    }
-    
-    func declareVersion(activeNode: String,
-                        version: UInt32,
-                        sender: String,
-                        privateKey: String,
-                        completion: PlatonCommonCompletion?) {
-        var completion = completion
-        let funcObject = FuncType.declareVersion(activeNode: activeNode, version: version)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
-    }
-    
-    func getProposal(sender: String,
-                     proposalID: String,
-                     completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func getProposal(
+        sender: String,
+        proposalID: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<Proposal>?>?) {
         let funcObject = FuncType.proposal(proposalID: proposalID)
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<Candidate>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
     }
     
-    func getProposalResult(sender: String,
-                           proposalID: String,
-                           completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func getProposalResult(
+        sender: String,
+        proposalID: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<TallyResult>?>?) {
         let funcObject = FuncType.proposalResult(proposalID: proposalID)
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<Candidate>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
     }
     
-    func getProposalList(sender: String,
-                         completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func getProposalList(
+        sender: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[Proposal]>?>?) {
         let funcObject = FuncType.proposalList
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<Candidate>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
     }
     
-    func getActiveVersion(sender: String,
-                          completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func getActiveVersion(
+        sender: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<String>?>?) {
         let funcObject = FuncType.activeVersion
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<Candidate>?) in
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
+}
+
+extension ProposalContract {
+    public func estimateSubmitText(
+        verifier: String,
+        pIDID: String,
+        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.submitText(verifier: verifier, pIDID: pIDID)
+        platonContractEstimateGas(funcObject, completion: completion)
+    }
+    
+    public func estimateSubmitVersion(
+        verifier: String,
+        pIDID: String,
+        newVersion: UInt32,
+        endVotingBlock: UInt64,
+        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingBlock)
+        platonContractEstimateGas(funcObject, completion: completion)
+    }
+    
+    public func estimateSubmitCancel(
+        verifier: String,
+        pIDID: String,
+        newVersion: UInt32,
+        endVotingRounds: UInt64,
+        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingRounds)
+        platonContractEstimateGas(funcObject, completion: completion)
+    }
+    
+    public func estimateVote(
+        verifier: String,
+        proposalID: String,
+        option: VoteOption,
+        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        
+        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
             guard let self = self else { return }
             switch result {
             case .success:
-                print(response)
-                break;
+                if
+                    let programVersion = response?.result,
+                    let PV = programVersion.ProgramVersion,
+                    let PVS = programVersion.ProgramVersionSign {
+                    
+                    let funcObject = FuncType.voteProposal(verifier: verifier, proposalID: proposalID, option: option, programVersion: PV, versionSign: PVS)
+                    self.platonContractEstimateGas(funcObject, completion: completion)
+                }
             case .fail(let code, let errMsg):
-                break;
+                completion?(PlatonCommonResult.fail(code, errMsg), nil)
             }
         }
     }
     
-    func getProgramVersion(sender: String,
-                           completion: PlatonCommonCompletion?) {
-        var completion = completion
-        let funcObject = FuncType.programVersion
-        platonCall(funcObject, sender: sender) { (result, response: PlatonContractCallResponse<Candidate>?) in
+    public func estimateDeclareVersion(
+        verifier: String,
+        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        
+        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
+            guard let self = self else { return }
             switch result {
             case .success:
-                print(response)
-                break;
+                if
+                    let programVersion = response?.result,
+                    let PV = programVersion.ProgramVersion,
+                    let PVS = programVersion.ProgramVersionSign {
+                    
+                    let funcObject = FuncType.declareVersion(verifier: verifier, programVersion: PV, versionSign: PVS)
+                    self.platonContractEstimateGas(funcObject, completion: completion)
+                }
             case .fail(let code, let errMsg):
-                break;
-            }
-        }
-    }
-    
-    func getListParam(sender: String,
-                      completion: PlatonCommonCompletion?) {
-        var completion = completion
-        let funcObject = FuncType.listParam
-        platonCall(funcObject, sender: sender) { (result, response: PlatonContractCallResponse<Candidate>?) in
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
+                completion?(PlatonCommonResult.fail(code, errMsg), nil)
             }
         }
     }

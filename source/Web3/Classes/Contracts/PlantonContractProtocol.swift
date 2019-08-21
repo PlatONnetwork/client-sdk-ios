@@ -15,110 +15,35 @@ protocol PlantonContractProtocol {
     
     init(platon: Web3.Platon, contractAddress: String)
     
-    func platonCall<T: Codable>(_ funcType: FuncType, sender: String, completion: Web3.Platon.PlatonCallCompletion<T>?)
+    func platonCall<T: Decodable>(_ funcType: FuncType, sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<T>?>?)
     
-    func platonSendRawTransaction(_ funcType: FuncType, sender: String, privateKey: String, value: EthereumQuantity?, gas: BigUInt?, gasPrice: BigUInt?, completion: Web3.Platon.ContractSendRawCompletion?)
+    func platonSendRawTransaction(_ funcType: FuncType, sender: String, privateKey: String, value: EthereumQuantity?, gas: BigUInt?, gasPrice: BigUInt?, completion: PlatonCommonCompletionV2<Data?>?)
+    
+    func platonContractEstimateGas(_ funcType: FuncType, completion: PlatonCommonCompletionV2<BigUInt?>?)
+
+    func platonGetProgramVersion(sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<ProgramVersion>?>?)
 }
 
 extension PlantonContractProtocol {
-    func platonCall<T: Codable>(_ funcType: FuncType, sender: String, completion: Web3.Platon.PlatonCallCompletion<T>?) {
+    func platonCall<T: Decodable>(_ funcType: FuncType, sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<T>?>?) {
         platon.platonCall(contractAddress: contractAddress, from: sender, inputs: funcType.rlpData, completion: completion)
     }
     
-    func platonSendRawTransaction(_ funcType: FuncType, sender: String, privateKey: String, value: EthereumQuantity? = nil, gas: BigUInt? = nil, gasPrice: BigUInt? = nil, completion: Web3.Platon.ContractSendRawCompletion?) {
+    func platonSendRawTransaction(_ funcType: FuncType, sender: String, privateKey: String, value: EthereumQuantity? = nil, gas: BigUInt? = nil, gasPrice: BigUInt? = nil, completion: PlatonCommonCompletionV2<Data?>?) {
         platon.platonSendRawTransaction(contractAddress: contractAddress, data: funcType.rlpData.bytes, sender: sender, privateKey: privateKey, gasPrice: gasPrice ?? funcType.gasPrice, gas: gas ?? funcType.gas, value: value, estimated: true, completion: completion)
     }
-}
-
-//extension PlantonContractProtocol {
-//    func platonCall<T: Codable>(inputs: Data, completion: Web3.Platon.PlatonCallCompletion<T>?) {
-//        platon.platonCall(contractAddress: contractAddress, from: sender, inputs: inputs, completion: completion)
-//    }
-//
-//    func platonSendRawTransaction(inputs: Data,
-//                                  gas: BigUInt,
-//                                  gasPrice: BigUInt,
-//                                  sender: String,
-//                                  privateKey: String,
-//                                  value: EthereumQuantity? = nil,
-//                                  completion: Web3.Platon.ContractSendRawCompletion?) {
-//        platon.platonSendRawTransaction(contractAddress: contractAddress, data: inputs.bytes, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: value, estimated: true, completion: completion)
-//    }
-//}
-
-extension PlantonContractProtocol {
-    func timeOutCompletionOnMainThread(completion: inout PlatonCommonCompletion?) {
-        if Thread.current.isMainThread {
-            completion?(PlatonCommonResult.fail(-1, Localized("Request_timeout")), nil)
-            completion = nil
-        } else {
-            let semaphore = DispatchSemaphore(value: 0)
-            var mc = completion
-            DispatchQueue.main.async {
-                mc?(PlatonCommonResult.fail(-1, Localized("Request_timeout")),nil)
-                mc = nil
-                semaphore.signal()
-            }
-            if semaphore.wait(wallTimeout: .now() + onMainPerformTimeout) == .timedOut{
-            }
+    
+    func platonContractEstimateGas(_ funcType: FuncType, completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        var completion = completion
+        let estimateGas = funcType.gas.multiplied(by: funcType.gasPrice)
+        DispatchQueue.main.async {
+            completion?(.success, estimateGas)
             completion = nil
         }
     }
     
-    public func failCompletionOnMainThread(code: Int, errorMsg: String, completion: inout PlatonCommonCompletion?){
-        if Thread.current.isMainThread {
-            completion?(PlatonCommonResult.fail(code, errorMsg),nil)
-            completion = nil
-        } else {
-            let semaphore = DispatchSemaphore(value: 0)
-            var mc = completion
-            DispatchQueue.main.async {
-                mc?(PlatonCommonResult.fail(code, errorMsg),nil)
-                mc = nil
-                semaphore.signal()
-            }
-            if semaphore.wait(wallTimeout: .now() + onMainPerformTimeout) == .timedOut{
-            }
-            completion = nil
-        }
-    }
-    
-    
-    public func failWithEmptyResponseCompletionOnMainThread(completion: inout PlatonCommonCompletion?){
-        if Thread.current.isMainThread {
-            completion?(PlatonCommonResult.fail(-1, Localized("RPC_Response_empty")),nil)
-            completion = nil
-        } else {
-            let semaphore = DispatchSemaphore(value: 0)
-            var mc = completion
-            DispatchQueue.main.async {
-                mc?(PlatonCommonResult.fail(-1, Localized("RPC_Response_empty")),nil)
-                mc = nil
-                semaphore.signal()
-            }
-            if semaphore.wait(wallTimeout: .now() + onMainPerformTimeout) == .timedOut{
-            }
-            completion = nil
-        }
-    }
-    
-    public func successCompletionOnMain(obj : AnyObject?,completion: inout PlatonCommonCompletion?){
-        if Thread.current.isMainThread {
-            completion?(PlatonCommonResult.success,obj)
-            completion = nil
-        } else {
-            let semaphore = DispatchSemaphore(value: 0)
-            var mc = completion
-            DispatchQueue.main.async {
-                mc?(PlatonCommonResult.success,obj)
-                mc = nil
-                semaphore.signal()
-            }
-            if semaphore.wait(wallTimeout: .now() + onMainPerformTimeout) == .timedOut{
-            }
-            completion = nil
-        }
+    func platonGetProgramVersion(sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<ProgramVersion>?>?) {
+        let funcObject = FuncType.programVersion
+        platon.platonCall(contractAddress: PlatonConfig.ContractAddress.proposalContractAddress, from: sender, inputs: funcObject.rlpData, completion: completion)
     }
 }
-
-

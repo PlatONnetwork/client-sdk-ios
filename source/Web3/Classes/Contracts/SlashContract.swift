@@ -18,45 +18,31 @@ public class SlashContract: PlantonContractProtocol {
         self.contractAddress = contractAddress
     }
     
-    func reportDoubleSign(data: String,
-                          sender: String,
-                          privateKey: String,
-                          completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func reportDuplicateSign(
+        data: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+
         let funcObject = FuncType.reportMultiSign(data: data)
-        
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
-    func checkDoubleSign(sender: String,
-                         typ: UInt32,
-                         addr: String,
-                         blockNumber: UInt64,
-                         completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func checkDuplicateSign(
+        sender: String,
+        typ: UInt32,
+        addr: String,
+        blockNumber: UInt64,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<Data>?>?) {
         let funcObject = FuncType.checkMultiSign(typ: typ, addr: addr, blockNumber: blockNumber)
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<DelegateInfo>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
+}
+
+extension SlashContract {
+    public func estimateReportDoubleSign(data: String,
+                                         completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.reportMultiSign(data: data)
+        platonContractEstimateGas(funcObject, completion: completion)
     }
 }

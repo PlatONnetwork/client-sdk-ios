@@ -9,7 +9,7 @@
 import Foundation
 
 public struct RelatedDelegateNode: Codable {
-    var Addr: String
-    var NodId: String
-    var StakingBlockNum: UInt64
+    var Addr: String?
+    var NodeId: String?
+    var StakingBlockNum: UInt64?
 }

@@ -7,18 +7,19 @@
 //
 
 import Foundation
+import BigInt
 
 public struct Verifier: Codable {
-    var NodeId: String
-    var StakingAddress: String
-    var BenifitAddress: String
-    var StakingTxIndex: UInt32
-    var ProcessVersion: UInt32
-    var StakingBlockNum: UInt32?
-    var Shares: String
-    var ExternalId: String
-    var NodeName: String
-    var Website: String
-    var Details: String
+    var NodeId: String?
+    var StakingAddress: String?
+    var BenefitAddress: String?
+    var StakingTxIndex: UInt32?
+    var ProgramVersion: UInt32?
+    var StakingBlockNum: UInt64?
+    var Shares: Decimal?
+    var ExternalId: String?
+    var NodeName: String?
+    var Website: String?
+    var Details: String?
     var ValidatorTerm: UInt32?
 }

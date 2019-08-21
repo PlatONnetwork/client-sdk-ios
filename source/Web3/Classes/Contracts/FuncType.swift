@@ -9,7 +9,7 @@
 import Foundation
 
 enum FuncType {
-    case createStaking(typ: UInt16, benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String, amount: BigUInt)
+    case createStaking(typ: UInt16, benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String, amount: BigUInt, programVersion: UInt32, programVersionSign: String, blsPubKey: String)
     case editorStaking(benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String)
     case increaseStaking(nodeId: String, typ: UInt16, amount: BigUInt)
     case withdrewStaking(nodeId: String)
@@ -21,17 +21,16 @@ enum FuncType {
     case delegateListByAddr(addr: String)
     case delegateInfo(stakingBlockNum: UInt64, delAddr: String, nodeId: String)
     case stakingInfo(nodeId: String)
-    case submitText(verifier: String, githubID: String, topic: String, desc: String, url: String, endVotingBlock: UInt64)
-    case submitVersion(verifier: String, githubID: String, topic: String, desc: String, url: String, newVersion: UInt, endVotingBlock: UInt64, activeBlock: UInt64)
-    case submitParam(verifier: String, githubID: String, topic: String, desc: String, url: String, endVotingBlock: UInt64, paramName: String, currentValue: String, newValue: String)
-    case voteProposal(verifier: String, proposalID: String, option: VoteOption)
-    case declareVersion(activeNode: String, version: UInt32)
+    case submitText(verifier: String, pIDID: String)
+    case submitVersion(verifier: String, pIDID: String, newVersion: UInt32, endVotingBlock: UInt64)
+    case submitCancel(verifier: String, pIDID: String, endVotingRounds: UInt64, tobeCanceledProposalID: String)
+    case voteProposal(verifier: String, proposalID: String, option: VoteOption, programVersion: UInt32, versionSign: String)
+    case declareVersion(verifier: String, programVersion: UInt32, versionSign: String)
     case proposal(proposalID: String)
     case proposalResult(proposalID: String)
     case proposalList
     case activeVersion
     case programVersion
-    case listParam
     case reportMultiSign(data: String)
     case checkMultiSign(typ: UInt32, addr: String, blockNumber: UInt64)
     case createRestrictingPlan(account: String, plans: [RestrictingPlan])
@@ -69,8 +68,8 @@ extension FuncType {
             return 2000
         case .submitVersion:
             return 2001
-        case .submitParam:
-            return 2002
+        case .submitCancel:
+            return 2005
         case .voteProposal:
             return 2003
         case .declareVersion:
@@ -85,8 +84,6 @@ extension FuncType {
             return 2103
         case .programVersion:
             return 2104
-        case .listParam:
-            return 2105
         case .reportMultiSign:
             return 3000
         case .checkMultiSign:
@@ -101,31 +98,31 @@ extension FuncType {
     var gas: BigUInt {
         switch self {
         case .createStaking:
-            return PlatonConfig.FuncGas.createStakingGas
+            return PlatonConfig.FuncGas.createStakingGas + rlpData.dataGasUsed()
         case .editorStaking:
-            return PlatonConfig.FuncGas.editorStakingGas
+            return PlatonConfig.FuncGas.editorStakingGas + rlpData.dataGasUsed()
         case .increaseStaking:
-            return PlatonConfig.FuncGas.increaseStakingGas
+            return PlatonConfig.FuncGas.increaseStakingGas + rlpData.dataGasUsed()
         case .withdrewStaking:
-            return PlatonConfig.FuncGas.withdrewStakingGas
+            return PlatonConfig.FuncGas.withdrewStakingGas + rlpData.dataGasUsed()
         case .createDelegate:
-            return PlatonConfig.FuncGas.createDelegateGas
+            return PlatonConfig.FuncGas.createDelegateGas + rlpData.dataGasUsed()
         case .withdrewDelegate:
-            return PlatonConfig.FuncGas.withdrewDelegateGas
+            return PlatonConfig.FuncGas.withdrewDelegateGas + rlpData.dataGasUsed()
         case .submitText:
-            return PlatonConfig.FuncGas.submitTextGas
+            return PlatonConfig.FuncGas.submitTextGas + rlpData.dataGasUsed()
         case .submitVersion:
-            return PlatonConfig.FuncGas.submitVersionGas
-        case .submitParam:
-            return PlatonConfig.FuncGas.submitParamGas
+            return PlatonConfig.FuncGas.submitVersionGas + rlpData.dataGasUsed()
+        case .submitCancel:
+            return PlatonConfig.FuncGas.submitCancelGas + rlpData.dataGasUsed()
         case .voteProposal:
-            return PlatonConfig.FuncGas.voteProposalGas
+            return PlatonConfig.FuncGas.voteProposalGas + rlpData.dataGasUsed()
         case .declareVersion:
-            return PlatonConfig.FuncGas.declareVersionGas
+            return PlatonConfig.FuncGas.declareVersionGas + rlpData.dataGasUsed()
         case .reportMultiSign:
-            return PlatonConfig.FuncGas.reportMultiSignGas
-        case .createRestrictingPlan:
-            return PlatonConfig.FuncGas.createRestrictingPlanGas
+            return PlatonConfig.FuncGas.reportMultiSignGas + rlpData.dataGasUsed()
+        case .createRestrictingPlan(_, let plans):
+            return PlatonConfig.FuncGas.createRestrictingPlanGas + rlpData.dataGasUsed() + PlatonConfig.FuncGas.defaultGas.multiplied(by: BigUInt(plans.count))
         default:
             return PlatonConfig.FuncGas.defaultGas
         }
@@ -135,11 +132,10 @@ extension FuncType {
         return PlatonConfig.FuncGasPrice.defaultGasPrice
     }
     
-    
     var rlpData: Data {
         switch self {
-        case .createStaking(let typ, let benifitAddress, let nodeId, let externalId, let nodeName, let website, let details, let amount):
-            let data = build_createStaking(typ: typ, benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details, amount: amount)
+        case .createStaking(let typ, let benifitAddress, let nodeId, let externalId, let nodeName, let website, let details, let amount, let programVersion, let programVersionSign, let blsPubKey):
+            let data = build_createStaking(typ: typ, benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details, amount: amount, programVersion: programVersion, programVersionSign: programVersionSign, blsPubKey: blsPubKey)
             return data
         case .editorStaking(let benifitAddress, let nodeId, let externalId, let nodeName, let website, let details):
             let data = build_editorStaking(benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details)
@@ -165,20 +161,20 @@ extension FuncType {
         case .stakingInfo(let nodeId):
             let data = build_stakingInfo(nodeId: nodeId)
             return data
-        case .submitText(let verifier, let githubID, let topic, let desc, let url, let endVotingBlock):
-            let data = build_submitText(verifier: verifier, githubID: githubID, topic: topic, desc: desc, url: url, endVotingBlock: endVotingBlock)
+        case .submitText(let verifier, let pIDID):
+            let data = build_submitText(verifier: verifier, pIDID: pIDID)
             return data
-        case .submitVersion(let verifier, let githubID, let topic, let desc, let url, let newVersion, let endVotingBlock, let activeBlock):
-            let data = build_submitVersion(verifier: verifier, githubID: githubID, topic: topic, desc: desc, url: url, newVersion: newVersion, endVotingBlock: endVotingBlock, activeBlock: activeBlock)
+        case .submitVersion(let verifier, let pIDID, let newVersion, let endVotingBlock):
+            let data = build_submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingBlock)
             return data
-        case .submitParam(let verifier, let githubID, let topic, let desc, let url, let endVotingBlock, let paramName, let currentValue, let newValue):
-            let data = build_submitParam(verifier: verifier, githubID: githubID, topic: topic, desc: desc, url: url, endVotingBlock: endVotingBlock, paramName: paramName, currentValue: currentValue, newValue: newValue)
+        case .submitCancel(let verifier, let pIDID, let endVotingRounds, let tobeCanceledProposalID):
+            let data = build_submitCancel(verifier: verifier, pIDID: pIDID, endVotingRounds: endVotingRounds, tobeCanceledProposalID: tobeCanceledProposalID)
             return data
-        case .voteProposal(let verifier, let proposalID, let option):
-            let data = build_vote(verifier: verifier, proposalID: proposalID, option: option)
+        case .voteProposal(let verifier, let proposalID, let option, let programVersion, let versionSign):
+            let data = build_vote(verifier: verifier, proposalID: proposalID, option: option, programVersion: programVersion, versionSign: versionSign)
             return data
-        case .declareVersion(let activeNode, let version):
-            let data = build_declareVersion(activeNode: activeNode, version: version)
+        case .declareVersion(let activeNode, let version, let versionSign):
+            let data = build_declareVersion(activeNode: activeNode, version: version, versionSign: versionSign)
             return data
         case .proposal(let proposalID):
             let data = build_proposal(proposalID: proposalID)
@@ -203,8 +199,7 @@ extension FuncType {
              .candidateList,
              .proposalList,
              .activeVersion,
-             .programVersion,
-             .listParam:
+             .programVersion:
             let data = build_defaultData()
             return data
         }
@@ -279,7 +274,7 @@ extension FuncType {
         let ethAddress = EthereumAddress(hexString: addr)
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
-            RLPItem.bytes(typData.bytes),
+            RLPItem.bytes(typData.bytes.trimLeadingZeros()),
             RLPItem.bytes(ethAddress!.rawAddress),
             RLPItem.bytes(blockNumberData.bytes.trimLeadingZeros()),
         ]
@@ -296,21 +291,12 @@ extension FuncType {
     }
     
     func build_submitText(verifier: String,
-                          githubID: String,
-                          topic: String,
-                          desc: String,
-                          url: String,
-                          endVotingBlock: UInt64) -> Data {
+                          pIDID: String) -> Data {
         let verifierBytes = try? verifier.hexBytes()
-        let endVotingBlockData = Data.newData(unsignedLong: endVotingBlock)
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(verifierBytes!),
-            RLPItem.bytes(githubID.bytes),
-            RLPItem.bytes(topic.bytes),
-            RLPItem.bytes(desc.bytes),
-            RLPItem.bytes(url.bytes),
-            RLPItem.bytes(endVotingBlockData.bytes.trimLeadingZeros()),
+            RLPItem.bytes(pIDID.bytes)
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -325,27 +311,44 @@ extension FuncType {
     }
     
     func build_submitVersion(verifier: String,
-                             githubID: String,
-                             topic: String,
-                             desc: String,
-                             url: String,
-                             newVersion: UInt,
-                             endVotingBlock: UInt64,
-                             activeBlock: UInt64) -> Data {
+                             pIDID: String,
+                             newVersion: UInt32,
+                             endVotingBlock: UInt64) -> Data {
         let verifierBytes = try? verifier.hexBytes()
         let newVersionData = newVersion.makeBytes()
         let endVotingBlockData = Data.newData(unsignedLong: endVotingBlock)
-        let activeBlockData = Data.newData(unsignedLong: endVotingBlock)
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(verifierBytes!),
-            RLPItem.bytes(githubID.bytes),
-            RLPItem.bytes(topic.bytes),
-            RLPItem.bytes(desc.bytes),
-            RLPItem.bytes(url.bytes),
+            RLPItem.bytes(pIDID.bytes),
             RLPItem.bytes(newVersionData.trimLeadingZeros()),
+            RLPItem.bytes(endVotingBlockData.bytes.trimLeadingZeros())
+        ]
+        
+        let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
+            let rawRlp = try? RLPEncoder().encode(rlpItem)
+            return RLPItem.bytes(rawRlp ?? Bytes())
+        }
+        
+        let rlpItems = RLPItem.array(rlpedItems)
+        let rawRlp = try? RLPEncoder().encode(rlpItems)
+        
+        return Data(bytes: rawRlp!)
+    }
+    
+    func build_submitCancel(
+        verifier: String,
+        pIDID: String,
+        endVotingRounds: UInt64,
+        tobeCanceledProposalID: String) -> Data {
+        let verifierBytes = try? verifier.hexBytes()
+        let endVotingBlockData = Data.newData(unsignedLong: endVotingRounds)
+        let rlpItemss = [
+            RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(verifierBytes!),
+            RLPItem.bytes(pIDID.bytes),
             RLPItem.bytes(endVotingBlockData.bytes.trimLeadingZeros()),
-            RLPItem.bytes(activeBlockData.bytes.trimLeadingZeros())
+            RLPItem.bytes(tobeCanceledProposalID.bytes)
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -360,9 +363,6 @@ extension FuncType {
     }
     
     func build_submitParam(verifier: String,
-                           githubID: String,
-                           topic: String,
-                           desc: String,
                            url: String,
                            endVotingBlock: UInt64,
                            paramName: String,
@@ -373,9 +373,6 @@ extension FuncType {
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(verifierBytes!),
-            RLPItem.bytes(githubID.bytes),
-            RLPItem.bytes(topic.bytes),
-            RLPItem.bytes(desc.bytes),
             RLPItem.bytes(url.bytes),
             RLPItem.bytes(endVotingBlockData.bytes.trimLeadingZeros()),
             RLPItem.bytes(paramName.bytes),
@@ -396,16 +393,19 @@ extension FuncType {
     
     func build_vote(verifier: String,
                     proposalID: String,
-                    option: VoteOption) -> Data {
+                    option: VoteOption,
+                    programVersion: UInt32,
+                    versionSign: String) -> Data {
         let verifierBytes = try? verifier.hexBytes()
         let proposalBytes = try? proposalID.hexBytes()
-        let progressVersion = Data.newData(uint32data: PlatonConfig.ContractVersion.programVersion)
+        let progressVersion = Data.newData(uint32data: programVersion)
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(verifierBytes!),
             RLPItem.bytes(proposalBytes!),
             RLPItem.bytes(option.rawValue.makeBytes()),
-            RLPItem.bytes(progressVersion.bytes.trimLeadingZeros())
+            RLPItem.bytes(progressVersion.bytes.trimLeadingZeros()),
+            RLPItem.bytes(versionSign.bytes)
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -420,13 +420,15 @@ extension FuncType {
     }
     
     func build_declareVersion(activeNode: String,
-                              version: UInt32) -> Data {
+                              version: UInt32,
+                              versionSign: String) -> Data {
         let activeNodeBytes = try? activeNode.hexBytes()
         let versionData = Data.newData(uint32data: version)
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(activeNodeBytes!),
             RLPItem.bytes(versionData.bytes.trimLeadingZeros()),
+            RLPItem.bytes(versionSign.bytes)
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -591,7 +593,7 @@ extension FuncType {
         
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
-            RLPItem.bytes(typData.bytes),
+            RLPItem.bytes(typData.bytes.trimLeadingZeros()),//需去掉0，不然提交会失败
             RLPItem.bytes(nodeIdBytes!),
             RLPItem.bigUInt(amount),
         ]
@@ -635,7 +637,7 @@ extension FuncType {
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(nodeIdBytes!),
-            RLPItem.bytes(typData.bytes),
+            RLPItem.bytes(typData.bytes.trimLeadingZeros()),
             RLPItem.bigUInt(amount),
         ]
         
@@ -687,15 +689,18 @@ extension FuncType {
                              nodeName: String,
                              website: String,
                              details: String,
-                             amount: BigUInt) -> Data {
+                             amount: BigUInt,
+                             programVersion: UInt32,
+                             programVersionSign: String,
+                             blsPubKey: String) -> Data {
         let typData = Data.newData(uInt16Data: typ)
         let ethAddress = EthereumAddress(hexString: benifitAddress)
         let nodeIdBytes = try? nodeId.hexBytes()
-        let progressVersion = Data.newData(uint32data: PlatonConfig.ContractVersion.programVersion)
+        let progressVersion = Data.newData(uint32data: programVersion)
         
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
-            RLPItem.bytes(typData.bytes),
+            RLPItem.bytes(typData.bytes.trimLeadingZeros()),
             RLPItem.bytes(ethAddress!.rawAddress),
             RLPItem.bytes(nodeIdBytes!),
             RLPItem.bytes(externalId.bytes),
@@ -703,7 +708,9 @@ extension FuncType {
             RLPItem.bytes(website.bytes),
             RLPItem.bytes(details.bytes),
             RLPItem.bigUInt(amount),
-            RLPItem.bytes(progressVersion.bytes.trimLeadingZeros())
+            RLPItem.bytes(progressVersion.bytes.trimLeadingZeros()),
+            RLPItem.bytes(programVersionSign.hexToBytes()),
+            RLPItem.bytes(blsPubKey.bytes)
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -717,53 +724,3 @@ extension FuncType {
         return Data(bytes: rawRlp!)
     }
 }
-
-//enum FuncType: UInt16 {
-//    case createStaking = 1000
-//    case editorStaking
-//    case increaseStaking
-//    case withdrewStaking
-//    case createDelegate
-//    case withdrewDelegate
-//    case verifierList = 1100
-//    case validatorList
-//    case candidateList
-//    case delegateListByAddr
-//    case delegateInfo
-//    case stakingInfo
-//    case submitText = 2000
-//    case submitVersion
-//    case submitParam
-//    case voteProposal
-//    case declareVersion
-//    case proposal = 2100
-//    case proposalResult
-//    case proposalList
-//    case activeVersion
-//    case programVersion
-//    case listParam
-//    case reportMultiSign = 3000
-//    case checkMultiSign
-//    case createRestrictingPlan = 4000
-//    case restrictingInfo = 4100
-//}
-//
-//enum FuncRLPData {
-//    case createStaking()
-//}
-//
-//extension FuncType {
-//    var rlpData: Data {
-//        switch self {
-//        case .createStaking():
-//            <#code#>
-//        default:
-//            <#code#>
-//        }
-//    }
-//}
-//
-//extension FuncType {
-//
-//    }
-//}

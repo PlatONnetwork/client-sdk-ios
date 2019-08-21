@@ -22,3 +22,19 @@ import Foundation
 //        return array
 //    }
 //}
+
+extension Data {
+    func zeroByteCount() -> Int {
+        return self.bytes.filter { $0 == 0x00 }.count
+    }
+    
+    func nonZeroByteCount() -> Int {
+        return self.bytes.filter { $0 != 0x00 }.count
+    }
+    
+    func dataGasUsed() -> BigUInt {
+        let zeroGas = BigUInt(zeroByteCount() * 4)
+        let nonZeroGas = BigUInt(nonZeroByteCount() * 68)
+        return zeroGas + nonZeroGas
+    }
+}

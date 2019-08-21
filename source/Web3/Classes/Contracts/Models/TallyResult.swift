@@ -8,11 +8,12 @@
 
 import Foundation
 
-struct TallyResult: Codable {
-    var proposalID: String
-    var yeas: UInt16
-    var nays: UInt16
-    var abstentions: UInt16
-    var accuVerifiers: UInt16
-    var status: UInt8
+public struct TallyResult: Codable {
+    var proposalID: String?
+    var yeas: UInt16?
+    var nays: UInt16?
+    var abstentions: UInt16?
+    var accuVerifiers: UInt16?
+    var status: UInt8?
+    var canceledBy: String?
 }

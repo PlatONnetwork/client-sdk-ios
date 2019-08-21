@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   
   s.author = { "admin" => "support@platon.network" }
 
-  s.source       = { :git => "", :commit => "1a10d8922a57d2355c98221d66f9e79b5afe68da" }
+  s.source       = { :git => "", :commit => "969622f" }
 
   s.source_files = "source/**/*.swift"
 

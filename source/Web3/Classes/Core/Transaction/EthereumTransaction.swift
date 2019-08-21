@@ -77,7 +77,7 @@ public struct EthereumTransaction: Codable {
             throw EthereumSignedTransaction.Error.transactionInvalid
         }
         let rlp : RLPItem
-        if EnableEIP155{
+        if PlatonConfig.EnableEIP155{
             rlp = RLPItem(
                 nonce: nonce,
                 gasPrice: gasPrice,

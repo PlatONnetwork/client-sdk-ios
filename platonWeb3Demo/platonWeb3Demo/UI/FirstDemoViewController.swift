@@ -41,21 +41,21 @@ class FirstDemoViewController: BaseTableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch indexPath.row {
-        case 0:
-            firstdemoContract.deploy {
-                
-            }
-        case 1:
-            firstdemoContract.invokeNotify(msg: "hello world!")
-        case 2:
-            firstdemoContract.Notify()
-        case 3:
-            firstdemoContract.getName()
-
-        default:
-            do{}
-        }
+//        switch indexPath.row {
+//        case 0:
+//            firstdemoContract.deploy {
+//
+//            }
+//        case 1:
+//            firstdemoContract.invokeNotify(msg: "hello world!")
+//        case 2:
+//            firstdemoContract.Notify()
+//        case 3:
+//            firstdemoContract.getName()
+//
+//        default:
+//            do{}
+//        }
     }
 
     

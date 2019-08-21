@@ -9,6 +9,19 @@ import Foundation
 
 public extension String {
     
+    func privateKeyAdd0xPrefix() -> String {
+        guard self.count == 66 else {
+            return self
+        }
+        
+        let s = self.index(self.startIndex, offsetBy: 0)
+        let e = self.index(self.startIndex, offsetBy: 2)
+        let prefix = String(self[s..<e])
+        
+        guard prefix != "0x" else { return self }
+        return "0x" + self
+    }
+    
     /// Converts a binary string to a hex string
     ///
     /// - Returns: String in hex format
@@ -132,5 +145,12 @@ public extension String {
         // round up to the nearest multiple of base
         let newLength = Int(ceil(Double(count) / Double(base))) * base
         return self.padding(toLength: newLength, withPad: String(character), startingAt: 0)
+    }
+    
+    func isHexString() -> Bool{
+        let regex = "(0x)?[A-Fa-f0-9]+"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        let isValid = predicate.evaluate(with: self)
+        return isValid
     }
 }

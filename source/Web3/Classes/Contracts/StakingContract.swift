@@ -18,265 +18,247 @@ public class StakingContract: PlantonContractProtocol {
         self.contractAddress = contractAddress
     }
     
-    func createStaking(typ: UInt16,
-                       benifitAddress: String,
-                       nodeId: String,
-                       externalId: String,
-                       nodeName: String,
-                       website: String,
-                       details: String,
-                       amount: BigUInt,
-                       sender: String,
-                       privateKey: String,
-                       completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func createStaking(
+        typ: UInt16,
+        benifitAddress: String,
+        nodeId: String,
+        externalId: String,
+        nodeName: String,
+        website: String,
+        details: String,
+        amount: BigUInt,
+        blsPubKey: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
         
-        let funcObject = FuncType.createStaking(typ: typ, benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details, amount: amount)
-        print(String(bytes: funcObject.rlpData.bytes))
-        
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
+        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
             guard let self = self else { return }
             switch result {
             case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
+                if
+                    let programVersion = response?.result,
+                    let PV = programVersion.ProgramVersion,
+                    let PVS = programVersion.ProgramVersionSign {
+                    
+                    
+                    let funcObject = FuncType.createStaking(
+                        typ: typ,
+                        benifitAddress: benifitAddress,
+                        nodeId: nodeId,
+                        externalId: externalId,
+                        nodeName: nodeName,
+                        website: website,
+                        details: details,
+                        amount: amount,
+                        programVersion: PV,
+                        programVersionSign: PVS,
+                        blsPubKey:blsPubKey
+                    )
+                    
+                    self.platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
                 }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
             case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
+                completion?(PlatonCommonResult.fail(code, errMsg), nil)
             }
         }
     }
     
-    func editorStaking(benifitAddress: String,
-                       nodeId: String,
-                       externalId: String,
-                       nodeName: String,
-                       website: String,
-                       details: String,
-                       sender: String,
-                       privateKey: String,
-                       completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func editorStaking(
+        benifitAddress: String,
+        nodeId: String,
+        externalId: String,
+        nodeName: String,
+        website: String,
+        details: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
         
         let funcObject = FuncType.editorStaking(benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
-    func increseStaking(nodeId: String,
-                        typ: UInt16,
-                        amount: BigUInt,
-                        sender: String,
-                        privateKey: String,
-                        completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func increseStaking(
+        nodeId: String,
+        typ: UInt16,
+        amount: BigUInt,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
         
         let funcObject = FuncType.increaseStaking(nodeId: nodeId, typ: typ, amount: amount)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
     
     
-    func withdrewStaking(nodeId: String,
-                         sender: String,
-                         privateKey: String,
-                         completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func withdrewStaking(
+        nodeId: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+
         let funcObject = FuncType.withdrewStaking(nodeId: nodeId)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
-    func createDelegate(typ: UInt16,
-                        nodeId: String,
-                        amount: BigUInt,
-                        sender: String,
-                        privateKey: String,
-                        completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func createDelegate(
+        typ: UInt16,
+        nodeId: String,
+        amount: BigUInt,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
         
         let funcObject = FuncType.createDelegate(typ: typ, nodeId: nodeId, amount: amount)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
-    func withdrewDelegate(stakingBlockNum: UInt64,
-                          nodeId: String,
-                          amount: BigUInt,
-                          sender: String,
-                          privateKey: String,
-                          completion: PlatonCommonCompletion?) {
-        var completion = completion
+    public func withdrewDelegate(
+        stakingBlockNum: UInt64,
+        nodeId: String,
+        amount: BigUInt,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+        
         let funcObject = FuncType.withdrewDelegate(stakingBlockNum: stakingBlockNum, nodeId: nodeId, amount: amount)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey) { [weak self] (result, data) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                guard let txHashData = data else {
-                    self.failCompletionOnMainThread(code: -1, errorMsg: "data parse error!", completion: &completion)
-                    return
-                }
-                
-                self.successCompletionOnMain(obj: txHashData as AnyObject, completion: &completion)
-            case .fail(let code, let errMsg):
-                self.failCompletionOnMainThread(code: code!, errorMsg: errMsg!, completion: &completion)
-            }
-        }
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
-    func getVerifierList(
+    public func getVerifierList(
         sender: String,
-        completion: PlatonCommonCompletion?) {
-        var completion = completion
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[Verifier]>?>?) {
         let funcObject = FuncType.verifierList
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<Verifier>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
     }
     
-    func getValidatorList(
+    public func getValidatorList(
         sender: String,
-        completion: PlatonCommonCompletion?) {
-        var completion =  completion
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[Validator]>?>?) {
         let funcObject = FuncType.validatorList
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<Validator>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
     }
     
-    func getCandidateList(
+    public func getCandidateList(
         sender: String,
-        completion: PlatonCommonCompletion?) {
-        var completion =  completion
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[CandidateInfo]>?>?) {
         let funcObject = FuncType.candidateList
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<Candidate>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
     }
     
-    func getDelegateListByDelAddr(sender: String,
-                                  addr: String,
-                                  completion: PlatonCommonCompletion?) {
-        var completion =  completion
+    public func getDelegateListByDelAddr(
+        sender: String,
+        addr: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[RelatedDelegateNode]>?>?) {
         let funcObject = FuncType.delegateListByAddr(addr: addr)
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<RelatedDelegateNode>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+        platonCall(funcObject, sender: sender, completion: completion)
     }
     
-    func getDelegateInfo(sender: String,
-                         stakingBlockNum: UInt64,
-                         delAddr: String,
-                         nodeId: String,
-                         completion: PlatonCommonCompletion?) {
-        var completion =  completion
+    public func getDelegateInfo(
+        sender: String,
+        stakingBlockNum: UInt64,
+        delAddr: String,
+        nodeId: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<DelegateInfo>?>?) {
         let funcObject = FuncType.delegateInfo(stakingBlockNum: stakingBlockNum, delAddr: delAddr, nodeId: nodeId)
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<DelegateInfo>?) in
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
+    
+    public func getStakingInfo(
+        sender: String,
+        nodeId: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<CandidateInfo>?>?) {
+        let funcObject = FuncType.stakingInfo(nodeId: nodeId)
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
+}
+
+extension StakingContract {
+    public func estimateCreateStaking(typ: UInt16,
+                              benifitAddress: String,
+                              nodeId: String,
+                              externalId: String,
+                              nodeName: String,
+                              website: String,
+                              details: String,
+                              amount: BigUInt,
+                              blsPubKey: String,
+                              completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
             guard let self = self else { return }
             switch result {
             case .success:
-                print(response)
-                break;
+                if
+                    let programVersion = response?.result,
+                    let PV = programVersion.ProgramVersion,
+                    let PVS = programVersion.ProgramVersionSign {
+                    
+                    
+                    let funcObject = FuncType.createStaking(
+                        typ: typ,
+                        benifitAddress: benifitAddress,
+                        nodeId: nodeId,
+                        externalId: externalId,
+                        nodeName: nodeName,
+                        website: website,
+                        details: details,
+                        amount: amount,
+                        programVersion: PV,
+                        programVersionSign: PVS,
+                        blsPubKey:blsPubKey
+                    )
+                    
+                    self.platonContractEstimateGas(funcObject, completion: completion)
+                }
             case .fail(let code, let errMsg):
-                break;
+                completion?(PlatonCommonResult.fail(code, errMsg), nil)
             }
         }
     }
     
-    func getStakingInfo(sender: String,
-                        nodeId: String,
-                        completion: PlatonCommonCompletion?) {
-        var completion =  completion
-        let funcObject = FuncType.stakingInfo(nodeId: nodeId)
-        platonCall(funcObject, sender: sender) { [weak self] (result, response: PlatonContractCallResponse<CandidateInfo>?) in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                print(response)
-                break;
-            case .fail(let code, let errMsg):
-                break;
-            }
-        }
+    public func estimateEditorStaking(benifitAddress: String,
+                              nodeId: String,
+                              externalId: String,
+                              nodeName: String,
+                              website: String,
+                              details: String,
+                              completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.editorStaking(benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details)
+        platonContractEstimateGas(funcObject, completion: completion)
     }
+    
+    public func estimateIncreseStaking(nodeId: String,
+                               typ: UInt16,
+                               amount: BigUInt,
+                               completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.increaseStaking(nodeId: nodeId, typ: typ, amount: amount)
+        platonContractEstimateGas(funcObject, completion: completion)
+    }
+    
+    
+    
+    public func estimateWithdrewStaking(nodeId: String,
+                                        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.withdrewStaking(nodeId: nodeId)
+        platonContractEstimateGas(funcObject, completion: completion)
+    }
+    
+    public func estimateCreateDelegate(typ: UInt16,
+                               nodeId: String,
+                               amount: BigUInt,
+                               completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.createDelegate(typ: typ, nodeId: nodeId, amount: amount)
+        platonContractEstimateGas(funcObject, completion: completion)
+    }
+    
+    public func estimateWithdrawDelegate(stakingBlockNum: UInt64,
+                                 nodeId: String,
+                                 amount: BigUInt,
+                                 completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.withdrewDelegate(stakingBlockNum: stakingBlockNum, nodeId: nodeId, amount: amount)
+        platonContractEstimateGas(funcObject, completion: completion)
+    }
+    
 }
