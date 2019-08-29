@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DelegateInfo: Codable {
+public struct DelegateInfo: Decodable {
     var Addr: String?
     var NodeId: String?
     var StakingBlockNum: UInt64?

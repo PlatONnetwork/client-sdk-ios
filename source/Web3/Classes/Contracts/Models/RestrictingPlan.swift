@@ -8,6 +8,12 @@
 
 import Foundation
 
+public enum DuplicateSignType: UInt32 {
+    case prepare = 1
+    case viewChange = 2
+    case timestampViewChange = 3
+}
+
 public struct RestrictingPlan {
     var epoch: UInt64
     var amount: BigUInt

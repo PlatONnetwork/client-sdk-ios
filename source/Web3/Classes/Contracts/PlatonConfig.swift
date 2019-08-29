@@ -36,7 +36,7 @@ public struct PlatonConfig {
         static let voteProposalGas: BigUInt = BigUInt("2000")!
         static let declareVersionGas: BigUInt = BigUInt("3000")!
         
-        static let reportMultiSignGas: BigUInt = BigUInt("1000")!
+        static let reportMultiSignGas: BigUInt = BigUInt("21000")!
         static let createRestrictingPlanGas: BigUInt = BigUInt("8000")!
     }
     
@@ -63,10 +63,18 @@ public struct PlatonConfig {
     
     public struct FuncGasPrice {
         public static var defaultGasPrice: BigUInt = BigUInt("500000000000")!
+        public static var submitTextGasPrice: BigUInt = BigUInt("1500000")!
+        public static var submitVersionGasPrice: BigUInt = BigUInt("2100000")!
+        public static var submitCancelGasPrice: BigUInt = BigUInt("3000000")!
     }
     
     public struct PlatonChainId {
         public static let defaultChainId: String = "100"
+    }
+    
+    public struct VON {
+        public static let GVON = BigUInt(1000000000)
+        public static let LAT = BigUInt(1000000000000000000)
     }
     
     public static let EnableEIP155 = true

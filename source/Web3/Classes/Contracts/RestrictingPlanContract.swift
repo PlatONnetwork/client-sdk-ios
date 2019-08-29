@@ -41,9 +41,10 @@ public class RestrictingPlanContract: PlantonContractProtocol {
 extension RestrictingPlanContract {
     public func estimateCreateRestrictingPlan(account: String,
                                       plans: [RestrictingPlan],
+                                      gasPrice: BigUInt? = nil,
                                       completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.createRestrictingPlan(account: account, plans: plans)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
 }
 

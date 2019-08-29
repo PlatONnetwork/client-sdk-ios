@@ -30,19 +30,20 @@ public class SlashContract: PlantonContractProtocol {
     
     public func checkDuplicateSign(
         sender: String,
-        typ: UInt32,
+        typ: DuplicateSignType,
         addr: String,
         blockNumber: UInt64,
         completion: PlatonCommonCompletionV2<PlatonContractCallResponse<Data>?>?) {
-        let funcObject = FuncType.checkMultiSign(typ: typ, addr: addr, blockNumber: blockNumber)
+        let funcObject = FuncType.checkMultiSign(typ: typ.rawValue, addr: addr, blockNumber: blockNumber)
         platonCall(funcObject, sender: sender, completion: completion)
     }
 }
 
 extension SlashContract {
     public func estimateReportDoubleSign(data: String,
+                                         gasPrice: BigUInt? = nil,
                                          completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.reportMultiSign(data: data)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
 }

@@ -10,6 +10,8 @@ import Localize_Swift
 
 let web3RPCWaitTimeout = 60.0
 
+let semaphore = DispatchSemaphore(value: 1)
+
 public extension Web3.Platon {
     
     func platonCall<T: Decodable>(
@@ -33,7 +35,7 @@ public extension Web3.Platon {
                     return
                 }
                 
-                guard let model = try? JSONDecoder().decode(PlatonContractCallResponse<T>.self, from: Data(bytes: bytes)) else {
+                guard let response = try? JSONDecoder().decode(PlatonContractCallResponse<T>.self, from: Data(bytes: bytes)) else {
                     DispatchQueue.main.async {
                         completion?(.fail(-1, "decode failed"), nil)
                         completion = nil
@@ -42,7 +44,7 @@ public extension Web3.Platon {
                 }
                 
                 DispatchQueue.main.async {
-                    completion?(.success, model)
+                    completion?(.success, response)
                     completion = nil
                 }
             case .failure(_):
@@ -54,42 +56,6 @@ public extension Web3.Platon {
         }
     }
     
-//    func platonCall(contractAddress: String,
-//                    from: String,
-//                    inputs: Data,
-//                    completion:ContractCallCompletion?) {
-//        var completion = completion
-//        let fromEthereumAddress = try? EthereumAddress(hex: from, eip55: false)
-//
-//        let ethereumCall = EthereumCall(from: fromEthereumAddress, to: EthereumAddress(hexString: contractAddress), gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: inputs.bytes))
-//
-//        call(call: ethereumCall, block: .latest) { (response) in
-//            switch response.status {
-//            case .success(_):
-//                guard let bytes = response.result?.bytes, bytes.count > 0 else {
-//                    self.call_empty(completion: &completion)
-//                    return
-//                }
-//
-//                guard let reponseData = String(bytes: bytes).data(using: .utf8) else {
-//                    self.call_fail(code: -1, errorMsg: "reponse not transfer to string", completion: &completion)
-//                    return
-//                }
-//
-//                let jsonObject = try? JSONSerialization.jsonObject(with: reponseData, options: .allowFragments)
-//                guard let json = jsonObject else {
-//                    self.call_fail(code: -1, errorMsg: "not serialization json string", completion: &completion)
-//                    return
-//                }
-//
-//                self.call_success(dictionary: jsonObject as AnyObject?, completion: &completion)
-//
-//            case .failure(_):
-//                self.call_fail(code: response.getErrorCode(), errorMsg: response.getErrorLocalizedDescription(), completion: &completion)
-//            }
-//        }
-//    }
-    
     func platonSendRawTransaction(contractAddress: String,
                                   data: Bytes,
                                   sender: String,
@@ -99,79 +65,63 @@ public extension Web3.Platon {
                                   value: EthereumQuantity?,
                                   estimated: Bool,
                                   completion: PlatonCommonCompletionV2<Data?>?){
-        var completion = completion
-        let semaphore = DispatchSemaphore(value: 0)
-        let queue = DispatchQueue(label: "platonSendRawTransactionQueue")
+        semaphore.wait()
         
+        var completion = completion
+        let queue = DispatchQueue(label: "platonSendRawTransactionQueue")
+        let queueSemaphore = DispatchSemaphore(value: 1)
+        
+        queueSemaphore.wait()
         var nonce : EthereumQuantity?
         queue.async {
             let address = try! EthereumAddress(hex: sender, eip55: false)
-            self.getTransactionCount(address: address, block: .latest, response: {
+            self.getTransactionCount(address: address, block: .pending, response: {
                 nonceResp in
                 
                 switch nonceResp.status{
                 case .success(_):
                     nonce = nonceResp.result
                     Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
-                    semaphore.signal()
+                    queueSemaphore.signal()
                 case .failure(_):
-                    DispatchQueue.main.async {
-                        completion?(.fail(nonceResp.getErrorCode(), nonceResp.getErrorLocalizedDescription()), nil)
-                        completion = nil
-                    }
-                    semaphore.signal()
-                    return
-                    
+                    queueSemaphore.signal()
                 }
             })
         }
         
-        var estimatedGas : EthereumQuantity?
-        estimatedGas = EthereumQuantity(quantity: gas ?? 0)
-//        if estimated{
-//            queue.async {
-//                if semaphore.wait(timeout: .now() + web3RPCWaitTimeout) == .timedOut{
-//                    self.sendRawTransaction_timeout(completion: &completion)
-//                    return
-//                }
-//                
-//                if nonce == nil{
-//                    return
-//                }
-//                
-//                let toContract = EthereumAddress(hexString: contractAddress)
-//                let call = EthereumCall(from: nil, to: toContract!, gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: data))
-//                self.estimateGas(call: call) { (gasestResp) in
-//                    
-//                    switch gasestResp.status{
-//                    case .success(_):
-//                        
-//                        estimatedGas = gasestResp.result
-//                        semaphore.signal()
-//                        
-//                    case .failure(_):
-//                        self.sendRawTransaction_fail(code: gasestResp.getErrorCode(), errorMsg: gasestResp.getErrorLocalizedDescription(), completion: &completion)
-//                        semaphore.signal()
-//                        return
-//                    }
-//                }
-//            }
-//        }else{
-//            estimatedGas = EthereumQuantity(quantity: gas ?? 0)
-//        }
+        if (nonce?.quantity ?? BigUInt.zero) <= BigUInt.zero {
+            queueSemaphore.wait()
+            queue.async {
+                let address = try! EthereumAddress(hex: sender, eip55: false)
+                self.getTransactionCount(address: address, block: .latest, response: { (nonceResp) in
+                    switch nonceResp.status{
+                    case .success(_):
+                        nonce = nonceResp.result
+                        Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
+                        queueSemaphore.signal()
+                    case .failure(_):
+                        DispatchQueue.main.async {
+                            completion?(.fail(nonceResp.getErrorCode(), nonceResp.getErrorLocalizedDescription()), nil)
+                            completion = nil
+                        }
+                        queueSemaphore.signal()
+                        semaphore.signal()
+                        return
+                    }
+                })
+            }
+        }
         
+        queueSemaphore.wait()
         queue.async {
-            if semaphore.wait(wallTimeout: .now() + web3RPCWaitTimeout) == .timedOut{
-                DispatchQueue.main.async {
-                    completion?(.fail(-1, Localized("Request_timeout")), nil)
-                    completion = nil
-                }
+            guard nonce != nil else {
+                queueSemaphore.signal()
+                semaphore.signal()
                 return
             }
             
-            if nonce == nil{
-                return
-            }
+            var estimatedGas : EthereumQuantity?
+            estimatedGas = EthereumQuantity(quantity: gas ?? 0)
             
             let data = EthereumData(bytes: data)
             let ethConAddr = try? EthereumAddress(hex: contractAddress, eip55: true)
@@ -195,22 +145,22 @@ public extension Web3.Platon {
                 switch sendTxResp.status{
                 case .success(_):
                     txHash = sendTxResp.result!
-                    semaphore.signal()
                     DispatchQueue.main.async {
                         completion?(.success, Data(bytes: txHash.bytes))
                         completion = nil
                     }
-                case .failure(_):
+                    queueSemaphore.signal()
                     semaphore.signal()
+                case .failure(_):
                     DispatchQueue.main.async {
                         completion?(.fail(sendTxResp.getErrorCode(), sendTxResp.getErrorLocalizedDescription()), nil)
                         completion = nil
                     }
-                    return
+                    queueSemaphore.signal()
+                    semaphore.signal()
                 }
             })
         }
-        
     }
     
     typealias Web3ResponseCompletion<Result: Codable> = (_ resp: Web3Response<Result>) -> Void
@@ -219,6 +169,76 @@ public extension Web3.Platon {
         self.estimateGas(call: call, response: response)
     }
     
+    func getTransactionReceipt(
+        txHash: String,
+        loopTime: Int,
+        completion: PlatonCommonCompletionV2<EthereumTransactionReceiptObject?>?) {
+        var completion = completion
+
+        let sema = DispatchSemaphore(value: 1)
+        let queue = DispatchQueue(label: "platonGetTransactionReceipt")
+        var time = loopTime
+
+        queue.async {
+            repeat {
+                sema.wait()
+                self.getTransactionReceipt(transactionHash: EthereumData(bytes: Data(hex: txHash).bytes)) { (response) in
+                    time = time - 1
+                    switch response.status {
+                    case .success(let resp):
+                        guard
+                            let receipt = resp,
+                            receipt.logs.count > 0,
+                            receipt.logs[0].data.hex().count > 0 else {
+                                completion?(PlatonCommonResult.fail(-1, "logs is null or invalid"), nil)
+                                completion = nil
+                                return
+                        }
+                        
+                        guard
+                            let rlpItem = try? RLPDecoder().decode(receipt.logs[0].data.bytes),
+                            let respBytes = rlpItem.array?[0].bytes else {
+                                completion?(PlatonCommonResult.fail(-1, "logs rlp decode error"), nil)
+                                completion = nil
+                                return
+                        }
+                        
+                        guard
+                            let callResponse = try? JSONDecoder().decode(PlatonContractCallResponse<String>.self, from: Data(bytes: respBytes)) else {
+                                completion?(PlatonCommonResult.fail(-1, "logs result json decode error"), nil)
+                                completion = nil
+                            return
+                        }
+                        
+                        guard callResponse.Status else {
+                            completion?(PlatonCommonResult.fail(-1, callResponse.ErrMsg), nil)
+                            completion = nil
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            completion?(.success, receipt)
+                            completion = nil
+                        }
+                        
+                        sema.signal()
+                        time = 0
+                    case .failure(_):
+                        Debugger.debugPrint("fail getTransactionReceipt 😭")
+                        if time == 0{
+                            DispatchQueue.main.async {
+                                completion?(.fail(response.getErrorCode(), response.getErrorLocalizedDescription()), nil)
+                                completion = nil
+                            }
+                            sema.signal()
+                            time = 0
+                        }
+                        sema.signal()
+                    }
+                }
+            } while time > 0
+        }
+    }
     
     func platonGetTransactionReceipt(txHash: String, loopTime: Int, completion: PlatonCommonCompletion?) {
         
@@ -234,7 +254,6 @@ public extension Web3.Platon {
                     time = time - 1
                     switch response.status{
                     case .success(_):
-                        
                         DispatchQueue.main.async {
                             Debugger.debugPrint("success getTransactionReceipt 🙂")
                             completion?(.success,response.result as AnyObject)

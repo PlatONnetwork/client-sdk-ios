@@ -129,7 +129,16 @@ extension FuncType {
     }
     
     var gasPrice: BigUInt {
-        return PlatonConfig.FuncGasPrice.defaultGasPrice
+        switch self {
+        case .submitText:
+            return PlatonConfig.FuncGasPrice.submitTextGasPrice.multiplied(by: PlatonConfig.VON.GVON)
+        case .submitVersion:
+            return PlatonConfig.FuncGasPrice.submitVersionGasPrice.multiplied(by: PlatonConfig.VON.GVON)
+        case .submitCancel:
+            return PlatonConfig.FuncGasPrice.submitCancelGasPrice.multiplied(by: PlatonConfig.VON.GVON)
+        default:
+            return PlatonConfig.FuncGasPrice.defaultGasPrice
+        }
     }
     
     var rlpData: Data {
@@ -348,7 +357,7 @@ extension FuncType {
             RLPItem.bytes(verifierBytes!),
             RLPItem.bytes(pIDID.bytes),
             RLPItem.bytes(endVotingBlockData.bytes.trimLeadingZeros()),
-            RLPItem.bytes(tobeCanceledProposalID.bytes)
+            RLPItem.bytes(tobeCanceledProposalID.hexToBytes())
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -398,14 +407,14 @@ extension FuncType {
                     versionSign: String) -> Data {
         let verifierBytes = try? verifier.hexBytes()
         let proposalBytes = try? proposalID.hexBytes()
-        let progressVersion = Data.newData(uint32data: programVersion)
+        
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(verifierBytes!),
             RLPItem.bytes(proposalBytes!),
             RLPItem.bytes(option.rawValue.makeBytes()),
-            RLPItem.bytes(progressVersion.bytes.trimLeadingZeros()),
-            RLPItem.bytes(versionSign.bytes)
+            RLPItem.bytes(programVersion.makeBytes().trimLeadingZeros()),
+            RLPItem.bytes(versionSign.hexToBytes())
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -423,12 +432,12 @@ extension FuncType {
                               version: UInt32,
                               versionSign: String) -> Data {
         let activeNodeBytes = try? activeNode.hexBytes()
-        let versionData = Data.newData(uint32data: version)
+        
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(activeNodeBytes!),
-            RLPItem.bytes(versionData.bytes.trimLeadingZeros()),
-            RLPItem.bytes(versionSign.bytes)
+            RLPItem.bytes(version.makeBytes().trimLeadingZeros()),
+            RLPItem.bytes(versionSign.hexToBytes())
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
@@ -696,7 +705,6 @@ extension FuncType {
         let typData = Data.newData(uInt16Data: typ)
         let ethAddress = EthereumAddress(hexString: benifitAddress)
         let nodeIdBytes = try? nodeId.hexBytes()
-        let progressVersion = Data.newData(uint32data: programVersion)
         
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
@@ -708,7 +716,7 @@ extension FuncType {
             RLPItem.bytes(website.bytes),
             RLPItem.bytes(details.bytes),
             RLPItem.bigUInt(amount),
-            RLPItem.bytes(progressVersion.bytes.trimLeadingZeros()),
+            RLPItem.bytes(programVersion.makeBytes().trimLeadingZeros()),
             RLPItem.bytes(programVersionSign.hexToBytes()),
             RLPItem.bytes(blsPubKey.bytes)
         ]

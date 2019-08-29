@@ -155,9 +155,10 @@ extension ProposalContract {
     public func estimateSubmitText(
         verifier: String,
         pIDID: String,
+        gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.submitText(verifier: verifier, pIDID: pIDID)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
     public func estimateSubmitVersion(
@@ -165,9 +166,10 @@ extension ProposalContract {
         pIDID: String,
         newVersion: UInt32,
         endVotingBlock: UInt64,
+        gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingBlock)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
     public func estimateSubmitCancel(
@@ -175,15 +177,18 @@ extension ProposalContract {
         pIDID: String,
         newVersion: UInt32,
         endVotingRounds: UInt64,
+        gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingRounds)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
     public func estimateVote(
         verifier: String,
         proposalID: String,
         option: VoteOption,
+        sender: String,
+        gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         
         platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
@@ -196,7 +201,7 @@ extension ProposalContract {
                     let PVS = programVersion.ProgramVersionSign {
                     
                     let funcObject = FuncType.voteProposal(verifier: verifier, proposalID: proposalID, option: option, programVersion: PV, versionSign: PVS)
-                    self.platonContractEstimateGas(funcObject, completion: completion)
+                    self.platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
                 }
             case .fail(let code, let errMsg):
                 completion?(PlatonCommonResult.fail(code, errMsg), nil)
@@ -206,6 +211,8 @@ extension ProposalContract {
     
     public func estimateDeclareVersion(
         verifier: String,
+        sender: String,
+        gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         
         platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
@@ -218,7 +225,7 @@ extension ProposalContract {
                     let PVS = programVersion.ProgramVersionSign {
                     
                     let funcObject = FuncType.declareVersion(verifier: verifier, programVersion: PV, versionSign: PVS)
-                    self.platonContractEstimateGas(funcObject, completion: completion)
+                    self.platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
                 }
             case .fail(let code, let errMsg):
                 completion?(PlatonCommonResult.fail(code, errMsg), nil)

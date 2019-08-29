@@ -55,6 +55,12 @@ public extension String {
     
     func hexToBytes_opt() -> [UInt8]{
         var value = self
+        
+        if self.hasPrefix("0x") {
+            let s = self.index(self.startIndex, offsetBy: 2)
+            value = String(self[s...])
+        }
+
         if self.count % 2 > 0 {
             value = "0" + value
         }

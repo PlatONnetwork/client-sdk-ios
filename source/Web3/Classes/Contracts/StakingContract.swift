@@ -41,7 +41,6 @@ public class StakingContract: PlantonContractProtocol {
                     let PV = programVersion.ProgramVersion,
                     let PVS = programVersion.ProgramVersionSign {
                     
-                    
                     let funcObject = FuncType.createStaking(
                         typ: typ,
                         benifitAddress: benifitAddress,
@@ -90,8 +89,6 @@ public class StakingContract: PlantonContractProtocol {
         let funcObject = FuncType.increaseStaking(nodeId: nodeId, typ: typ, amount: amount)
         platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
-    
-    
     
     public func withdrewStaking(
         nodeId: String,
@@ -185,6 +182,8 @@ extension StakingContract {
                               details: String,
                               amount: BigUInt,
                               blsPubKey: String,
+                              sender: String,
+                              gasPrice: BigUInt? = nil,
                               completion: PlatonCommonCompletionV2<BigUInt?>?) {
         platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
             guard let self = self else { return }
@@ -210,7 +209,7 @@ extension StakingContract {
                         blsPubKey:blsPubKey
                     )
                     
-                    self.platonContractEstimateGas(funcObject, completion: completion)
+                    self.platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
                 }
             case .fail(let code, let errMsg):
                 completion?(PlatonCommonResult.fail(code, errMsg), nil)
@@ -224,41 +223,46 @@ extension StakingContract {
                               nodeName: String,
                               website: String,
                               details: String,
+                              gasPrice: BigUInt? = nil,
                               completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.editorStaking(benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
     public func estimateIncreseStaking(nodeId: String,
                                typ: UInt16,
                                amount: BigUInt,
+                               gasPrice: BigUInt? = nil,
                                completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.increaseStaking(nodeId: nodeId, typ: typ, amount: amount)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
     
     
     public func estimateWithdrewStaking(nodeId: String,
+                                        gasPrice: BigUInt? = nil,
                                         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.withdrewStaking(nodeId: nodeId)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
     public func estimateCreateDelegate(typ: UInt16,
                                nodeId: String,
                                amount: BigUInt,
+                               gasPrice: BigUInt? = nil,
                                completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.createDelegate(typ: typ, nodeId: nodeId, amount: amount)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
     public func estimateWithdrawDelegate(stakingBlockNum: UInt64,
                                  nodeId: String,
                                  amount: BigUInt,
+                                 gasPrice: BigUInt? = nil,
                                  completion: PlatonCommonCompletionV2<BigUInt?>?) {
         let funcObject = FuncType.withdrewDelegate(stakingBlockNum: stakingBlockNum, nodeId: nodeId, amount: amount)
-        platonContractEstimateGas(funcObject, completion: completion)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
     
 }

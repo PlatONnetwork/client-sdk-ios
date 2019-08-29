@@ -19,7 +19,7 @@ protocol PlantonContractProtocol {
     
     func platonSendRawTransaction(_ funcType: FuncType, sender: String, privateKey: String, value: EthereumQuantity?, gas: BigUInt?, gasPrice: BigUInt?, completion: PlatonCommonCompletionV2<Data?>?)
     
-    func platonContractEstimateGas(_ funcType: FuncType, completion: PlatonCommonCompletionV2<BigUInt?>?)
+    func platonContractEstimateGas(_ funcType: FuncType, gasPrice: BigUInt?, completion: PlatonCommonCompletionV2<BigUInt?>?)
 
     func platonGetProgramVersion(sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<ProgramVersion>?>?)
 }
@@ -33,12 +33,37 @@ extension PlantonContractProtocol {
         platon.platonSendRawTransaction(contractAddress: contractAddress, data: funcType.rlpData.bytes, sender: sender, privateKey: privateKey, gasPrice: gasPrice ?? funcType.gasPrice, gas: gas ?? funcType.gas, value: value, estimated: true, completion: completion)
     }
     
-    func platonContractEstimateGas(_ funcType: FuncType, completion: PlatonCommonCompletionV2<BigUInt?>?) {
+    func platonContractEstimateGas(_ funcType: FuncType, gasPrice: BigUInt? = nil, completion: PlatonCommonCompletionV2<BigUInt?>?) {
         var completion = completion
-        let estimateGas = funcType.gas.multiplied(by: funcType.gasPrice)
-        DispatchQueue.main.async {
-            completion?(.success, estimateGas)
-            completion = nil
+        
+        switch funcType {
+        case .submitText,
+             .submitVersion,
+             .submitCancel:
+            DispatchQueue.main.async {
+                completion?(.success, funcType.gas.multiplied(by: funcType.gasPrice))
+                completion = nil
+            }
+        default:
+            if let price = gasPrice {
+                DispatchQueue.main.async {
+                    completion?(.success, funcType.gas.multiplied(by: price))
+                    completion = nil
+                }
+            } else {
+                platon.gasPrice { (response) in
+                    switch response.status {
+                    case .success(let result):
+                        PlatonConfig.FuncGasPrice.defaultGasPrice = result.quantity
+                    case .failure(_):
+                        break
+                    }
+                    DispatchQueue.main.async {
+                        completion?(.success, funcType.gas.multiplied(by: funcType.gasPrice))
+                        completion = nil
+                    }
+                }
+            }
         }
     }
     
