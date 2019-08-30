@@ -15,7 +15,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
 
     var firstdemoContract = firstdemo()
     
-    let web3j: Web3 = Web3(rpcURL: "http://192.168.120.76:6795")
+    let web3j: Web3 = Web3(rpcURL: "http://192.168.120.76:6794")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,23 +25,29 @@ class Web3_0_7_ViewController: BaseTableViewController {
     
     func testForCreateStaking() {
         
-        let hash = "0x77f54a21c9c4961c00f7f37df7369128c6ad7054708231a8c96f6ff2ed4a9435"
-        web3j.platon.getTransactionReceipt(txHash: hash, loopTime: 1) { (result, data) in
-            print("get receipt =================")
-            print(result)
-            print(data)
-        }
-        return
+//        let hash = "0x77f54a21c9c4961c00f7f37df7369128c6ad7054708231a8c96f6ff2ed4a9435"
+//        web3j.platon.getTransactionReceipt(txHash: hash, loopTime: 1) { (result, data) in
+//            print("get receipt =================")
+//            print(result)
+//            print(data)
+//        }
+//        return
         
         let typ = UInt16(0)
         let bAddress = "0x48c867ddBF22062704D6c81d3FA256bc6fc8b6bC"
-        let nodeId = "3aca21c898c892dae5081682119573c86b4dec3d50875cd95358cc28068231929827f3ee95471cb857986ad7f4b7d64f54be493dc3d476f603bdc2bc8a64e79b"
+        let nodeId = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
         let externalId = "liyf-test-id"
         let nodeName = "yujinghan-node"
         let website = "www.baidu.com"
         let details = "f**king stupid"
         let amount = BigUInt("5000000").multiplied(by: PlatonConfig.VON.LAT)
-        let blsPubKey = "cec189e90234b2c4d9e55402c1abf7cfbbc85dbf1b6b43820a2c6f953464c201bf6d1c3f51cf5e7cbc6e40815406f611b1aeca99acd782ed8b8e33c82f71ee08"
+        let blsPubKey = "80d98a48400a36e3da9de8e227e4a8c8fa3f90c08c82a467c9ac01298c2eb57f543d7e9568b0f381cc6c9de911870d1292b62459d083700d3958d775fca60e41ddd7d8532163f5acabaa6e0c47b626c39de51d9d67fb97a5af1871a661ca7788"
+        
+        let address = try? EthereumAddress(hex: sender, eip55: false)
+        web3j.platon.getBalance(address: address!, block: .latest) { (response) in
+            print(response)
+        }
+        return
         
         web3j.staking.createStaking(
             typ: typ,
@@ -69,7 +75,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
     
     func testForEditorStaking() {
         let bAddress = "0x48c867ddBF22062704D6c81d3FA256bc6fc8b6bC"
-        let nodeId = "19f1c9aa5140bd1304a3260de640a521c33015da86b88cd2ecc83339b558a4d4afa4bd0555d3fa16ae43043aeb4fbd32c92b34de1af437811de51d966dc64365"
+        let nodeId = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
         let externalId = "111111"
         let nodeName = "platon"
         let website = "https://www.test.network"
@@ -98,8 +104,8 @@ class Web3_0_7_ViewController: BaseTableViewController {
     
     func testForIncreseStaking() {
         let typ = UInt16(0)
-        let nodeId = "19f1c9aa5140bd1304a3260de640a521c33015da86b88cd2ecc83339b558a4d4afa4bd0555d3fa16ae43043aeb4fbd32c92b34de1af437811de51d966dc64365"
-        let amount = BigUInt("1000000000000000000000000")
+        let nodeId = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
+        let amount = BigUInt("1000000").multiplied(by: PlatonConfig.VON.LAT)
         
         web3j.staking.increseStaking(
             nodeId: nodeId,
@@ -120,7 +126,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     func testForWithdrewStaking() {
-        let nodeId = "19f1c9aa5140bd1304a3260de640a521c33015da86b88cd2ecc83339b558a4d4afa4bd0555d3fa16ae43043aeb4fbd32c92b34de1af437811de51d966dc64365"
+        let nodeId = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
         
         web3j.staking.withdrewStaking(nodeId: nodeId,
                                       sender: sender,
@@ -140,7 +146,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
     func testForDelegate() {
         let typ = UInt16(0)
 //        let typ = UInt16(bytes: [0x00,0x00])
-        let nodeId = "19f1c9aa5140bd1304a3260de640a521c33015da86b88cd2ecc83339b558a4d4afa4bd0555d3fa16ae43043aeb4fbd32c92b34de1af437811de51d966dc64365"
+        let nodeId = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
         let amount = BigUInt("100000000000000000000000")!
         let delSender = "0x48c867ddBF22062704D6c81d3FA256bc6fc8b6bC"
         let delPrivateKey = "96f1f76c45bc2dd9c0f84a11da4ec104ae95661871284a29413a454a70b15307"
@@ -233,7 +239,6 @@ class Web3_0_7_ViewController: BaseTableViewController {
                 if let data = response?.result {
                     print("testForGetRelatedListByDelAddr is right!!!!!!")
                     print(data)
-                    response
                 }
             case .fail(_, _):
                 break

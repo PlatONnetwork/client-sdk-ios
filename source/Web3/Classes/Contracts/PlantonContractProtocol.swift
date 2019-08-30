@@ -41,7 +41,7 @@ extension PlantonContractProtocol {
              .submitVersion,
              .submitCancel:
             DispatchQueue.main.async {
-                completion?(.success, funcType.gas.multiplied(by: funcType.gasPrice))
+                completion?(.success, funcType.gas.multiplied(by: funcType.gasPrice ?? PlatonConfig.FuncGasPrice.defaultGasPrice))
                 completion = nil
             }
         default:
@@ -59,7 +59,7 @@ extension PlantonContractProtocol {
                         break
                     }
                     DispatchQueue.main.async {
-                        completion?(.success, funcType.gas.multiplied(by: funcType.gasPrice))
+                        completion?(.success, funcType.gas.multiplied(by: funcType.gasPrice ?? PlatonConfig.FuncGasPrice.defaultGasPrice))
                         completion = nil
                     }
                 }

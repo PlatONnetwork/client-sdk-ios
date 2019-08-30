@@ -133,7 +133,7 @@ public class StakingContract: PlantonContractProtocol {
     
     public func getValidatorList(
         sender: String,
-        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[Validator]>?>?) {
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[Verifier]>?>?) {
         let funcObject = FuncType.validatorList
         platonCall(funcObject, sender: sender, completion: completion)
     }

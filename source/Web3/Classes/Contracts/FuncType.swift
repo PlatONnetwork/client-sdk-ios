@@ -128,7 +128,7 @@ extension FuncType {
         }
     }
     
-    var gasPrice: BigUInt {
+    var gasPrice: BigUInt? {
         switch self {
         case .submitText:
             return PlatonConfig.FuncGasPrice.submitTextGasPrice.multiplied(by: PlatonConfig.VON.GVON)
@@ -137,7 +137,7 @@ extension FuncType {
         case .submitCancel:
             return PlatonConfig.FuncGasPrice.submitCancelGasPrice.multiplied(by: PlatonConfig.VON.GVON)
         default:
-            return PlatonConfig.FuncGasPrice.defaultGasPrice
+            return nil
         }
     }
     

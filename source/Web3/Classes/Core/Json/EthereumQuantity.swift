@@ -56,7 +56,7 @@ extension EthereumQuantity: EthereumValueConvertible {
 
 public extension EthereumValue {
 
-    public var ethereumQuantity: EthereumQuantity? {
+    var ethereumQuantity: EthereumQuantity? {
         return try? EthereumQuantity(ethereumValue: self)
     }
 }

@@ -60,7 +60,7 @@ public extension Web3.Platon {
                                   data: Bytes,
                                   sender: String,
                                   privateKey: String,
-                                  gasPrice: BigUInt,
+                                  gasPrice: BigUInt?,
                                   gas: BigUInt?,
                                   value: EthereumQuantity?,
                                   estimated: Bool,
@@ -112,6 +112,20 @@ public extension Web3.Platon {
             }
         }
         
+        var estimateGasPrice = gasPrice
+        if gasPrice == nil {
+            queueSemaphore.wait()
+            self.gasPrice { (response) in
+                switch response.status {
+                case .success(let result):
+                    estimateGasPrice = result.quantity
+                    queueSemaphore.signal()
+                case .failure(_):
+                    queueSemaphore.signal()
+                }
+            }
+        }
+        
         queueSemaphore.wait()
         queue.async {
             guard nonce != nil else {
@@ -125,7 +139,7 @@ public extension Web3.Platon {
             
             let data = EthereumData(bytes: data)
             let ethConAddr = try? EthereumAddress(hex: contractAddress, eip55: true)
-            let egasPrice = EthereumQuantity(quantity: gasPrice)
+            let egasPrice = EthereumQuantity(quantity: estimateGasPrice ?? PlatonConfig.FuncGasPrice.defaultGasPrice)
             
             let from = try? EthereumAddress(hex: sender, eip55: true)
             

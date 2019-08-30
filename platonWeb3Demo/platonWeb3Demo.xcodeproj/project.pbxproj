@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A255D7E899C2279DBB08C64 /* Pods_platonWeb3DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF182C070A2F272D0AFF2F4 /* Pods_platonWeb3DemoTests.framework */; };
 		8101BDA522EAD161004A009E /* PlatonContractCallResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101BDA422EAD161004A009E /* PlatonContractCallResponse.swift */; };
-		8101BDA722EAD78B004A009E /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101BDA622EAD78B004A009E /* Validator.swift */; };
 		8101BDA922EAD942004A009E /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101BDA822EAD942004A009E /* Candidate.swift */; };
 		8101BDAB22EADA70004A009E /* RelatedDelegateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101BDAA22EADA70004A009E /* RelatedDelegateNode.swift */; };
 		812D4B5A21F6E7C300053C42 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D4B5921F6E7C300053C42 /* VoteViewController.swift */; };
@@ -146,7 +145,6 @@
 		47A4E689F87CAD2711011958 /* Pods-platonWeb3DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoTests/Pods-platonWeb3DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6DC32B1E064729AAD9B74992 /* Pods-platonWeb3Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3Demo/Pods-platonWeb3Demo.release.xcconfig"; sourceTree = "<group>"; };
 		8101BDA422EAD161004A009E /* PlatonContractCallResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatonContractCallResponse.swift; sourceTree = "<group>"; };
-		8101BDA622EAD78B004A009E /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		8101BDA822EAD942004A009E /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
 		8101BDAA22EADA70004A009E /* RelatedDelegateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedDelegateNode.swift; sourceTree = "<group>"; };
 		812D4B5921F6E7C300053C42 /* VoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
@@ -377,7 +375,6 @@
 				81D3A15C22D5D6B000A59897 /* Proposal.swift */,
 				81D3A15E22D5D72C00A59897 /* TallyResult.swift */,
 				81D3A15022D465C500A59897 /* RestrictingPlan.swift */,
-				8101BDA622EAD78B004A009E /* Validator.swift */,
 				8101BDA822EAD942004A009E /* Candidate.swift */,
 				8101BDAA22EADA70004A009E /* RelatedDelegateNode.swift */,
 				8148B437230C288500BA07B3 /* RestrictingInfo.swift */,
@@ -851,7 +848,6 @@
 				9A243077225B36C4007A886C /* SolidityType+Codable.swift in Sources */,
 				9A243066225B36C4007A886C /* UnsignedInteger+BytesConvertible.swift in Sources */,
 				81D3A15922D5D29800A59897 /* Verifier.swift in Sources */,
-				8101BDA722EAD78B004A009E /* Validator.swift in Sources */,
 				9A243062225B36C4007A886C /* Bytes+UInt.swift in Sources */,
 				9A243085225B36C4007A886C /* Debugger.swift in Sources */,
 				9A243070225B36C4007A886C /* SolidityFunction.swift in Sources */,

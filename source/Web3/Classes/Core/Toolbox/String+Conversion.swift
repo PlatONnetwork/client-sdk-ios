@@ -9,6 +9,14 @@ import Foundation
 
 public extension String {
     
+    func remove0xPrefix() -> String {
+        guard self.hasPrefix("0x") else {
+            return self
+        }
+        let s = self.index(self.startIndex, offsetBy: 2)
+        return String(self[s...])
+    }
+    
     func privateKeyAdd0xPrefix() -> String {
         guard self.count == 66 else {
             return self
