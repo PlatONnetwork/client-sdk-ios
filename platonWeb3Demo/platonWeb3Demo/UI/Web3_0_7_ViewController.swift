@@ -15,7 +15,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
 
     var firstdemoContract = firstdemo()
     
-    let web3j: Web3 = Web3(rpcURL: "http://192.168.120.76:6794")
+    let web3j: Web3 = Web3(rpcURL: "http://192.168.9.76:6789")
     
     override func viewDidLoad() {
         super.viewDidLoad()

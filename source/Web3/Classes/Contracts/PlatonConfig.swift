@@ -10,11 +10,11 @@ import Foundation
 
 public struct PlatonConfig {
     // 初始化的合约地址
-    struct ContractAddress {
-        static let stakingContractAddress: String = "0x1000000000000000000000000000000000000002"
-        static let proposalContractAddress: String = "0x1000000000000000000000000000000000000005"
-        static let restrictingContractAddress: String = "0x1000000000000000000000000000000000000001"
-        static let slashContractAddress: String = "0x1000000000000000000000000000000000000004"
+    public struct ContractAddress {
+        public static let stakingContractAddress: String = "0x1000000000000000000000000000000000000002"
+        public static let proposalContractAddress: String = "0x1000000000000000000000000000000000000005"
+        public static let restrictingContractAddress: String = "0x1000000000000000000000000000000000000001"
+        public static let slashContractAddress: String = "0x1000000000000000000000000000000000000004"
     }
     
     struct ContractCallGas {
@@ -69,7 +69,7 @@ public struct PlatonConfig {
     }
     
     public struct PlatonChainId {
-        public static let defaultChainId: String = "100"
+        public static let defaultChainId: String = "203"
     }
     
     public struct VON {
