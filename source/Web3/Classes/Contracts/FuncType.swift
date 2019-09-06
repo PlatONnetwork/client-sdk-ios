@@ -278,12 +278,14 @@ extension FuncType {
     func build_checkDoubleSign(typ: UInt32,
                                addr: String,
                                blockNumber: UInt64) -> Data {
-        let typData = Data.newData(uint32data: typ)
+        let typString = String(typ)
+        let typBytes = try? typString.hexBytes().trimLeadingZeros()
+        
         let blockNumberData = Data.newData(unsignedLong: blockNumber)
         let ethAddress = EthereumAddress(hexString: addr)
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
-            RLPItem.bytes(typData.bytes.trimLeadingZeros()),
+            RLPItem.bytes(typBytes ?? Bytes()),
             RLPItem.bytes(ethAddress!.rawAddress),
             RLPItem.bytes(blockNumberData.bytes.trimLeadingZeros()),
         ]
@@ -597,12 +599,13 @@ extension FuncType {
     func build_createDelegate(typ: UInt16,
                               nodeId: String,
                               amount: BigUInt) -> Data {
-        let typData = Data.newData(uInt16Data: typ)
         let nodeIdBytes = try? nodeId.hexBytes()
+        let typString = String(typ)
+        let typBytes = try? typString.hexBytes().trimLeadingZeros()
         
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
-            RLPItem.bytes(typData.bytes.trimLeadingZeros()),//需去掉0，不然提交会失败
+            RLPItem.bytes(typBytes ?? Bytes()),//需去掉0，不然提交会失败
             RLPItem.bytes(nodeIdBytes!),
             RLPItem.bigUInt(amount),
         ]
@@ -640,13 +643,14 @@ extension FuncType {
     func build_increseStaking(nodeId: String,
                               typ: UInt16,
                               amount: BigUInt) -> Data {
-        let typData = Data.newData(uInt16Data: typ)
         let nodeIdBytes = try? nodeId.hexBytes()
+        let typString = String(typ)
+        let typBytes = try? typString.hexBytes().trimLeadingZeros()
         
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(nodeIdBytes!),
-            RLPItem.bytes(typData.bytes.trimLeadingZeros()),
+            RLPItem.bytes(typBytes ?? Bytes()),
             RLPItem.bigUInt(amount),
         ]
         
@@ -702,13 +706,15 @@ extension FuncType {
                              programVersion: UInt32,
                              programVersionSign: String,
                              blsPubKey: String) -> Data {
-        let typData = Data.newData(uInt16Data: typ)
+        let typString = String(typ)
+        let typBytes = try? typString.hexBytes().trimLeadingZeros()
+        
         let ethAddress = EthereumAddress(hexString: benifitAddress)
         let nodeIdBytes = try? nodeId.hexBytes()
         
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
-            RLPItem.bytes(typData.bytes.trimLeadingZeros()),
+            RLPItem.bytes(typBytes ?? Bytes()),
             RLPItem.bytes(ethAddress!.rawAddress),
             RLPItem.bytes(nodeIdBytes!),
             RLPItem.bytes(externalId.bytes),
