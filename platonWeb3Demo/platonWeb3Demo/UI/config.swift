@@ -10,7 +10,7 @@ import Foundation
 
 //let web3 : Web3 = Web3(rpcURL: "http://13.67.44.50:6789")
 
-let web3 : Web3 = Web3(rpcURL: "http://192.168.120.76:6794")
+let web3 : Web3 = Web3(rpcURL: "http://192.168.120.76:6794", chainId: "103")
 //let sender = "0xeD04525c1240D19bc5a05787D96A903022eABDDf"
 //let privateKey = "72e2c5dfa474c8f9729f563b05d5b1da93c3f50bb134ddf62febe2298cea4d7a"
 

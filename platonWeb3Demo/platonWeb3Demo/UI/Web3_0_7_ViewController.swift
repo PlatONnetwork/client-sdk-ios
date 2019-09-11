@@ -15,7 +15,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
 
     var firstdemoContract = firstdemo()
     
-    let web3j: Web3 = Web3(rpcURL: "http://192.168.9.190:1000/rpc")
+    let web3j: Web3 = Web3(rpcURL: "http://192.168.9.190:1000/rpc", chainId: "103")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +141,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     func testForDelegate() {
-        let typ: UInt16 = 1
+        let typ: UInt16 = 0
 //        let typ = UInt16(bytes: [0x00,0x00])
         let nodeId = "c88a7b7c6201a531afa1f70c6fd88aec623630c957bb2e13ea4caa7e89f260cd3338b2d712d728929062198d08585973298830875279bb84b201f041f1013714"
         let amount = BigUInt(10).multiplied(by: PlatonConfig.VON.LAT)

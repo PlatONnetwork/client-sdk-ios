@@ -8,7 +8,7 @@
 
 import Foundation
 
-let platonWeb3 = Web3(rpcURL: "http://10.10.8.21:6789")
+let platonWeb3 = Web3(rpcURL: "http://10.10.8.21:6789", chainId: "103")
 
 class PlatonWeb3Test {
     
@@ -251,7 +251,7 @@ class PlatonWeb3Test {
     
     func escapingDeployTest(){
         
-        let web3 = Web3(rpcURL: "http://192.168.7.184:8545")
+        let web3 = Web3(rpcURL: "http://192.168.7.184:8545", chainId: "103")
         
         let binPath = Bundle.main.path(forResource: "PlatonAssets/demo01", ofType: "wasm")
         let bin = try? Data(contentsOf: URL(fileURLWithPath: binPath!))

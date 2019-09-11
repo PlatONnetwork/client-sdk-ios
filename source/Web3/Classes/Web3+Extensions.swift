@@ -148,7 +148,7 @@ public extension Web3.Platon {
                 sendValue = value!
             }
             let tx = EthereumTransaction(nonce: nonce, gasPrice: egasPrice, gas: estimatedGas, from: from, to: ethConAddr, value: sendValue, data: data)
-            let chainID = EthereumQuantity(quantity: BigUInt(PlatonConfig.PlatonChainId.defaultChainId)!)
+            let chainID = EthereumQuantity(quantity: BigUInt(self.properties.chainId)!)
             let checkedPrivateKey = privateKey.privateKeyAdd0xPrefix()
             
             let signedTx = try? tx.sign(with: try! EthereumPrivateKey(hexPrivateKey: checkedPrivateKey), chainId: chainID) as EthereumSignedTransaction

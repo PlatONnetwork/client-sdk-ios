@@ -68,10 +68,6 @@ public struct PlatonConfig {
         public static var submitCancelGasPrice: BigUInt = BigUInt("3000000")!
     }
     
-    public struct PlatonChainId {
-        public static let defaultChainId: String = "203"
-    }
-    
     public struct VON {
         public static let GVON = BigUInt(1000000000)
         public static let LAT = BigUInt(1000000000000000000)

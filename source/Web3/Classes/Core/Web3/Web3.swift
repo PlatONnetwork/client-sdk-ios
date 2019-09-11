@@ -20,11 +20,10 @@ public struct Web3 {
     public let properties: Properties
     
 
-    
     public struct Properties {
-
         public let provider: Web3Provider
         public let rpcId: Int
+        public let chainId: String
     }
 
     // MARK: - Convenient properties
@@ -35,6 +34,10 @@ public struct Web3 {
 
     public var rpcId: Int {
         return properties.rpcId
+    }
+    
+    public var chainId: String {
+        return properties.chainId
     }
 
     /// The struct holding all `net` requests
@@ -64,8 +67,8 @@ public struct Web3 {
      * - parameter provider: The provider which handles all requests and responses.
      * - parameter rpcId: The rpc id to be used in all requests. Defaults to 1.
      */
-    public init(provider: Web3Provider, rpcId: Int = 1) {
-        let properties = Properties(provider: provider, rpcId: rpcId)
+    public init(provider: Web3Provider, rpcId: Int = 1, chainId: String) {
+        let properties = Properties(provider: provider, rpcId: rpcId, chainId: chainId)
         self.properties = properties
         self.net = Net(properties: properties)
         self.platon = Platon(properties: properties)
