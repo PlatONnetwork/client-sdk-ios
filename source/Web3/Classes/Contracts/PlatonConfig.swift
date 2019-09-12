@@ -20,8 +20,8 @@ public struct PlatonConfig {
     struct ContractCallGas {
         static var stakingContractGas: BigUInt = BigUInt("6000")!
         static var proposalContractGas: BigUInt = BigUInt("9000")!
-        static var slashContractGas: BigUInt = BigUInt("1000")!
-        static var restrictingContractGas: BigUInt = BigUInt("2000")!
+        static var slashContractGas: BigUInt = BigUInt("21000")!
+        static var restrictingContractGas: BigUInt = BigUInt("18000")!
         
         static let createStakingGas: BigUInt = BigUInt("32000")!
         static let editorStakingGas: BigUInt = BigUInt("12000")!
@@ -44,6 +44,7 @@ public struct PlatonConfig {
     // 内置合约gas消耗 = 21000 + 合约调用固定消耗 + 接口固定gas消耗 + 接口动态gas消耗规则 + (data中的非0值byte个数*68) + (data中的0值byte个数*4)
     struct FuncGas {
         static var defaultGas: BigUInt = BigUInt("21000")!
+        
         static var createStakingGas: BigUInt = defaultGas + ContractCallGas.createStakingGas + ContractCallGas.stakingContractGas
         static var editorStakingGas: BigUInt = defaultGas + ContractCallGas.editorStakingGas + ContractCallGas.stakingContractGas
         static var increaseStakingGas: BigUInt = defaultGas + ContractCallGas.increaseStakingGas + ContractCallGas.stakingContractGas
@@ -58,6 +59,7 @@ public struct PlatonConfig {
         static var declareVersionGas: BigUInt = defaultGas + ContractCallGas.declareVersionGas + ContractCallGas.proposalContractGas
         
         static var reportMultiSignGas: BigUInt = defaultGas + ContractCallGas.reportMultiSignGas + ContractCallGas.slashContractGas
+        
         static var createRestrictingPlanGas: BigUInt = defaultGas + ContractCallGas.createRestrictingPlanGas + ContractCallGas.restrictingContractGas
     }
     

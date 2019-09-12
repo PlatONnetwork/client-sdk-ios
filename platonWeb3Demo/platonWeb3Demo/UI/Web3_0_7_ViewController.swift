@@ -464,14 +464,14 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     func testForCreateRestrictingPlan() {
-        let account = "0xceca295e1471b3008d20b017c7df7d4f338a7fba"
+        let account = "0x0772fd8e5126C01b98D3a93C64546306149202ED"
+        let epoch: UInt64 = 1
         let plans = [
-            RestrictingPlan(epoch: UInt64(100), amount: BigUInt("5000000000000000000")),
-            RestrictingPlan(epoch: UInt64(200), amount: BigUInt("600000000000000000"))
+            RestrictingPlan(epoch: epoch, amount: BigUInt(100).multiplied(by: PlatonConfig.VON.LAT))
         ]
         
-        let sender1 = "0x8b239461d37e2f2002ded20e7950c241bc449d36"
-        let pri1 = "9d8dc0c4895d3bc1df7e557dda91089b539fe681807dedcf458850b02d8e7790"
+        let sender1 = "0xA7074774f4E1e033c6cBd471Ec072f7734144A0c"
+        let pri1 = "77bc96ef72034937da4c2a23162c3261df543d0c0d2a80fd9cddb9951762886a"
         web3j.restricting.createRestrictingPlan(
             account: account,
             plans: plans,
@@ -490,8 +490,9 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     func testForGetRestrictingInfo() {
-        let account = "0xceca295e1471b3008d20b017c7df7d4f338a7fba"
-        web3j.restricting.getRestrictingPlanInfo(sender: sender, account: account) { (result, data) in
+        let account = "0x0772fd8e5126C01b98D3a93C64546306149202ED"
+        let sender1 = "0xA7074774f4E1e033c6cBd471Ec072f7734144A0c"
+        web3j.restricting.getRestrictingPlanInfo(sender: sender1, account: account) { (result, data) in
             switch result {
             case .success:
                 if let data = data as? Data {

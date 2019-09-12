@@ -26,8 +26,10 @@ public struct RestrictingPlan {
 extension RLPItem {
     init(epoch: UInt64,
          amount: BigUInt) {
+        let epochData = Data.newData(unsignedLong: epoch)
+        let epochBytes = epochData.bytes.trimLeadingZeros()
         self = .array(
-            .uint(UInt(epoch)),
+            .bytes(epochBytes),
             .bigUInt(amount)
         )
     }
@@ -39,11 +41,11 @@ extension RestrictingPlan: RLPItemConvertible {
             throw Error.rlpItemInvalid
         }
         
-        guard let epoch = array[0].uint, let amount = array[1].bigUInt else {
+        guard let epoch = array[0].bytes, let amount = array[1].bigUInt else {
             throw Error.rlpItemInvalid
         }
-        
-        self.init(epoch: UInt64(epoch), amount: amount)
+
+        self.init(epoch: UInt64(bytes: epoch), amount: amount)
     }
     
     public func rlp() throws -> RLPItem {
