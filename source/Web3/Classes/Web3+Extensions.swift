@@ -49,7 +49,7 @@ public extension Web3.Platon {
                 }
             case .failure(_):
                 DispatchQueue.main.async {
-                    completion?(.fail(response.getErrorCode(), response.getErrorLocalizedDescription()), nil)
+                    completion?(.fail(response.error?.code, response.error?.message), nil)
                     completion = nil
                 }
             }
@@ -101,7 +101,7 @@ public extension Web3.Platon {
                         queueSemaphore.signal()
                     case .failure(_):
                         DispatchQueue.main.async {
-                            completion?(.fail(nonceResp.getErrorCode(), nonceResp.getErrorLocalizedDescription()), nil)
+                            completion?(.fail(nonceResp.error?.code, nonceResp.error?.message), nil)
                             completion = nil
                         }
                         queueSemaphore.signal()
@@ -167,7 +167,7 @@ public extension Web3.Platon {
                     semaphore.signal()
                 case .failure(_):
                     DispatchQueue.main.async {
-                        completion?(.fail(sendTxResp.getErrorCode(), sendTxResp.getErrorLocalizedDescription()), nil)
+                        completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
                         completion = nil
                     }
                     queueSemaphore.signal()
@@ -224,8 +224,8 @@ public extension Web3.Platon {
                             return
                         }
                         
-                        guard callResponse.Status else {
-                            completion?(PlatonCommonResult.fail(-1, callResponse.ErrMsg), nil)
+                        guard callResponse.Code == 0 else {
+                            completion?(PlatonCommonResult.fail(callResponse.Code, callResponse.ErrMsg), nil)
                             completion = nil
                             return
                         }
@@ -241,7 +241,7 @@ public extension Web3.Platon {
                         Debugger.debugPrint("fail getTransactionReceipt 😭")
                         if time == 0{
                             DispatchQueue.main.async {
-                                completion?(.fail(response.getErrorCode(), response.getErrorLocalizedDescription()), nil)
+                                completion?(.fail(response.error?.code, response.error?.message), nil)
                                 completion = nil
                             }
                             sema.signal()
@@ -279,7 +279,7 @@ public extension Web3.Platon {
                         Debugger.debugPrint("fail getTransactionReceipt 😭")
                         if time == 0{
                             DispatchQueue.main.async {
-                                completion?(PlatonCommonResult.fail(response.getErrorCode(), response.getErrorLocalizedDescription()),nil)
+                                completion?(PlatonCommonResult.fail(response.error?.code, response.error?.message), nil)
                                 completion = nil
                             }
                             semaphore.signal()

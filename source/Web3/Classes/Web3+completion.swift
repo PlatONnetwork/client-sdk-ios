@@ -8,9 +8,10 @@
 
 import Foundation
 
+
 public enum PlatonCommonResult : Error{
     case success
-    case fail(Int?,String?)
+    case fail(Int?, String?)
 }
 
 public typealias PlatonCommonCompletionV2<T> = (_ result: PlatonCommonResult, _ data: T) -> Void

@@ -15,7 +15,9 @@ class Web3_0_7_ViewController: BaseTableViewController {
 
     var firstdemoContract = firstdemo()
     
+//    let web3j: Web3 = Web3(rpcURL: "https://aton.main.platon.network/rpc", chainId: "101")
     let web3j: Web3 = Web3(rpcURL: "http://192.168.9.190:1000/rpc", chainId: "103")
+//    let web3j: Web3 = Web3(rpcURL: "https://aton.test.platon.network/rpc", chainId: "103")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +25,9 @@ class Web3_0_7_ViewController: BaseTableViewController {
         self.tableView.delegate = self
     }
     
+    
+    
     func testForCreateStaking() {
-        
 //        let hash = "0x77f54a21c9c4961c00f7f37df7369128c6ad7054708231a8c96f6ff2ed4a9435"
 //        web3j.platon.getTransactionReceipt(txHash: hash, loopTime: 1) { (result, data) in
 //            print("get receipt =================")
@@ -417,15 +420,8 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     func testForGetProgramVersion() {
-        web3j.staking.platonGetProgramVersion(sender: sender) { (result, data) in
-            switch result {
-            case .success:
-                if let string = data as? String {
-                    print(string)
-                }
-            case .fail(_, _):
-                break
-            }
+        web3j.platon.programVersion { (response) in
+            print(response)
         }
     }
     

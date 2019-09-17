@@ -30,7 +30,6 @@ enum FuncType {
     case proposalResult(proposalID: String)
     case proposalList
     case activeVersion
-    case programVersion
     case reportMultiSign(data: String)
     case checkMultiSign(typ: UInt32, addr: String, blockNumber: UInt64)
     case createRestrictingPlan(account: String, plans: [RestrictingPlan])
@@ -82,8 +81,6 @@ extension FuncType {
             return 2102
         case .activeVersion:
             return 2103
-        case .programVersion:
-            return 2104
         case .reportMultiSign:
             return 3000
         case .checkMultiSign:
@@ -207,8 +204,7 @@ extension FuncType {
              .validatorList,
              .candidateList,
              .proposalList,
-             .activeVersion,
-             .programVersion:
+             .activeVersion:
             let data = build_defaultData()
             return data
         }

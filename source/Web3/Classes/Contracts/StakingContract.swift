@@ -9,7 +9,6 @@
 import Foundation
 
 public class StakingContract: PlantonContractProtocol {
-    
     var contractAddress: String
     var platon: Web3.Platon
     
@@ -32,14 +31,14 @@ public class StakingContract: PlantonContractProtocol {
         privateKey: String,
         completion: PlatonCommonCompletionV2<Data?>?) {
         
-        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
+        platon.programVersion { [weak self] (response) in
             guard let self = self else { return }
-            switch result {
+            switch response.status {
             case .success:
                 if
-                    let programVersion = response?.result,
-                    let PV = programVersion.ProgramVersion,
-                    let PVS = programVersion.ProgramVersionSign {
+                    let programVersion = response.result,
+                    let PV = programVersion.Version,
+                    let PVS = programVersion.Sign {
                     
                     let funcObject = FuncType.createStaking(
                         typ: typ,
@@ -57,8 +56,8 @@ public class StakingContract: PlantonContractProtocol {
                     
                     self.platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
                 }
-            case .fail(let code, let errMsg):
-                completion?(PlatonCommonResult.fail(code, errMsg), nil)
+            case .failure(let error):
+                completion?(PlatonCommonResult.fail(error.code, error.message), nil)
             }
         }
     }
@@ -185,14 +184,15 @@ extension StakingContract {
                               sender: String,
                               gasPrice: BigUInt? = nil,
                               completion: PlatonCommonCompletionV2<BigUInt?>?) {
-        platonGetProgramVersion(sender: sender) { [weak self] (result, response) in
+        
+        platon.programVersion { [weak self] (response) in
             guard let self = self else { return }
-            switch result {
+            switch response.status {
             case .success:
                 if
-                    let programVersion = response?.result,
-                    let PV = programVersion.ProgramVersion,
-                    let PVS = programVersion.ProgramVersionSign {
+                    let programVersion = response.result,
+                    let PV = programVersion.Version,
+                    let PVS = programVersion.Sign {
                     
                     
                     let funcObject = FuncType.createStaking(
@@ -211,8 +211,8 @@ extension StakingContract {
                     
                     self.platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
                 }
-            case .fail(let code, let errMsg):
-                completion?(PlatonCommonResult.fail(code, errMsg), nil)
+            case .failure(let error):
+                completion?(PlatonCommonResult.fail(error.code, error.message), nil)
             }
         }
     }

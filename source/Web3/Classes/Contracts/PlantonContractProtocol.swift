@@ -20,8 +20,6 @@ protocol PlantonContractProtocol {
     func platonSendRawTransaction(_ funcType: FuncType, sender: String, privateKey: String, value: EthereumQuantity?, gas: BigUInt?, gasPrice: BigUInt?, completion: PlatonCommonCompletionV2<Data?>?)
     
     func platonContractEstimateGas(_ funcType: FuncType, gasPrice: BigUInt?, completion: PlatonCommonCompletionV2<BigUInt?>?)
-
-    func platonGetProgramVersion(sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<ProgramVersion>?>?)
 }
 
 extension PlantonContractProtocol {
@@ -65,10 +63,5 @@ extension PlantonContractProtocol {
                 }
             }
         }
-    }
-    
-    func platonGetProgramVersion(sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<ProgramVersion>?>?) {
-        let funcObject = FuncType.programVersion
-        platon.platonCall(contractAddress: PlatonConfig.ContractAddress.proposalContractAddress, from: sender, inputs: funcObject.rlpData, completion: completion)
     }
 }

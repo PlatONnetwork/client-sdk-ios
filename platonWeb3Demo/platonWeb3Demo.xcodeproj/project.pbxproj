@@ -22,9 +22,10 @@
 		8141DF1D21E5D2C600F803DA /* CandidateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF1C21E5D2C600F803DA /* CandidateViewController.swift */; };
 		8141DF2121E6116000F803DA /* firstdemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF2021E6116000F803DA /* firstdemo.swift */; };
 		8141DF2521E61A5F00F803DA /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DF2421E61A5F00F803DA /* config.swift */; };
+		8146684D2330AD6C00A141D9 /* PlatonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146684C2330AD6C00A141D9 /* PlatonError.swift */; };
+		8146684F2330C3FA00A141D9 /* ProgramVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146684E2330C3FA00A141D9 /* ProgramVersion.swift */; };
 		8148B436230A37C300BA07B3 /* testmodel.json in Resources */ = {isa = PBXBuildFile; fileRef = 8148B435230A37C300BA07B3 /* testmodel.json */; };
 		8148B438230C288500BA07B3 /* RestrictingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8148B437230C288500BA07B3 /* RestrictingInfo.swift */; };
-		8148B43A230D467700BA07B3 /* ProgramVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8148B439230D467700BA07B3 /* ProgramVersion.swift */; };
 		817D010322CE010100C2B5AC /* PlantonContractProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817D010222CE010100C2B5AC /* PlantonContractProtocol.swift */; };
 		817EC9E122CDADAD00DD79AC /* FuncType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EC9E022CDADAD00DD79AC /* FuncType.swift */; };
 		817EC9E522CDCF7400DD79AC /* IntsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EC9E422CDCF7400DD79AC /* IntsExtensions.swift */; };
@@ -112,7 +113,6 @@
 		9A24307F225B36C4007A886C /* Web3HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A243032225B36C4007A886C /* Web3HttpProvider.swift */; };
 		9A243084225B36C4007A886C /* Web3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A243038225B36C4007A886C /* Web3+Extensions.swift */; };
 		9A243085225B36C4007A886C /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24303A225B36C4007A886C /* Debugger.swift */; };
-		9A243087225B36C4007A886C /* Web3ResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24303C225B36C4007A886C /* Web3ResponseHelper.swift */; };
 		CC6B53092747AF973335F624 /* Pods_platonWeb3Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB9103C53618EC9C119E1BF /* Pods_platonWeb3Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -161,9 +161,10 @@
 		8141DF1C21E5D2C600F803DA /* CandidateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateViewController.swift; sourceTree = "<group>"; };
 		8141DF2021E6116000F803DA /* firstdemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstdemo.swift; sourceTree = "<group>"; };
 		8141DF2421E61A5F00F803DA /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
+		8146684C2330AD6C00A141D9 /* PlatonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatonError.swift; sourceTree = "<group>"; };
+		8146684E2330C3FA00A141D9 /* ProgramVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramVersion.swift; sourceTree = "<group>"; };
 		8148B435230A37C300BA07B3 /* testmodel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testmodel.json; sourceTree = "<group>"; };
 		8148B437230C288500BA07B3 /* RestrictingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictingInfo.swift; sourceTree = "<group>"; };
-		8148B439230D467700BA07B3 /* ProgramVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramVersion.swift; sourceTree = "<group>"; };
 		817D010222CE010100C2B5AC /* PlantonContractProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantonContractProtocol.swift; sourceTree = "<group>"; };
 		817EC9E022CDADAD00DD79AC /* FuncType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncType.swift; sourceTree = "<group>"; };
 		817EC9E422CDCF7400DD79AC /* IntsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntsExtensions.swift; sourceTree = "<group>"; };
@@ -253,7 +254,6 @@
 		9A243032225B36C4007A886C /* Web3HttpProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3HttpProvider.swift; sourceTree = "<group>"; };
 		9A243038225B36C4007A886C /* Web3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Extensions.swift"; sourceTree = "<group>"; };
 		9A24303A225B36C4007A886C /* Debugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
-		9A24303C225B36C4007A886C /* Web3ResponseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3ResponseHelper.swift; sourceTree = "<group>"; };
 		9EA6D950FCC84B9AA90413A3 /* Pods_platonWeb3DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C2D1A01CDA4F71E53689CA /* Pods-platonWeb3DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3DemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3DemoUITests/Pods-platonWeb3DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ABF182C070A2F272D0AFF2F4 /* Pods_platonWeb3DemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3DemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,7 +378,6 @@
 				8101BDA822EAD942004A009E /* Candidate.swift */,
 				8101BDAA22EADA70004A009E /* RelatedDelegateNode.swift */,
 				8148B437230C288500BA07B3 /* RestrictingInfo.swift */,
-				8148B439230D467700BA07B3 /* ProgramVersion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -485,6 +484,8 @@
 				9A243002225B36C4007A886C /* EthereumQuantityTag.swift */,
 				9A243003225B36C4007A886C /* Types+EthereumValueConvertible.swift */,
 				9A243004225B36C4007A886C /* EthereumLogObject.swift */,
+				8146684C2330AD6C00A141D9 /* PlatonError.swift */,
+				8146684E2330C3FA00A141D9 /* ProgramVersion.swift */,
 			);
 			path = Json;
 			sourceTree = "<group>";
@@ -577,7 +578,6 @@
 				817EC9F022CDE41600DD79AC /* ProposalContract.swift */,
 				817EC9E022CDADAD00DD79AC /* FuncType.swift */,
 				817D010222CE010100C2B5AC /* PlantonContractProtocol.swift */,
-				9A24303C225B36C4007A886C /* Web3ResponseHelper.swift */,
 				81E64A6323056AE6000F2E7C /* PlatonConfig.swift */,
 			);
 			path = Contracts;
@@ -789,20 +789,20 @@
 				9A243045225B36C4007A886C /* RLPEncoder.swift in Sources */,
 				812D4B5A21F6E7C300053C42 /* VoteViewController.swift in Sources */,
 				9A243049225B36C4007A886C /* EthereumBlockObject.swift in Sources */,
+				8146684F2330C3FA00A141D9 /* ProgramVersion.swift in Sources */,
 				9A243064225B36C4007A886C /* Int+ETH.swift in Sources */,
 				8141DF1D21E5D2C600F803DA /* CandidateViewController.swift in Sources */,
 				9A243048225B36C4007A886C /* Types+RLPItemConvertible.swift in Sources */,
 				9A243058225B36C4007A886C /* Bytes+HexString.swift in Sources */,
-				9A243087225B36C4007A886C /* Web3ResponseHelper.swift in Sources */,
 				9A24305F225B36C4007A886C /* Data+BytesConvertible.swift in Sources */,
 				9A24306B225B36C4007A886C /* ABIObject.swift in Sources */,
 				9A243053225B36C4007A886C /* EthereumCall.swift in Sources */,
 				8101BDA922EAD942004A009E /* Candidate.swift in Sources */,
+				8146684D2330AD6C00A141D9 /* PlatonError.swift in Sources */,
 				9A243051225B36C4007A886C /* EthereumValue.swift in Sources */,
 				9A243069225B36C4007A886C /* Eth+Contract.swift in Sources */,
 				817EC9E922CDDA1A00DD79AC /* StakingContract.swift in Sources */,
 				9A243061225B36C4007A886C /* BigUInt+BytesConvertible.swift in Sources */,
-				8148B43A230D467700BA07B3 /* ProgramVersion.swift in Sources */,
 				9A243057225B36C4007A886C /* String+BytesConvertible.swift in Sources */,
 				8101BDAB22EADA70004A009E /* RelatedDelegateNode.swift in Sources */,
 				81D3A15B22D5D43A00A59897 /* NodeInfo.swift in Sources */,

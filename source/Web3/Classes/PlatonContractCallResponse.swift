@@ -9,20 +9,20 @@
 import Foundation
 
 public struct PlatonContractCallResponse<T: Decodable>: Decodable {
-    var Status: Bool
+    var Code: Int
     var ErrMsg: String?
     var Data: String?
     var result: T?
     
     enum CodingKeys: String, CodingKey {
-        case Status
+        case Code
         case ErrMsg
         case Data
     }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        Status = try container.decode(Bool.self, forKey: .Status)
+        Code = try container.decode(Int.self, forKey: .Code)
         ErrMsg = try container.decodeIfPresent(String.self, forKey: .ErrMsg)
         Data = try container.decodeIfPresent(String.self, forKey: .Data)
         

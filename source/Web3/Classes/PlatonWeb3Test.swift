@@ -353,8 +353,6 @@ class PlatonWeb3Test {
                 }
             case .failure(let f):
                 do{
-                    let f4 = f as? RPCResponse<EthereumData>.Error
-                    
                     return
                 }
             }
