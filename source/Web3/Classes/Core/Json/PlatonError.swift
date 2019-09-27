@@ -21,6 +21,8 @@ public enum Web3Error: PlatonError {
     case serverError(Error?)
     case decodingError(Error?)
     case rpcError(RPCError)
+    case emptyNonce
+    case signedTxError
     
     public var code: Int {
         switch self {
@@ -36,6 +38,10 @@ public enum Web3Error: PlatonError {
             return -1004
         case .rpcError(let error):
             return error.code
+        case .emptyNonce:
+            return -1005
+        case .signedTxError:
+            return -1006
         }
     }
     
@@ -53,6 +59,10 @@ public enum Web3Error: PlatonError {
             return Localized("RPC_Response_decodingError")
         case .rpcError(let error):
             return error.message
+        case .emptyNonce:
+            return "empty nonce"
+        case .signedTxError:
+            return "signed transaction error"
         }
     }
 }

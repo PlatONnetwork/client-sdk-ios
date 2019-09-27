@@ -26,15 +26,47 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     
-    
     func testForCreateStaking() {
-//        let hash = "0x77f54a21c9c4961c00f7f37df7369128c6ad7054708231a8c96f6ff2ed4a9435"
-//        web3j.platon.getTransactionReceipt(txHash: hash, loopTime: 1) { (result, data) in
-//            print("get receipt =================")
-//            print(result)
-//            print(data)
+        
+        let string = "1"
+        
+        for i in 0...100 {
+            var content = ""
+            for _ in 0...i {
+                content += string
+            }
+            print(content)
+            print(BigUInt(content)?.makeBytes())
+        }
+        return
+//        let big = BigUInt("1000000000000000")
+//        print(big.makeBytes())
+//        for w in big.words {
+//            print(w)
+//            print(w.makeBytes())
 //        }
-//        return
+//
+//
+//        let bytes1 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("999975606000000000000")))
+//        let bytes2 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1000000000000000000000")))
+//        let bytes3 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1111111111111111111111")))
+//        let bytes4 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("130")))
+//        let bytes5 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1000")))
+//        let bytes6 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1111")))
+//        print(bytes1)
+//        print(bytes2)
+//        print(bytes3)
+//        print(bytes4)
+//        print(bytes5)
+//        print(bytes6)
+//
+//        let item1 = try? RLPDecoder().decode(bytes1!)
+//        let rlpItem = try? BigUInt.init(rlp: item1!)
+//        print(rlpItem!.description)
+//        testRLPForDelegate()
+//        print("==============================")
+//        testRLPForDelegate2()
+        return
         
         let typ = UInt16(0)
         let bAddress = "0xc73D1b98a1014809941CfbF1Ab079d02e4434E30"
@@ -143,13 +175,77 @@ class Web3_0_7_ViewController: BaseTableViewController {
         }
     }
     
+    func testRLPForDelegate() {
+        
+        let amount: String = "11111"
+        let typ: UInt16 = 1
+        let nodeID = "543072b8f4176e5a776bf19fe0c5c9e43bd18443e14a31ddd34aa797466933d9b78b30d2440c2b4be201664d7e339173e0418469b05055e0d28ab309ed5cb5f1"
+        let typeValue: UInt16 = 1004
+
+        let nodeIdBytes = try? nodeID.hexBytes()
+        let typString = String(typ)
+        let typBytes = try? typString.hexBytes().trimLeadingZeros()
+        let amountBig = BigUInt(amount)
+        
+        let rlpItemss = [
+            RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(typBytes ?? Bytes()),
+            RLPItem.bigUInt(amountBig!),
+            RLPItem.bytes(nodeIdBytes!)
+        ]
+        
+        let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
+            let rawRlp = try? RLPEncoder().encode(rlpItem)
+            return RLPItem.bytes(rawRlp ?? Bytes())
+        }
+        
+        let rlpItems = RLPItem.array(rlpedItems)
+        let rawRlp = try? RLPEncoder().encode(rlpItems)
+        
+        print(rawRlp)
+        print(rawRlp?.count)
+        
+    }
+    
+    func testRLPForDelegate2() {
+        
+//        let amount: String = "1111111111111111111111"
+        let amount: String = "10000"
+        let typ: UInt16 = 1
+        let nodeID = "543072b8f4176e5a776bf19fe0c5c9e43bd18443e14a31ddd34aa797466933d9b78b30d2440c2b4be201664d7e339173e0418469b05055e0d28ab309ed5cb5f1"
+        let typeValue: UInt16 = 1004
+        
+        let nodeIdBytes = try? nodeID.hexBytes()
+        let typString = String(typ)
+        let typBytes = try? typString.hexBytes().trimLeadingZeros()
+        let amountBig = BigUInt(amount)
+        
+        let rlpItemss = [
+            RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(typBytes ?? Bytes()),
+            RLPItem.bigUInt(amountBig!),
+            RLPItem.bytes(nodeIdBytes!)
+        ]
+        
+        let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
+            let rawRlp = try? RLPEncoder().encode(rlpItem)
+            return RLPItem.bytes(rawRlp ?? Bytes())
+        }
+        
+        let rlpItems = RLPItem.array(rlpedItems)
+        let rawRlp = try? RLPEncoder().encode(rlpItems)
+        
+        print(rawRlp)
+        print(rawRlp?.count)
+    }
+    
     func testForDelegate() {
         let typ: UInt16 = 0
 //        let typ = UInt16(bytes: [0x00,0x00])
-        let nodeId = "c88a7b7c6201a531afa1f70c6fd88aec623630c957bb2e13ea4caa7e89f260cd3338b2d712d728929062198d08585973298830875279bb84b201f041f1013714"
+        let nodeId = "15fb7b6b0178c2ac0df0f4f4356285a30ac231a28fcb195f6d53182079c3ea5b83f03e3abe88c4bf25607881525934eac0cfb73f10fc838bbe435a5fe05734f1"
         let amount = BigUInt(10).multiplied(by: PlatonConfig.VON.LAT)
-        let delSender = "0xB37dFdB00eF06B6dB2562cC303ceb1889424c2fF"
-        let delPrivateKey = "d5765cca158c4f75dd093932d9ebafe2e817f85dd3a3e3412d8bbb8aa0806736"
+        let delSender = "0x6234bf71c3217EF076c294eA84E3e038915b4D59"
+        let delPrivateKey = "cc6fa56408ff4ae658065f79e60bfd330c0c87af9e88b9f9ced4313cc55bb099"
         
         web3j.staking.createDelegate(
             typ: typ,

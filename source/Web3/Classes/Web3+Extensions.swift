@@ -56,19 +56,12 @@ public extension Web3.Platon {
         }
     }
     
-    func platonSendRawTransaction(contractAddress: String,
-                                  data: Bytes,
-                                  sender: String,
-                                  privateKey: String,
-                                  gasPrice: BigUInt?,
-                                  gas: BigUInt?,
-                                  value: EthereumQuantity?,
-                                  estimated: Bool,
-                                  completion: PlatonCommonCompletionV2<Data?>?){
-        semaphore.wait()
-        
+    func platonGetNonce(
+        sender: String,
+        completion: PlatonCommonCompletionV2<EthereumQuantity?>?) {
         var completion = completion
-        let queue = DispatchQueue(label: "platonSendRawTransactionQueue")
+        
+        let queue = DispatchQueue(label: "platonGetNonceQueue")
         let queueSemaphore = DispatchSemaphore(value: 1)
         
         queueSemaphore.wait()
@@ -100,80 +93,123 @@ public extension Web3.Platon {
                         Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
                         queueSemaphore.signal()
                     case .failure(_):
-                        DispatchQueue.main.async {
-                            completion?(.fail(nonceResp.error?.code, nonceResp.error?.message), nil)
-                            completion = nil
-                        }
+                        completion?(.fail(nonceResp.error?.code, nonceResp.error?.message), nil)
+                        completion = nil
                         queueSemaphore.signal()
-                        semaphore.signal()
-                        return
                     }
                 })
             }
         }
         
-        var estimateGasPrice = gasPrice
-        if gasPrice == nil {
-            queueSemaphore.wait()
-            self.gasPrice { (response) in
-                switch response.status {
-                case .success(let result):
-                    estimateGasPrice = result.quantity
-                    queueSemaphore.signal()
-                case .failure(_):
-                    queueSemaphore.signal()
+        queueSemaphore.wait()
+        guard nonce != nil else {
+            completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
+            completion = nil
+            queueSemaphore.signal()
+            return
+        }
+        
+        completion?(.success, nonce)
+        completion = nil
+        queueSemaphore.signal()
+    }
+    
+    func platonSignTransaction(to: String,
+                               nonce: EthereumQuantity,
+                               data: Bytes,
+                               sender: String,
+                               privateKey: String,
+                               gasPrice: BigUInt?,
+                               gas: BigUInt?,
+                               value: EthereumQuantity?,
+                               estimated: Bool) -> EthereumSignedTransaction? {
+        
+        var estimatedGas : EthereumQuantity?
+        estimatedGas = EthereumQuantity(quantity: gas ?? 0)
+        
+        let data = EthereumData(bytes: data)
+        let ethConAddr = try? EthereumAddress(hex: to, eip55: true)
+        let egasPrice = EthereumQuantity(quantity: gasPrice ?? PlatonConfig.FuncGasPrice.defaultGasPrice)
+        
+        let from = try? EthereumAddress(hex: sender, eip55: true)
+        
+        var sendValue = EthereumQuantity(quantity: BigUInt("0")!)
+        if value != nil{
+            sendValue = value!
+        }
+        let tx = EthereumTransaction(nonce: nonce, gasPrice: egasPrice, gas: estimatedGas, from: from, to: ethConAddr, value: sendValue, data: data)
+        let chainID = EthereumQuantity(quantity: BigUInt(self.properties.chainId)!)
+        let checkedPrivateKey = privateKey.privateKeyAdd0xPrefix()
+        
+        let signedTx = try? tx.sign(with: try! EthereumPrivateKey(hexPrivateKey: checkedPrivateKey), chainId: chainID) as EthereumSignedTransaction
+        return signedTx
+    }
+    
+    func platonSendRawTransaction(contractAddress: String,
+                                  data: Bytes,
+                                  sender: String,
+                                  privateKey: String,
+                                  gasPrice: BigUInt?,
+                                  gas: BigUInt?,
+                                  value: EthereumQuantity?,
+                                  estimated: Bool,
+                                  completion: PlatonCommonCompletionV2<Data?>?){
+        
+        var completion = completion
+        
+        var tempNonce: EthereumQuantity?
+        semaphore.wait()
+        platonGetNonce(sender: sender) { (result, nonce) in
+            switch result {
+            case .success:
+                tempNonce = nonce
+                semaphore.signal()
+            case .fail(let code, let message):
+                DispatchQueue.main.async {
+                    completion?(.fail(code, message), nil)
+                    completion = nil
                 }
+                semaphore.signal()
             }
         }
         
-        queueSemaphore.wait()
-        queue.async {
-            guard nonce != nil else {
-                queueSemaphore.signal()
-                semaphore.signal()
-                return
+        semaphore.wait()
+        guard let nonce = tempNonce else {
+            DispatchQueue.main.async {
+                completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
+                completion = nil
             }
-            
-            var estimatedGas : EthereumQuantity?
-            estimatedGas = EthereumQuantity(quantity: gas ?? 0)
-            
-            let data = EthereumData(bytes: data)
-            let ethConAddr = try? EthereumAddress(hex: contractAddress, eip55: true)
-            let egasPrice = EthereumQuantity(quantity: estimateGasPrice ?? PlatonConfig.FuncGasPrice.defaultGasPrice)
-            
-            let from = try? EthereumAddress(hex: sender, eip55: true)
-            
-            var sendValue = EthereumQuantity(quantity: BigUInt("0")!)
-            if value != nil{
-                sendValue = value!
+            semaphore.signal()
+            return
+        }
+        
+        let tempSignedTx = platonSignTransaction(to: contractAddress, nonce: nonce, data: data, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: value, estimated: estimated)
+        guard let signedTx = tempSignedTx else {
+            DispatchQueue.main.async {
+                completion?(.fail(Web3Error.signedTxError.code, Web3Error.signedTxError.message), nil)
+                completion = nil
             }
-            let tx = EthereumTransaction(nonce: nonce, gasPrice: egasPrice, gas: estimatedGas, from: from, to: ethConAddr, value: sendValue, data: data)
-            let chainID = EthereumQuantity(quantity: BigUInt(self.properties.chainId)!)
-            let checkedPrivateKey = privateKey.privateKeyAdd0xPrefix()
-            
-            let signedTx = try? tx.sign(with: try! EthereumPrivateKey(hexPrivateKey: checkedPrivateKey), chainId: chainID) as EthereumSignedTransaction
-            
-            var txHash = EthereumData(bytes: [])
-            self.sendRawTransaction(transaction: signedTx!, response: { (sendTxResp) in
-                
-                switch sendTxResp.status{
-                case .success(_):
-                    txHash = sendTxResp.result!
-                    DispatchQueue.main.async {
-                        completion?(.success, Data(bytes: txHash.bytes))
-                        completion = nil
-                    }
-                    queueSemaphore.signal()
-                    semaphore.signal()
-                case .failure(_):
-                    DispatchQueue.main.async {
-                        completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
-                        completion = nil
-                    }
-                    queueSemaphore.signal()
-                    semaphore.signal()
+            semaphore.signal()
+            return
+        }
+        
+        var txHash = EthereumData(bytes: [])
+        sendRawTransaction(transaction: signedTx) { (sendTxResp) in
+            switch sendTxResp.status{
+            case .success(_):
+                txHash = sendTxResp.result!
+                DispatchQueue.main.async {
+                    completion?(.success, Data(bytes: txHash.bytes))
+                    completion = nil
                 }
-            })
+                semaphore.signal()
+            case .failure(_):
+                DispatchQueue.main.async {
+                    completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
+                    completion = nil
+                }
+                semaphore.signal()
+            }
         }
     }
     

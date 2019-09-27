@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FuncType {
+public enum FuncType {
     case createStaking(typ: UInt16, benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String, amount: BigUInt, programVersion: UInt32, programVersionSign: String, blsPubKey: String)
     case editorStaking(benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String)
     case increaseStaking(nodeId: String, typ: UInt16, amount: BigUInt)
@@ -37,7 +37,7 @@ enum FuncType {
 }
 
 extension FuncType {
-    var typeValue: UInt16 {
+    public var typeValue: UInt16 {
         switch self {
         case .createStaking:
             return 1000
@@ -92,7 +92,7 @@ extension FuncType {
         }
     }
     
-    var gas: BigUInt {
+    public var gas: BigUInt {
         switch self {
         case .createStaking:
             return PlatonConfig.FuncGas.createStakingGas + rlpData.dataGasUsed()
@@ -125,7 +125,7 @@ extension FuncType {
         }
     }
     
-    var gasPrice: BigUInt? {
+    public var gasPrice: BigUInt? {
         switch self {
         case .submitText:
             return PlatonConfig.FuncGasPrice.submitTextGasPrice.multiplied(by: PlatonConfig.VON.GVON)
@@ -138,7 +138,7 @@ extension FuncType {
         }
     }
     
-    var rlpData: Data {
+    public var rlpData: Data {
         switch self {
         case .createStaking(let typ, let benifitAddress, let nodeId, let externalId, let nodeName, let website, let details, let amount, let programVersion, let programVersionSign, let blsPubKey):
             let data = build_createStaking(typ: typ, benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details, amount: amount, programVersion: programVersion, programVersionSign: programVersionSign, blsPubKey: blsPubKey)
