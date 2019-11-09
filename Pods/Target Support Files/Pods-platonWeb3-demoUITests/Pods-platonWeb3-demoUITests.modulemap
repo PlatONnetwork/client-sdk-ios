@@ -1,6 +1,0 @@
-framework module Pods_platonWeb3_demoUITests {
-  umbrella header "Pods-platonWeb3-demoUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}

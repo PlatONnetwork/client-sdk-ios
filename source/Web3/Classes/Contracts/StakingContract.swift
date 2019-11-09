@@ -26,40 +26,30 @@ public class StakingContract: PlantonContractProtocol {
         website: String,
         details: String,
         amount: BigUInt,
-        blsPubKey: String,
         sender: String,
         privateKey: String,
+        programVersion: UInt32,
+        programVersionSign: String,
+        blsPubKey: String,
+        blsProof: String,
         completion: PlatonCommonCompletionV2<Data?>?) {
-        
-        platon.programVersion { [weak self] (response) in
-            guard let self = self else { return }
-            switch response.status {
-            case .success:
-                if
-                    let programVersion = response.result,
-                    let PV = programVersion.Version,
-                    let PVS = programVersion.Sign {
-                    
-                    let funcObject = FuncType.createStaking(
-                        typ: typ,
-                        benifitAddress: benifitAddress,
-                        nodeId: nodeId,
-                        externalId: externalId,
-                        nodeName: nodeName,
-                        website: website,
-                        details: details,
-                        amount: amount,
-                        programVersion: PV,
-                        programVersionSign: PVS,
-                        blsPubKey:blsPubKey
-                    )
-                    
-                    self.platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
-                }
-            case .failure(let error):
-                completion?(PlatonCommonResult.fail(error.code, error.message), nil)
-            }
-        }
+
+        let funcObject = FuncType.createStaking(
+            typ: typ,
+            benifitAddress: benifitAddress,
+            nodeId: nodeId,
+            externalId: externalId,
+            nodeName: nodeName,
+            website: website,
+            details: details,
+            amount: amount,
+            programVersion: programVersion,
+            programVersionSign: programVersionSign,
+            blsPubKey:blsPubKey,
+            blsProof: blsProof
+        )
+
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
     public func editorStaking(
@@ -181,11 +171,12 @@ extension StakingContract {
                               details: String,
                               amount: BigUInt,
                               blsPubKey: String,
+                              blsProof: String,
                               sender: String,
                               gasPrice: BigUInt? = nil,
                               completion: PlatonCommonCompletionV2<BigUInt?>?) {
         
-        platon.programVersion { [weak self] (response) in
+        platon.getProgramVersion { [weak self] (response) in
             guard let self = self else { return }
             switch response.status {
             case .success:
@@ -206,7 +197,8 @@ extension StakingContract {
                         amount: amount,
                         programVersion: PV,
                         programVersionSign: PVS,
-                        blsPubKey:blsPubKey
+                        blsPubKey:blsPubKey,
+                        blsProof: blsProof
                     )
                     
                     self.platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)

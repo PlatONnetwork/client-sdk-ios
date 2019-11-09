@@ -9,7 +9,7 @@
 import Foundation
 
 public enum FuncType {
-    case createStaking(typ: UInt16, benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String, amount: BigUInt, programVersion: UInt32, programVersionSign: String, blsPubKey: String)
+    case createStaking(typ: UInt16, benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String, amount: BigUInt, programVersion: UInt32, programVersionSign: String, blsPubKey: String, blsProof: String)
     case editorStaking(benifitAddress: String, nodeId: String, externalId: String, nodeName: String, website: String, details: String)
     case increaseStaking(nodeId: String, typ: UInt16, amount: BigUInt)
     case withdrewStaking(nodeId: String)
@@ -23,6 +23,7 @@ public enum FuncType {
     case stakingInfo(nodeId: String)
     case submitText(verifier: String, pIDID: String)
     case submitVersion(verifier: String, pIDID: String, newVersion: UInt32, endVotingBlock: UInt64)
+    case submitParam(verifier: String, pIDID: String, module: String, name: String, newValue: String)
     case submitCancel(verifier: String, pIDID: String, endVotingRounds: UInt64, tobeCanceledProposalID: String)
     case voteProposal(verifier: String, proposalID: String, option: VoteOption, programVersion: UInt32, versionSign: String)
     case declareVersion(verifier: String, programVersion: UInt32, versionSign: String)
@@ -30,7 +31,10 @@ public enum FuncType {
     case proposalResult(proposalID: String)
     case proposalList
     case activeVersion
-    case reportMultiSign(data: String)
+    case getGovernParamValue(module: String, name: String)
+    case getAccuVerifiersCount(proposalID: String, blockHash: String)
+    case listGovernParam(module: String)
+    case reportMultiSign(typ: UInt8, data: String)
     case checkMultiSign(typ: UInt32, addr: String, blockNumber: UInt64)
     case createRestrictingPlan(account: String, plans: [RestrictingPlan])
     case restrictingInfo(account: String)
@@ -67,6 +71,8 @@ extension FuncType {
             return 2000
         case .submitVersion:
             return 2001
+        case .submitParam:
+            return 2002
         case .submitCancel:
             return 2005
         case .voteProposal:
@@ -81,6 +87,12 @@ extension FuncType {
             return 2102
         case .activeVersion:
             return 2103
+        case .getGovernParamValue:
+            return 2104
+        case .getAccuVerifiersCount:
+            return 2105
+        case .listGovernParam:
+            return 2106
         case .reportMultiSign:
             return 3000
         case .checkMultiSign:
@@ -110,6 +122,8 @@ extension FuncType {
             return PlatonConfig.FuncGas.submitTextGas + rlpData.dataGasUsed()
         case .submitVersion:
             return PlatonConfig.FuncGas.submitVersionGas + rlpData.dataGasUsed()
+        case .submitParam:
+            return PlatonConfig.FuncGas.submitParamGas + rlpData.dataGasUsed()
         case .submitCancel:
             return PlatonConfig.FuncGas.submitCancelGas + rlpData.dataGasUsed()
         case .voteProposal:
@@ -133,6 +147,8 @@ extension FuncType {
             return PlatonConfig.FuncGasPrice.submitVersionGasPrice.multiplied(by: PlatonConfig.VON.GVON)
         case .submitCancel:
             return PlatonConfig.FuncGasPrice.submitCancelGasPrice.multiplied(by: PlatonConfig.VON.GVON)
+        case .submitParam:
+            return PlatonConfig.FuncGasPrice.submitParamGasPrice.multiplied(by: PlatonConfig.VON.GVON)
         default:
             return nil
         }
@@ -140,8 +156,8 @@ extension FuncType {
     
     public var rlpData: Data {
         switch self {
-        case .createStaking(let typ, let benifitAddress, let nodeId, let externalId, let nodeName, let website, let details, let amount, let programVersion, let programVersionSign, let blsPubKey):
-            let data = build_createStaking(typ: typ, benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details, amount: amount, programVersion: programVersion, programVersionSign: programVersionSign, blsPubKey: blsPubKey)
+        case .createStaking(let typ, let benifitAddress, let nodeId, let externalId, let nodeName, let website, let details, let amount, let programVersion, let programVersionSign, let blsPubKey, let blsProof):
+            let data = build_createStaking(typ: typ, benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details, amount: amount, programVersion: programVersion, programVersionSign: programVersionSign, blsPubKey: blsPubKey, blsProof: blsProof)
             return data
         case .editorStaking(let benifitAddress, let nodeId, let externalId, let nodeName, let website, let details):
             let data = build_editorStaking(benifitAddress: benifitAddress, nodeId: nodeId, externalId: externalId, nodeName: nodeName, website: website, details: details)
@@ -173,6 +189,9 @@ extension FuncType {
         case .submitVersion(let verifier, let pIDID, let newVersion, let endVotingBlock):
             let data = build_submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingBlock)
             return data
+        case .submitParam(let verifier, let pIDID, let module, let name, let newValue):
+            let data = build_submitParam(verifier: verifier, pIDID: pIDID, module: module, name: name, newValue: newValue)
+            return data
         case .submitCancel(let verifier, let pIDID, let endVotingRounds, let tobeCanceledProposalID):
             let data = build_submitCancel(verifier: verifier, pIDID: pIDID, endVotingRounds: endVotingRounds, tobeCanceledProposalID: tobeCanceledProposalID)
             return data
@@ -188,8 +207,17 @@ extension FuncType {
         case .proposalResult(let proposalID):
             let data = build_proposalResult(proposalID: proposalID)
             return data
-        case .reportMultiSign(let data):
-            let data = build_reportDoubleSign(data: data)
+        case .getGovernParamValue(let module, let name):
+            let data = build_getGovernParamValue(module: module, name: name)
+            return data
+        case .getAccuVerifiersCount(let proposalID, let blockHash):
+            let data = build_getAccuVerifiersCount(proposalID: proposalID, blockHash: blockHash)
+            return data
+        case .listGovernParam(let module):
+            let data = build_listGovernParam(module: module)
+            return data
+        case .reportMultiSign(let typ, let data):
+            let data = build_reportDoubleSign(typ: typ, data: data)
             return data
         case .checkMultiSign(let typ, let addr, let blockNumber):
             let data = build_checkDoubleSign(typ: typ, addr: addr, blockNumber: blockNumber)
@@ -254,9 +282,13 @@ extension FuncType {
         return Data(bytes: rawRlp!)
     }
     
-    func build_reportDoubleSign(data: String) -> Data {
+    func build_reportDoubleSign(typ: UInt8, data: String) -> Data {
+        let typString = String(typ)
+        let typBytes = try? typString.hexBytes().trimLeadingZeros()
+
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(typBytes ?? Bytes()),//需去掉0，不然提交会失败
             RLPItem.bytes(data.bytes),
         ]
         
@@ -296,6 +328,68 @@ extension FuncType {
         
         return Data(bytes: rawRlp!)
     }
+
+    func build_getGovernParamValue(
+        module: String,
+        name: String) -> Data {
+
+        let rlpItemss = [
+            RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(module.bytes),
+            RLPItem.bytes(name.bytes)
+        ]
+
+        let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
+            let rawRlp = try? RLPEncoder().encode(rlpItem)
+            return RLPItem.bytes(rawRlp ?? Bytes())
+        }
+
+        let rlpItems = RLPItem.array(rlpedItems)
+        let rawRlp = try? RLPEncoder().encode(rlpItems)
+
+        return Data(bytes: rawRlp!)
+    }
+
+    func build_getAccuVerifiersCount(
+        proposalID: String,
+        blockHash: String) -> Data {
+
+        let rlpItemss = [
+            RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(proposalID.hexToBytes()),
+            RLPItem.bytes(blockHash.hexToBytes())
+        ]
+
+        let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
+            let rawRlp = try? RLPEncoder().encode(rlpItem)
+            return RLPItem.bytes(rawRlp ?? Bytes())
+        }
+
+        let rlpItems = RLPItem.array(rlpedItems)
+        let rawRlp = try? RLPEncoder().encode(rlpItems)
+
+        return Data(bytes: rawRlp!)
+    }
+
+    func build_listGovernParam(
+        module: String) -> Data {
+
+        let rlpItemss = [
+            RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(module.bytes)
+        ]
+
+        let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
+            let rawRlp = try? RLPEncoder().encode(rlpItem)
+            return RLPItem.bytes(rawRlp ?? Bytes())
+        }
+
+        let rlpItems = RLPItem.array(rlpedItems)
+        let rawRlp = try? RLPEncoder().encode(rlpItems)
+
+        return Data(bytes: rawRlp!)
+    }
+
     
     func build_submitText(verifier: String,
                           pIDID: String) -> Data {
@@ -370,20 +464,18 @@ extension FuncType {
     }
     
     func build_submitParam(verifier: String,
-                           url: String,
-                           endVotingBlock: UInt64,
-                           paramName: String,
-                           currentValue: String,
+                           pIDID: String,
+                           module: String,
+                           name: String,
                            newValue: String) -> Data {
         let verifierBytes = try? verifier.hexBytes()
-        let endVotingBlockData = Data.newData(unsignedLong: endVotingBlock)
+
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(verifierBytes!),
-            RLPItem.bytes(url.bytes),
-            RLPItem.bytes(endVotingBlockData.bytes.trimLeadingZeros()),
-            RLPItem.bytes(paramName.bytes),
-            RLPItem.bytes(currentValue.bytes),
+            RLPItem.bytes(pIDID.bytes),
+            RLPItem.bytes(module.bytes),
+            RLPItem.bytes(name.bytes),
             RLPItem.bytes(newValue.bytes)
         ]
         
@@ -701,7 +793,8 @@ extension FuncType {
                              amount: BigUInt,
                              programVersion: UInt32,
                              programVersionSign: String,
-                             blsPubKey: String) -> Data {
+                             blsPubKey: String,
+                             blsProof: String) -> Data {
         let typString = String(typ)
         let typBytes = try? typString.hexBytes().trimLeadingZeros()
         
@@ -720,7 +813,8 @@ extension FuncType {
             RLPItem.bigUInt(amount),
             RLPItem.bytes(programVersion.makeBytes().trimLeadingZeros()),
             RLPItem.bytes(programVersionSign.hexToBytes()),
-            RLPItem.bytes(blsPubKey.bytes)
+            RLPItem.bytes(blsPubKey.hexToBytes()),
+            RLPItem.bytes(blsProof.hexToBytes())
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in

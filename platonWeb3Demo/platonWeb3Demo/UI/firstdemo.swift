@@ -57,22 +57,22 @@ class firstdemo{
 //    }
     
     func Notify(){
-        guard self.invokeNotifyHash != nil else {
-            print("ERROR:invoke invokeNotify first!")
-            return
-        }
-        web3.platon.platonGetTransactionReceipt(txHash: self.invokeNotifyHash!, loopTime: 15) { (result, data) in
-            switch result{
-            case .success:
-                if let receipt = data as? EthereumTransactionReceiptObject{
-                    let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
-                    let code = ABI.uint64Decode(data: Data(rlpItem!.array![0].bytes!))
-                    let message = ABI.stringDecode(data: Data(rlpItem!.array![1].bytes!))
-                    print("code:\(code) message:\(message)")
-                }
-            case .fail(let code, let errorMsg):
-                print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
-            }
-        }
+//        guard self.invokeNotifyHash != nil else {
+//            print("ERROR:invoke invokeNotify first!")
+//            return
+//        }
+//        web3.platon.platonGetTransactionReceipt(txHash: self.invokeNotifyHash!, loopTime: 15) { (result, data) in
+//            switch result{
+//            case .success:
+//                if let receipt = data as? EthereumTransactionReceiptObject{
+//                    let rlpItem = try? RLPDecoder().decode((receipt.logs.first?.data.bytes)!)
+//                    let code = ABI.uint64Decode(data: Data(rlpItem!.array![0].bytes!))
+//                    let message = ABI.stringDecode(data: Data(rlpItem!.array![1].bytes!))
+//                    print("code:\(code) message:\(message)")
+//                }
+//            case .fail(let code, let errorMsg):
+//                print("error code: \(String(describing: code)), msg:\(String(describing: errorMsg))")
+//            }
+//        }
     }
 }

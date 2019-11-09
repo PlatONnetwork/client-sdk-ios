@@ -16,4 +16,8 @@ public struct Proposal: Codable {
     var PIPID: String?
     var SubmitBlock: UInt64?
     var EndVotingBlock: UInt64?
+    var EndVotingRounds: UInt64?
+    var ActiveBlock: UInt64?
+    var NewVersion: UInt?
+    var TobeCanceled:String?
 }

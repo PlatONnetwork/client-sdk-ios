@@ -18,10 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        web3.platon.getBlockByNumber(block: .latest, fullTransactionObjects: true) { (data) in
-            
-        }
     
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         SVProgressHUD.setMinimumDismissTimeInterval(100)

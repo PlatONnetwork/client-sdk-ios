@@ -33,6 +33,7 @@ public struct PlatonConfig {
         static let submitTextGas: BigUInt = BigUInt("320000")!
         static let submitVersionGas: BigUInt = BigUInt("450000")!
         static let submitCancelGas: BigUInt = BigUInt("500000")!
+        static let submitParamGas: BigUInt = BigUInt("500000")!
         static let voteProposalGas: BigUInt = BigUInt("2000")!
         static let declareVersionGas: BigUInt = BigUInt("3000")!
         
@@ -54,6 +55,7 @@ public struct PlatonConfig {
         
         static var submitTextGas: BigUInt = defaultGas + ContractCallGas.submitTextGas + ContractCallGas.proposalContractGas
         static var submitVersionGas: BigUInt = defaultGas + ContractCallGas.submitVersionGas + ContractCallGas.proposalContractGas
+        static var submitParamGas: BigUInt = defaultGas + ContractCallGas.submitParamGas + ContractCallGas.proposalContractGas
         static var submitCancelGas: BigUInt = defaultGas + ContractCallGas.submitCancelGas + ContractCallGas.proposalContractGas
         static var voteProposalGas: BigUInt = defaultGas + ContractCallGas.voteProposalGas + ContractCallGas.proposalContractGas
         static var declareVersionGas: BigUInt = defaultGas + ContractCallGas.declareVersionGas + ContractCallGas.proposalContractGas
@@ -64,10 +66,12 @@ public struct PlatonConfig {
     }
     
     public struct FuncGasPrice {
+        public static var minGasPrice: BigUInt = BigUInt("1000000000")!
         public static var defaultGasPrice: BigUInt = BigUInt("500000000000")!
         public static var submitTextGasPrice: BigUInt = BigUInt("1500000")!
         public static var submitVersionGasPrice: BigUInt = BigUInt("2100000")!
         public static var submitCancelGasPrice: BigUInt = BigUInt("3000000")!
+        public static var submitParamGasPrice: BigUInt = BigUInt("2000000")!
     }
     
     public struct VON {

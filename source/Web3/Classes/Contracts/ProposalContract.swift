@@ -47,6 +47,19 @@ public class ProposalContract: PlantonContractProtocol {
         let funcObject = FuncType.submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingBlock)
         platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
+
+    public func submitParam(
+        verifier: String,
+        pIDID: String,
+        module: String,
+        name: String,
+        newValue: String,
+        sender: String,
+        privateKey: String,
+        completion: PlatonCommonCompletionV2<Data?>?) {
+        let funcObject = FuncType.submitParam(verifier: verifier, pIDID: pIDID, module: module, name: name, newValue: newValue)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
+    }
     
     public func submitCancel(
         verifier: String,
@@ -68,55 +81,31 @@ public class ProposalContract: PlantonContractProtocol {
         option: VoteOption,
         sender: String,
         privateKey: String,
+        programVersion: UInt32,
+        versionSign: String,
         completion: PlatonCommonCompletionV2<Data?>?) {
-        
-        platon.programVersion { [weak self] (response) in
-            guard let self = self else { return }
-            switch response.status {
-            case .success:
-                if
-                    let programVersion = response.result,
-                    let PV = programVersion.Version,
-                    let PVS = programVersion.Sign {
-                    
-                    let funcObject = FuncType.voteProposal(
-                        verifier: verifier,
-                        proposalID: proposalID,
-                        option: option,
-                        programVersion: PV,
-                        versionSign: PVS
-                    )
-                    
-                    self.platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
-                }
-            case .failure(let error):
-                completion?(PlatonCommonResult.fail(error.code, error.message), nil)
-            }
-        }
+
+        let funcObject = FuncType.voteProposal(
+            verifier: verifier,
+            proposalID: proposalID,
+            option: option,
+            programVersion: programVersion,
+            versionSign: versionSign
+        )
+
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
     public func declareVersion(
         verifier: String,
         sender: String,
         privateKey: String,
+        programVersion: UInt32,
+        versionSign: String,
         completion: PlatonCommonCompletionV2<Data?>?) {
         
-        platon.programVersion { [weak self] (response) in
-            guard let self = self else { return }
-            switch response.status {
-            case .success:
-                if
-                    let programVersion = response.result,
-                    let PV = programVersion.Version,
-                    let PVS = programVersion.Sign {
-                    
-                    let funcObject = FuncType.declareVersion(verifier: verifier, programVersion: PV, versionSign: PVS)
-                    self.platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
-                }
-            case .failure(let error):
-                completion?(PlatonCommonResult.fail(error.code, error.message), nil)
-            }
-        }
+        let funcObject = FuncType.declareVersion(verifier: verifier, programVersion: programVersion, versionSign: versionSign)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
     }
     
     public func getProposal(
@@ -148,6 +137,29 @@ public class ProposalContract: PlantonContractProtocol {
         let funcObject = FuncType.activeVersion
         platonCall(funcObject, sender: sender, completion: completion)
     }
+
+    public func getGovernParamValue(
+        module: String,
+        name: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<String>?>?) {
+        let funcObject = FuncType.getGovernParamValue(module: module, name: name)
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
+
+    public func getAccuVerifiersCount(
+        proposalID: String,
+        blockHash: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[UInt16]>?>?) {
+        let funcObject = FuncType.getAccuVerifiersCount(proposalID: proposalID, blockHash: blockHash)
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
+
+    public func listGovernParam(
+        module: String,
+        completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[Govern]>?>?) {
+        let funcObject = FuncType.listGovernParam(module: module)
+        platonCall(funcObject, sender: sender, completion: completion)
+    }
 }
 
 extension ProposalContract {
@@ -170,6 +182,18 @@ extension ProposalContract {
         let funcObject = FuncType.submitVersion(verifier: verifier, pIDID: pIDID, newVersion: newVersion, endVotingBlock: endVotingBlock)
         platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
     }
+
+    public func estimateSubmitParam(
+        verifier: String,
+        pIDID: String,
+        module: String,
+        name: String,
+        newValue: String,
+        gasPrice: BigUInt? = nil,
+        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        let funcObject = FuncType.submitParam(verifier: verifier, pIDID: pIDID, module: module, name: name, newValue: newValue)
+        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
+    }
     
     public func estimateSubmitCancel(
         verifier: String,
@@ -190,7 +214,7 @@ extension ProposalContract {
         gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         
-        platon.programVersion { [weak self] (response) in
+        platon.getProgramVersion { [weak self] (response) in
             guard let self = self else { return }
             switch response.status {
             case .success:
@@ -214,7 +238,7 @@ extension ProposalContract {
         gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<BigUInt?>?) {
         
-        platon.programVersion { [weak self] (response) in
+        platon.getProgramVersion { [weak self] (response) in
             guard let self = self else { return }
             switch response.status {
             case .success:

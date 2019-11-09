@@ -134,7 +134,16 @@ public struct Web3 {
         public let properties: Properties
         
         // MARK: - Methods
-        public func programVersion(response: @escaping Web3ResponseCompletion<ProgramVersion>) {
+        public func getSchnorrNIZKProve(response: @escaping Web3ResponseCompletion<String>) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "admin_getSchnorrNIZKProve",
+                params: [])
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getProgramVersion(response: @escaping Web3ResponseCompletion<ProgramVersion>) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,

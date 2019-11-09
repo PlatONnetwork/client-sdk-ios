@@ -26,84 +26,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     
-    func testForCreateStaking() {
-        
-        let string = "1"
-        
-        for i in 0...100 {
-            var content = ""
-            for _ in 0...i {
-                content += string
-            }
-            print(content)
-            print(BigUInt(content)?.makeBytes())
-        }
-        return
-//        let big = BigUInt("1000000000000000")
-//        print(big.makeBytes())
-//        for w in big.words {
-//            print(w)
-//            print(w.makeBytes())
-//        }
-//
-//
-//        let bytes1 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("999975606000000000000")))
-//        let bytes2 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1000000000000000000000")))
-//        let bytes3 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1111111111111111111111")))
-//        let bytes4 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("130")))
-//        let bytes5 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1000")))
-//        let bytes6 = try? RLPEncoder().encode(RLPItem.bigUInt(BigUInt("1111")))
-//        print(bytes1)
-//        print(bytes2)
-//        print(bytes3)
-//        print(bytes4)
-//        print(bytes5)
-//        print(bytes6)
-//
-//        let item1 = try? RLPDecoder().decode(bytes1!)
-//        let rlpItem = try? BigUInt.init(rlp: item1!)
-//        print(rlpItem!.description)
-//        testRLPForDelegate()
-//        print("==============================")
-//        testRLPForDelegate2()
-        return
-        
-        let typ = UInt16(0)
-        let bAddress = "0xc73D1b98a1014809941CfbF1Ab079d02e4434E30"
-        let ssender = "0x493301712671Ada506ba6Ca7891F436D29185821"
-        let sprikey = "a11859ce23effc663a9460e332ca09bd812acc390497f8dc7542b6938e13f8d7"
-        let nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067557430e6edfe5320bb81c3666a19cf4a5172d6533117d7ebcd0f2c82055499050"
-        let externalId = "liyf-test-id"
-        let nodeName = "yujinghan-node"
-        let website = "www.baidu.com"
-        let details = "f**king stupid"
-        let amount = BigUInt("5000000").multiplied(by: PlatonConfig.VON.LAT)
-        let blsPubKey = "5ccd6b8c32f2713faa6c9a46e5fb61ad7b7400e53fabcbc56bdc0c16fbfffe09ad6256982c7059e7383a9187ad93a002a7cda7a75d569f591730481a8b91b5fad52ac26ac495522a069686df1061fc184c31771008c1fedfafd50ae794778811"
-        
-        
-        web3j.staking.createStaking(
-            typ: typ,
-            benifitAddress: bAddress,
-            nodeId: nodeId,
-            externalId: externalId,
-            nodeName: nodeName,
-            website: website,
-            details: details,
-            amount: amount,
-            blsPubKey: blsPubKey,
-            sender: ssender,
-            privateKey: sprikey) { (result, response) in
-                switch result {
-                case .success:
-                    if let data = response {
-                        let txHash = data.toHexString()
-                        print(txHash)
-                    }
-                case .fail(_, _):
-                    break
-                }
-        }
-    }
+    func testForCreateStaking() {}
     
     func testForEditorStaking() {
         let bAddress = "0x48c867ddBF22062704D6c81d3FA256bc6fc8b6bC"
@@ -516,7 +439,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
     }
     
     func testForGetProgramVersion() {
-        web3j.platon.programVersion { (response) in
+        web3j.platon.getProgramVersion { (response) in
             print(response)
         }
     }

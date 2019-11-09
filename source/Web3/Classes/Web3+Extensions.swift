@@ -10,8 +10,6 @@ import Localize_Swift
 
 let web3RPCWaitTimeout = 60.0
 
-let semaphore = DispatchSemaphore(value: 1)
-
 public extension Web3.Platon {
     
     func platonCall<T: Decodable>(
@@ -59,12 +57,11 @@ public extension Web3.Platon {
     func platonGetNonce(
         sender: String,
         completion: PlatonCommonCompletionV2<EthereumQuantity?>?) {
-        var completion = completion
         
         let queue = DispatchQueue(label: "platonGetNonceQueue")
-        let queueSemaphore = DispatchSemaphore(value: 1)
+        let semaphore = DispatchSemaphore(value: 1)
         
-        queueSemaphore.wait()
+        semaphore.wait()
         var nonce : EthereumQuantity?
         queue.async {
             let address = try! EthereumAddress(hex: sender, eip55: false)
@@ -75,15 +72,15 @@ public extension Web3.Platon {
                 case .success(_):
                     nonce = nonceResp.result
                     Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
-                    queueSemaphore.signal()
+                    semaphore.signal()
                 case .failure(_):
-                    queueSemaphore.signal()
+                    semaphore.signal()
                 }
             })
         }
         
         if (nonce?.quantity ?? BigUInt.zero) <= BigUInt.zero {
-            queueSemaphore.wait()
+            semaphore.wait()
             queue.async {
                 let address = try! EthereumAddress(hex: sender, eip55: false)
                 self.getTransactionCount(address: address, block: .latest, response: { (nonceResp) in
@@ -91,27 +88,24 @@ public extension Web3.Platon {
                     case .success(_):
                         nonce = nonceResp.result
                         Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
-                        queueSemaphore.signal()
+                        semaphore.signal()
                     case .failure(_):
                         completion?(.fail(nonceResp.error?.code, nonceResp.error?.message), nil)
-                        completion = nil
-                        queueSemaphore.signal()
+                        semaphore.signal()
                     }
                 })
             }
         }
         
-        queueSemaphore.wait()
+        semaphore.wait()
         guard nonce != nil else {
             completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
-            completion = nil
-            queueSemaphore.signal()
+            semaphore.signal()
             return
         }
         
         completion?(.success, nonce)
-        completion = nil
-        queueSemaphore.signal()
+        semaphore.signal()
     }
     
     func platonSignTransaction(to: String,
@@ -128,10 +122,10 @@ public extension Web3.Platon {
         estimatedGas = EthereumQuantity(quantity: gas ?? 0)
         
         let data = EthereumData(bytes: data)
-        let ethConAddr = try? EthereumAddress(hex: to, eip55: true)
+        let ethConAddr = try? EthereumAddress(hex: to, eip55: false)
         let egasPrice = EthereumQuantity(quantity: gasPrice ?? PlatonConfig.FuncGasPrice.defaultGasPrice)
         
-        let from = try? EthereumAddress(hex: sender, eip55: true)
+        let from = try? EthereumAddress(hex: sender, eip55: false)
         
         var sendValue = EthereumQuantity(quantity: BigUInt("0")!)
         if value != nil{
@@ -154,9 +148,9 @@ public extension Web3.Platon {
                                   value: EthereumQuantity?,
                                   estimated: Bool,
                                   completion: PlatonCommonCompletionV2<Data?>?){
-        
-        var completion = completion
-        
+
+        let semaphore = DispatchSemaphore(value: 1)
+
         var tempNonce: EthereumQuantity?
         semaphore.wait()
         platonGetNonce(sender: sender) { (result, nonce) in
@@ -167,7 +161,6 @@ public extension Web3.Platon {
             case .fail(let code, let message):
                 DispatchQueue.main.async {
                     completion?(.fail(code, message), nil)
-                    completion = nil
                 }
                 semaphore.signal()
             }
@@ -177,7 +170,6 @@ public extension Web3.Platon {
         guard let nonce = tempNonce else {
             DispatchQueue.main.async {
                 completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
-                completion = nil
             }
             semaphore.signal()
             return
@@ -187,7 +179,6 @@ public extension Web3.Platon {
         guard let signedTx = tempSignedTx else {
             DispatchQueue.main.async {
                 completion?(.fail(Web3Error.signedTxError.code, Web3Error.signedTxError.message), nil)
-                completion = nil
             }
             semaphore.signal()
             return
@@ -200,13 +191,11 @@ public extension Web3.Platon {
                 txHash = sendTxResp.result!
                 DispatchQueue.main.async {
                     completion?(.success, Data(bytes: txHash.bytes))
-                    completion = nil
                 }
                 semaphore.signal()
             case .failure(_):
                 DispatchQueue.main.async {
                     completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
-                    completion = nil
                 }
                 semaphore.signal()
             }
