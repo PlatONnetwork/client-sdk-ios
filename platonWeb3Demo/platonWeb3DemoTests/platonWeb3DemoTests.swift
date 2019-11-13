@@ -19,8 +19,9 @@ class platonWeb3DemoTests: XCTestCase {
     let nodeId = "0x11f00fd6ea74431c04d336428a5e95736673ee17547c1ccb58d3a64d7224bc7affac84a44b64500f7f35d3875be37078cfc95537a433c764e1921623718c8fdf";
     var senderAddress: EthereumAddress!
 
-    let web3: Web3 = Web3(rpcURL: "http://192.168.9.190:443/rpc", chainId: "103")
-    
+    let web3: Web3 = Web3(rpcURL: "http://10.10.8.118:6789/rpc", chainId: "103")
+//    let web3: Web3 = Web3(rpcURL: "http://192.168.9.190:443/rpc", chainId: "103")
+
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -491,24 +492,24 @@ class platonWeb3DemoTests: XCTestCase {
         let proposalID = "0x8292a10580b0497650293b3c0c27c5ebe89e1222bd4d2ee868b9b6326522816e"
         let option = VoteOption.Yeas
 
-        web3.proposal.vote(verifier: verifier, proposalID: proposalID, option: option, sender: sender, privateKey: privateKey) { (result, response) in
-            switch result {
-            case .success:
-                guard let data = response else {
-                    XCTAssert(false, "response should be not nil")
-                    return
-                }
-                let txHash = data.toHexString()
-                print(txHash)
-                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
-            case .fail(_, let error):
-                XCTAssert(false, error ?? "send tx fail")
-            }
-            expection.fulfill()
-        }
-        waitForExpectations(timeout: 30) { (error) in
-            print(error?.localizedDescription ?? "")
-        }
+//        web3.proposal.vote(verifier: verifier, proposalID: proposalID, option: option, sender: sender, privateKey: privateKey) { (result, response) in
+//            switch result {
+//            case .success:
+//                guard let data = response else {
+//                    XCTAssert(false, "response should be not nil")
+//                    return
+//                }
+//                let txHash = data.toHexString()
+//                print(txHash)
+//                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
+//            case .fail(_, let error):
+//                XCTAssert(false, error ?? "send tx fail")
+//            }
+//            expection.fulfill()
+//        }
+//        waitForExpectations(timeout: 30) { (error) in
+//            print(error?.localizedDescription ?? "")
+//        }
     }
 
     func testDeclareVersion() {
@@ -516,24 +517,24 @@ class platonWeb3DemoTests: XCTestCase {
 
         let verifier = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
 
-        web3.proposal.declareVersion(verifier: verifier, sender: sender, privateKey: privateKey) { (result, response) in
-            switch result {
-            case .success:
-                guard let data = response else {
-                    XCTAssert(false, "response should be not nil")
-                    return
-                }
-                let txHash = data.toHexString()
-                print(txHash)
-                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
-            case .fail(_, let error):
-                XCTAssert(false, error ?? "send tx fail")
-            }
-            expection.fulfill()
-        }
-        waitForExpectations(timeout: 30) { (error) in
-            print(error?.localizedDescription ?? "")
-        }
+//        web3.proposal.declareVersion(verifier: verifier, sender: sender, privateKey: privateKey) { (result, response) in
+//            switch result {
+//            case .success:
+//                guard let data = response else {
+//                    XCTAssert(false, "response should be not nil")
+//                    return
+//                }
+//                let txHash = data.toHexString()
+//                print(txHash)
+//                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
+//            case .fail(_, let error):
+//                XCTAssert(false, error ?? "send tx fail")
+//            }
+//            expection.fulfill()
+//        }
+//        waitForExpectations(timeout: 30) { (error) in
+//            print(error?.localizedDescription ?? "")
+//        }
     }
 
     func testForGetProposal() {
@@ -633,25 +634,25 @@ class platonWeb3DemoTests: XCTestCase {
     func testForReportDuplicateSign() {
         let expection = self.expectation(description: "\(#function)")
 
-        let data = "{}"
-        web3.slash.reportDuplicateSign(data: data, sender: sender, privateKey: privateKey) { (result, response) in
-            switch result {
-            case .success:
-                guard let data = response else {
-                    XCTAssert(false, "response should be not nil")
-                    return
-                }
-                let txHash = data.toHexString()
-                print(txHash)
-                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
-            case .fail(_, let error):
-                XCTAssert(false, error ?? "send tx fail")
-            }
-            expection.fulfill()
-        }
-        waitForExpectations(timeout: 30) { (error) in
-            print(error?.localizedDescription ?? "")
-        }
+//        let data = "{}"
+//        web3.slash.reportDuplicateSign(data: data, sender: sender, privateKey: privateKey) { (result, response) in
+//            switch result {
+//            case .success:
+//                guard let data = response else {
+//                    XCTAssert(false, "response should be not nil")
+//                    return
+//                }
+//                let txHash = data.toHexString()
+//                print(txHash)
+//                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
+//            case .fail(_, let error):
+//                XCTAssert(false, error ?? "send tx fail")
+//            }
+//            expection.fulfill()
+//        }
+//        waitForExpectations(timeout: 30) { (error) in
+//            print(error?.localizedDescription ?? "")
+//        }
     }
 
     func testForCheckDuplicateSign() {

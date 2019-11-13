@@ -16,9 +16,9 @@ class Web3_0_7_ViewController: BaseTableViewController {
     var firstdemoContract = firstdemo()
     
 //    let web3j: Web3 = Web3(rpcURL: "https://aton.main.platon.network/rpc", chainId: "101")
-    let web3j: Web3 = Web3(rpcURL: "http://192.168.9.190:1000/rpc", chainId: "103")
-//    let web3j: Web3 = Web3(rpcURL: "https://aton.test.platon.network/rpc", chainId: "103")
-    
+//    let web3j: Web3 = Web3(rpcURL: "http://192.168.9.190:1000/rpc", chainId: "103")
+    let web3j: Web3 = Web3(rpcURL: "http://10.10.8.118:6789/rpc", chainId: "103")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

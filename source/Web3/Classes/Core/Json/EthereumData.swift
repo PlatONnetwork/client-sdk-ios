@@ -44,7 +44,7 @@ extension EthereumData: EthereumValueConvertible {
     }
 }
 
-public extension EthereumValue {
+extension EthereumValue {
 
     public var ethereumData: EthereumData? {
         return try? EthereumData(ethereumValue: self)
