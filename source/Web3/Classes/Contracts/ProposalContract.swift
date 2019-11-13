@@ -141,6 +141,7 @@ public class ProposalContract: PlantonContractProtocol {
     public func getGovernParamValue(
         module: String,
         name: String,
+        sender: String,
         completion: PlatonCommonCompletionV2<PlatonContractCallResponse<String>?>?) {
         let funcObject = FuncType.getGovernParamValue(module: module, name: name)
         platonCall(funcObject, sender: sender, completion: completion)
@@ -149,6 +150,7 @@ public class ProposalContract: PlantonContractProtocol {
     public func getAccuVerifiersCount(
         proposalID: String,
         blockHash: String,
+        sender: String,
         completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[UInt16]>?>?) {
         let funcObject = FuncType.getAccuVerifiersCount(proposalID: proposalID, blockHash: blockHash)
         platonCall(funcObject, sender: sender, completion: completion)
@@ -156,6 +158,7 @@ public class ProposalContract: PlantonContractProtocol {
 
     public func listGovernParam(
         module: String,
+        sender: String,
         completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[Govern]>?>?) {
         let funcObject = FuncType.listGovernParam(module: module)
         platonCall(funcObject, sender: sender, completion: completion)

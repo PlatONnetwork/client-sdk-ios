@@ -362,34 +362,34 @@ class Web3_0_7_ViewController: BaseTableViewController {
         let proposalID = "0x8292a10580b0497650293b3c0c27c5ebe89e1222bd4d2ee868b9b6326522816e"
         let option = VoteOption.Yeas
         
-        web3j.proposal.vote(verifier: verifier, proposalID: proposalID, option: option, sender: sender, privateKey: privateKey) { (result, response) in
-            switch result {
-            case .success:
-                if let data = response {
-                    let txHash = data.toHexString()
-                    print(txHash)
-                }
-            case .fail(_, _):
-                break
-            }
-        }
+//        web3j.proposal.vote(verifier: verifier, proposalID: proposalID, option: option, sender: sender, privateKey: privateKey) { (result, response) in
+//            switch result {
+//            case .success:
+//                if let data = response {
+//                    let txHash = data.toHexString()
+//                    print(txHash)
+//                }
+//            case .fail(_, _):
+//                break
+//            }
+//        }
     }
     
     func testDeclareVersion() {
         
         let verifier = "19f1c9aa5140bd1304a3260de640a521c33015da86b88cd2ecc83339b558a4d4afa4bd0555d3fa16ae43043aeb4fbd32c92b34de1af437811de51d966dc64365"
         
-        web3j.proposal.declareVersion(verifier: verifier, sender: sender, privateKey: privateKey) { (result, data) in
-            switch result {
-            case .success:
-                if let data = data as? Data {
-                    let txHash = data.toHexString()
-                    print(txHash)
-                }
-            case .fail(_, _):
-                break
-            }
-        }
+//        web3j.proposal.declareVersion(verifier: verifier, sender: sender, privateKey: privateKey) { (result, data) in
+//            switch result {
+//            case .success:
+//                if let data = data as? Data {
+//                    let txHash = data.toHexString()
+//                    print(txHash)
+//                }
+//            case .fail(_, _):
+//                break
+//            }
+//        }
     }
     
     func testForGetProposal() {
@@ -447,17 +447,17 @@ class Web3_0_7_ViewController: BaseTableViewController {
     func testForReportDuplicateSign() {
         
         let data = "{}"
-        web3j.slash.reportDuplicateSign(data: data, sender: sender, privateKey: privateKey) { (result, data) in
-            switch result {
-            case .success:
-                if let data = data as? Data {
-                    let txHash = data.toHexString()
-                    print(txHash)
-                }
-            case .fail(_, _):
-                break
-            }
-        }
+//        web3j.slash.reportDuplicateSign(data: data, sender: sender, privateKey: privateKey) { (result, data) in
+//            switch result {
+//            case .success:
+//                if let data = data as? Data {
+//                    let txHash = data.toHexString()
+//                    print(txHash)
+//                }
+//            case .fail(_, _):
+//                break
+//            }
+//        }
     }
     
     func testForCheckDuplicateSign() {
