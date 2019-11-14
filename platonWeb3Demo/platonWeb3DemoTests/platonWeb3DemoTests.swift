@@ -491,21 +491,21 @@ class platonWeb3DemoTests: XCTestCase {
         let proposalID = "0x8292a10580b0497650293b3c0c27c5ebe89e1222bd4d2ee868b9b6326522816e"
         let option = VoteOption.Yeas
 
-        web3.proposal.vote(verifier: verifier, proposalID: proposalID, option: option, sender: sender, privateKey: privateKey) { (result, response) in
-            switch result {
-            case .success:
-                guard let data = response else {
-                    XCTAssert(false, "response should be not nil")
-                    return
-                }
-                let txHash = data.toHexString()
-                print(txHash)
-                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
-            case .fail(_, let error):
-                XCTAssert(false, error ?? "send tx fail")
-            }
-            expection.fulfill()
-        }
+//        web3.proposal.vote(verifier: verifier, proposalID: proposalID, option: option, sender: sender, privateKey: privateKey) { (result, response) in
+//            switch result {
+//            case .success:
+//                guard let data = response else {
+//                    XCTAssert(false, "response should be not nil")
+//                    return
+//                }
+//                let txHash = data.toHexString()
+//                print(txHash)
+//                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
+//            case .fail(_, let error):
+//                XCTAssert(false, error ?? "send tx fail")
+//            }
+//            expection.fulfill()
+//        }
         waitForExpectations(timeout: 30) { (error) in
             print(error?.localizedDescription ?? "")
         }
@@ -516,21 +516,21 @@ class platonWeb3DemoTests: XCTestCase {
 
         let verifier = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
 
-        web3.proposal.declareVersion(verifier: verifier, sender: sender, privateKey: privateKey) { (result, response) in
-            switch result {
-            case .success:
-                guard let data = response else {
-                    XCTAssert(false, "response should be not nil")
-                    return
-                }
-                let txHash = data.toHexString()
-                print(txHash)
-                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
-            case .fail(_, let error):
-                XCTAssert(false, error ?? "send tx fail")
-            }
-            expection.fulfill()
-        }
+//        web3.proposal.declareVersion(verifier: verifier, sender: sender, privateKey: privateKey) { (result, response) in
+//            switch result {
+//            case .success:
+//                guard let data = response else {
+//                    XCTAssert(false, "response should be not nil")
+//                    return
+//                }
+//                let txHash = data.toHexString()
+//                print(txHash)
+//                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
+//            case .fail(_, let error):
+//                XCTAssert(false, error ?? "send tx fail")
+//            }
+//            expection.fulfill()
+//        }
         waitForExpectations(timeout: 30) { (error) in
             print(error?.localizedDescription ?? "")
         }
@@ -633,8 +633,8 @@ class platonWeb3DemoTests: XCTestCase {
     func testForReportDuplicateSign() {
         let expection = self.expectation(description: "\(#function)")
 
-        let data = "{}"
-        web3.slash.reportDuplicateSign(data: data, sender: sender, privateKey: privateKey) { (result, response) in
+        let data: UInt8 = 1
+        web3.slash.reportDuplicateSign(typ: data, data: "", sender: sender, privateKey: privateKey) { (result, response) in
             switch result {
             case .success:
                 guard let data = response else {

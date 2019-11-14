@@ -23,10 +23,12 @@ public class SlashContract: PlantonContractProtocol {
         data: String, // 单个证据的json值
         sender: String,
         privateKey: String,
+        gas: BigUInt? = nil,
+        gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<Data?>?) {
 
         let funcObject = FuncType.reportMultiSign(typ: typ, data: data)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, gas: gas, gasPrice: gasPrice, completion: completion)
     }
     
     public func checkDuplicateSign(
@@ -41,12 +43,10 @@ public class SlashContract: PlantonContractProtocol {
 }
 
 extension SlashContract {
-    public func estimateReportDoubleSign(
+    public func getGasReportDoubleSign(
         typ: UInt8,
-        data: String,
-        gasPrice: BigUInt? = nil,
-        completion: PlatonCommonCompletionV2<BigUInt?>?) {
+        data: String) -> BigUInt {
         let funcObject = FuncType.reportMultiSign(typ: typ, data: data)
-        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
+        return funcObject.gas
     }
 }
