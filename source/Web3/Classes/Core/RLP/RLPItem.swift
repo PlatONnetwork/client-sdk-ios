@@ -43,7 +43,7 @@ public struct RLPItem {
 
 // MARK: - Convenient Initializers
 
-public extension RLPItem {
+extension RLPItem {
 
     public static func bytes(_ bytes: Bytes) -> RLPItem {
         return RLPItem(bytes: bytes)

@@ -33,12 +33,6 @@ public extension Web3.Platon {
                     return
                 }
 
-                guard let response1 = try? RLPDecoder().decode(bytes) else {
-                    print("failed")
-                    return
-                }
-                print(response1)
-                
                 guard let response = try? JSONDecoder().decode(PlatonContractCallResponse<T>.self, from: Data(bytes: bytes)) else {
                     DispatchQueue.main.async {
                         completion?(.fail(-1, "decode failed"), nil)
@@ -256,7 +250,7 @@ public extension Web3.Platon {
                         }
                         
                         guard callResponse.Code == 0 else {
-                            completion?(PlatonCommonResult.fail(callResponse.Code, callResponse.ErrMsg), nil)
+                            completion?(PlatonCommonResult.fail(callResponse.Code, callResponse.errMsg), nil)
                             completion = nil
                             return
                         }

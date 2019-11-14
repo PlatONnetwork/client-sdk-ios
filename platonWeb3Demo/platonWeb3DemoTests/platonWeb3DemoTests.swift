@@ -40,6 +40,98 @@ class platonWeb3DemoTests: XCTestCase {
         XCTAssertNotNil(web3.staking, "web3.staking should be not nil")
     }
 
+    func testTransfer() {
+        let expection = self.expectation(description: "\(#function)")
+
+        let defaultGasPrice: BigUInt = BigUInt("500000000000")!
+        let estimatedGas: BigUInt = BigUInt("21000")
+        let from = "0xf66CB3C7f28D058AE3C6eD9493C6A9e2a7d7786d"
+        let to = "0x990fb0d2e8cCf54D63a5b9712D622c81283d2dc7"
+        let pri = "0xbfa6c75e2240a4735fdc99a73b48ae42d625f34b859327fc2f0e553f7e97888e"
+
+
+        var walletAddr : EthereumAddress?
+        var toAddr : EthereumAddress?
+        var fromAddr : EthereumAddress?
+        var pk : EthereumPrivateKey?
+        let gasPrice = EthereumQuantity(quantity: defaultGasPrice)
+        let txgas = EthereumQuantity(quantity: estimatedGas)
+        let amountOfwei =  BigUInt(10).multiplied(by: PlatonConfig.VON.LAT)
+        let value = EthereumQuantity(quantity: amountOfwei)
+        let data = EthereumData(bytes: [])
+
+        try? walletAddr = EthereumAddress(hex: from, eip55: false)
+        try? toAddr = EthereumAddress(hex: to, eip55: false)
+        try? fromAddr = EthereumAddress(hex: from, eip55: false)
+        try? pk = EthereumPrivateKey(hexPrivateKey: pri)
+        let semaphore = DispatchSemaphore(value: 0)
+        let queue = DispatchQueue(label: "sendAPTTransfer")
+        queue.async {
+            var nonce : EthereumQuantity?
+            web3.platon.getTransactionCount(address: walletAddr!, block: EthereumQuantityTag(tagType: .latest)) { resp in
+
+                switch resp.status {
+
+                case .success:
+                    nonce = resp.result
+                    semaphore.signal()
+                case .failure(let error):
+                    semaphore.signal()
+                }
+            }
+
+            if semaphore.wait(timeout: .now() + DefaultRPCTimeOut) == .timedOut {
+                self.timeOutCompletionOnMainThread(completion: &completion)
+                return
+            }
+
+            if nonce == nil {
+                self.failWithEmptyResponseCompletionOnMainThread(completion: &completion)
+                return
+            }
+
+            let tx = EthereumTransaction(
+                nonce: nonce,
+                gasPrice: gasPrice,
+                gas: txgas,
+                from:fromAddr,
+                to: toAddr,
+                value: value,
+                data : data
+            )
+            ptx.to = toAddr?.hex(eip55: true)
+            ptx.from = walletAddr?.hex(eip55: true)
+            let chainID = EthereumQuantity(quantity: BigUInt(web3.chainId)!)
+            let signedTx = try? tx.sign(with: pk!, chainId: chainID) as EthereumSignedTransaction
+
+            web3.platon.sendRawTransaction(transaction: signedTx!, response: { (resp) in
+                switch resp.status {
+                case .success:
+                    DispatchQueue.main.async {
+                        ptx.txhash = resp.result?.hex()
+                        ptx.createTime = Date().millisecondsSince1970
+                        ptx.value = String(value.quantity)
+                        ptx.gasPrice = String(gasPrice.quantity)
+                        ptx.gas = String(txgas.quantity)
+                        ptx.memo = memo
+                        ptx.transactionType = 0
+                        ptx.direction = .Sent
+                        TransferPersistence.add(tx: ptx)
+                    }
+                    self.successCompletionOnMain(obj: nil, completion: &completion)
+                case .failure(let error):
+                    self.failCompletionOnMainThread(code: error.code, errorMsg: error.message, completion: &completion)
+                }
+            })
+        }
+        return ptx
+    }
+
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
+    }
+
     func testForCreateStaking() {
         let expection = self.expectation(description: "\(#function)")
 
