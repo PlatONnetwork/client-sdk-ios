@@ -23,10 +23,12 @@ public class RestrictingPlanContract: PlantonContractProtocol {
         plans: [RestrictingPlan],
         sender: String,
         privateKey: String,
+        gas: BigUInt? = nil,
+        gasPrice: BigUInt? = nil,
         completion: PlatonCommonCompletionV2<Data?>?) {
 
         let funcObject = FuncType.createRestrictingPlan(account: account, plans: plans)
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completion)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, gas: gas, gasPrice: gasPrice, completion: completion)
     }
     
     public func getRestrictingPlanInfo(
@@ -39,12 +41,11 @@ public class RestrictingPlanContract: PlantonContractProtocol {
 }
 
 extension RestrictingPlanContract {
-    public func estimateCreateRestrictingPlan(account: String,
-                                      plans: [RestrictingPlan],
-                                      gasPrice: BigUInt? = nil,
-                                      completion: PlatonCommonCompletionV2<BigUInt?>?) {
+    public func getGasCreateRestrictingPlan(
+        account: String,
+        plans: [RestrictingPlan]) -> BigUInt {
         let funcObject = FuncType.createRestrictingPlan(account: account, plans: plans)
-        platonContractEstimateGas(funcObject, gasPrice: gasPrice, completion: completion)
+        return funcObject.gas
     }
 }
 

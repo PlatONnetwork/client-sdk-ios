@@ -19,9 +19,8 @@ class platonWeb3DemoTests: XCTestCase {
     let nodeId = "0x11f00fd6ea74431c04d336428a5e95736673ee17547c1ccb58d3a64d7224bc7affac84a44b64500f7f35d3875be37078cfc95537a433c764e1921623718c8fdf";
     var senderAddress: EthereumAddress!
 
-    let web3: Web3 = Web3(rpcURL: "http://10.10.8.118:6789/rpc", chainId: "103")
-//    let web3: Web3 = Web3(rpcURL: "http://192.168.9.190:443/rpc", chainId: "103")
-
+    let web3: Web3 = Web3(rpcURL: "http://192.168.9.190:443/rpc", chainId: "103")
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -38,98 +37,6 @@ class platonWeb3DemoTests: XCTestCase {
         XCTAssertNotNil(web3.restricting, "web3.restricting should be not nil")
         XCTAssertNotNil(web3.slash, "web3.slash should be not nil")
         XCTAssertNotNil(web3.staking, "web3.staking should be not nil")
-    }
-
-    func testTransfer() {
-        let expection = self.expectation(description: "\(#function)")
-
-        let defaultGasPrice: BigUInt = BigUInt("500000000000")!
-        let estimatedGas: BigUInt = BigUInt("21000")
-        let from = "0xf66CB3C7f28D058AE3C6eD9493C6A9e2a7d7786d"
-        let to = "0x990fb0d2e8cCf54D63a5b9712D622c81283d2dc7"
-        let pri = "0xbfa6c75e2240a4735fdc99a73b48ae42d625f34b859327fc2f0e553f7e97888e"
-
-
-        var walletAddr : EthereumAddress?
-        var toAddr : EthereumAddress?
-        var fromAddr : EthereumAddress?
-        var pk : EthereumPrivateKey?
-        let gasPrice = EthereumQuantity(quantity: defaultGasPrice)
-        let txgas = EthereumQuantity(quantity: estimatedGas)
-        let amountOfwei =  BigUInt(10).multiplied(by: PlatonConfig.VON.LAT)
-        let value = EthereumQuantity(quantity: amountOfwei)
-        let data = EthereumData(bytes: [])
-
-        try? walletAddr = EthereumAddress(hex: from, eip55: false)
-        try? toAddr = EthereumAddress(hex: to, eip55: false)
-        try? fromAddr = EthereumAddress(hex: from, eip55: false)
-        try? pk = EthereumPrivateKey(hexPrivateKey: pri)
-        let semaphore = DispatchSemaphore(value: 0)
-        let queue = DispatchQueue(label: "sendAPTTransfer")
-        queue.async {
-            var nonce : EthereumQuantity?
-            web3.platon.getTransactionCount(address: walletAddr!, block: EthereumQuantityTag(tagType: .latest)) { resp in
-
-                switch resp.status {
-
-                case .success:
-                    nonce = resp.result
-                    semaphore.signal()
-                case .failure(let error):
-                    semaphore.signal()
-                }
-            }
-
-            if semaphore.wait(timeout: .now() + DefaultRPCTimeOut) == .timedOut {
-                self.timeOutCompletionOnMainThread(completion: &completion)
-                return
-            }
-
-            if nonce == nil {
-                self.failWithEmptyResponseCompletionOnMainThread(completion: &completion)
-                return
-            }
-
-            let tx = EthereumTransaction(
-                nonce: nonce,
-                gasPrice: gasPrice,
-                gas: txgas,
-                from:fromAddr,
-                to: toAddr,
-                value: value,
-                data : data
-            )
-            ptx.to = toAddr?.hex(eip55: true)
-            ptx.from = walletAddr?.hex(eip55: true)
-            let chainID = EthereumQuantity(quantity: BigUInt(web3.chainId)!)
-            let signedTx = try? tx.sign(with: pk!, chainId: chainID) as EthereumSignedTransaction
-
-            web3.platon.sendRawTransaction(transaction: signedTx!, response: { (resp) in
-                switch resp.status {
-                case .success:
-                    DispatchQueue.main.async {
-                        ptx.txhash = resp.result?.hex()
-                        ptx.createTime = Date().millisecondsSince1970
-                        ptx.value = String(value.quantity)
-                        ptx.gasPrice = String(gasPrice.quantity)
-                        ptx.gas = String(txgas.quantity)
-                        ptx.memo = memo
-                        ptx.transactionType = 0
-                        ptx.direction = .Sent
-                        TransferPersistence.add(tx: ptx)
-                    }
-                    self.successCompletionOnMain(obj: nil, completion: &completion)
-                case .failure(let error):
-                    self.failCompletionOnMainThread(code: error.code, errorMsg: error.message, completion: &completion)
-                }
-            })
-        }
-        return ptx
-    }
-
-        waitForExpectations(timeout: 30) { (error) in
-            print(error?.localizedDescription ?? "")
-        }
     }
 
     func testForCreateStaking() {
@@ -599,9 +506,9 @@ class platonWeb3DemoTests: XCTestCase {
 //            }
 //            expection.fulfill()
 //        }
-//        waitForExpectations(timeout: 30) { (error) in
-//            print(error?.localizedDescription ?? "")
-//        }
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
     }
 
     func testDeclareVersion() {
@@ -624,9 +531,9 @@ class platonWeb3DemoTests: XCTestCase {
 //            }
 //            expection.fulfill()
 //        }
-//        waitForExpectations(timeout: 30) { (error) in
-//            print(error?.localizedDescription ?? "")
-//        }
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
     }
 
     func testForGetProposal() {
@@ -726,25 +633,25 @@ class platonWeb3DemoTests: XCTestCase {
     func testForReportDuplicateSign() {
         let expection = self.expectation(description: "\(#function)")
 
-//        let data = "{}"
-//        web3.slash.reportDuplicateSign(data: data, sender: sender, privateKey: privateKey) { (result, response) in
-//            switch result {
-//            case .success:
-//                guard let data = response else {
-//                    XCTAssert(false, "response should be not nil")
-//                    return
-//                }
-//                let txHash = data.toHexString()
-//                print(txHash)
-//                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
-//            case .fail(_, let error):
-//                XCTAssert(false, error ?? "send tx fail")
-//            }
-//            expection.fulfill()
-//        }
-//        waitForExpectations(timeout: 30) { (error) in
-//            print(error?.localizedDescription ?? "")
-//        }
+        let data: UInt8 = 1
+        web3.slash.reportDuplicateSign(typ: data, data: "", sender: sender, privateKey: privateKey) { (result, response) in
+            switch result {
+            case .success:
+                guard let data = response else {
+                    XCTAssert(false, "response should be not nil")
+                    return
+                }
+                let txHash = data.toHexString()
+                print(txHash)
+                XCTAssert(txHash.count > 0, "tx hash should be bot nil")
+            case .fail(_, let error):
+                XCTAssert(false, error ?? "send tx fail")
+            }
+            expection.fulfill()
+        }
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
     }
 
     func testForCheckDuplicateSign() {
