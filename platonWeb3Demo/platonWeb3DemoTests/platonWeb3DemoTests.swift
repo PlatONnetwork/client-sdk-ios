@@ -20,7 +20,7 @@ class platonWeb3DemoTests: XCTestCase {
     var senderAddress: EthereumAddress!
 
 //    let web3: Web3 = Web3(rpcURL: "http://192.168.9.190:443/rpc", chainId: "103")
-    let web3: Web3 = Web3(rpcURL: "http://10.10.8.118:6789/rpc", chainId: "101")
+    let web3: Web3 = Web3(rpcURL: "http://192.168.120.141:24567/rpc", chainId: "120")
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -36,8 +36,8 @@ class platonWeb3DemoTests: XCTestCase {
         let gasPrice = PlatonConfig.FuncGasPrice.defaultGasPrice
         let gasLimit = PlatonConfig.FuncGas.defaultGas
         let from = "0xf66CB3C7f28D058AE3C6eD9493C6A9e2a7d7786d"
-        let to = "0x990fb0d2e8cCf54D63a5b9712D622c81283d2dc7"
         let pri = "0xbfa6c75e2240a4735fdc99a73b48ae42d625f34b859327fc2f0e553f7e97888e"
+        let to = "0x990fb0d2e8cCf54D63a5b9712D622c81283d2dc7"
 
         var walletAddr : EthereumAddress?
         var toAddr : EthereumAddress?
