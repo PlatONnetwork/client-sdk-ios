@@ -85,7 +85,7 @@ class platonWeb3DemoTests: XCTestCase {
             switch resp.status {
             case .success:
                 let txhash = resp.result?.hex()
-                print(txhash)
+                XCTAssert(txhash?.count ?? 0 > 0, "hash should be exist")
             case .failure(let error):
                 XCTAssert(false, error.message)
             }
@@ -106,6 +106,30 @@ class platonWeb3DemoTests: XCTestCase {
         XCTAssertNotNil(web3.restricting, "web3.restricting should be not nil")
         XCTAssertNotNil(web3.slash, "web3.slash should be not nil")
         XCTAssertNotNil(web3.staking, "web3.staking should be not nil")
+    }
+
+    func testTransactionReceipt() {
+        let expection = self.expectation(description: "\(#function)")
+        let hash = "e57294feeaeb080d2422fcc886a76cac8e58b7d2b053bb989b866a83dbe76a1f"
+        let hashValue = EthereumValue(stringLiteral: hash)
+        let hashData = try! EthereumData(ethereumValue: hashValue)
+
+        web3.platon.getTransactionReceipt(transactionHash: hashData) { (txResp) in
+            switch txResp.status {
+            case .success(let resp):
+                let bytes = resp?.logs[0].data.bytes
+                let rlpItem = try? RLPDecoder().decode(bytes!)
+                let result = String(bytes: Bytes(hex: rlpItem?.array?.first?.bytes?.toHexString() ?? "-1"))
+                XCTAssert(result == "0", "result shoulde be 0")
+            case .failure(let err):
+                XCTAssert(false, err.message)
+            }
+            expection.fulfill()
+        }
+
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
     }
 
     func testForCreateStaking() {
@@ -475,10 +499,13 @@ class platonWeb3DemoTests: XCTestCase {
     func testForSubmitText() {
         let expection = self.expectation(description: "\(#function)")
 
-        let verifier = "411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c"
+        let from = "0xf66CB3C7f28D058AE3C6eD9493C6A9e2a7d7786d"
+        let pri = "bfa6c75e2240a4735fdc99a73b48ae42d625f34b859327fc2f0e553f7e97888e"
+        let verifier = "0abaf3219f454f3d07b6cbcf3c10b6b4ccf605202868e2043b6f5db12b745df0604ef01ef4cb523adc6d9e14b83a76dd09f862e3fe77205d8ac83df707969b47"
+//        411a6c3640b6cd13799e7d4ed286c95104e3a31fbb05d7ae0004463db648f26e93f7f5848ee9795fb4bbb5f83985afd63f750dc4cf48f53b0e84d26d6834c20c
         let pIDID = String("10")
 
-        web3.proposal.submitText(verifier: verifier, pIDID: pIDID, sender: sender, privateKey: privateKey) { (result, response) in
+        web3.proposal.submitText(verifier: verifier, pIDID: pIDID, sender: from, privateKey: pri) { (result, response) in
             switch result {
             case .success:
                 guard let data = response else {

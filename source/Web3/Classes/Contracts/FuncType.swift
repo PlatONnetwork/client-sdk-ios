@@ -394,10 +394,11 @@ extension FuncType {
     func build_submitText(verifier: String,
                           pIDID: String) -> Data {
         let verifierBytes = try? verifier.hexBytes()
+        let pIDIDBytes = try? pIDID.hexBytes()
         let rlpItemss = [
             RLPItem.bytes(typeValue.makeBytes()),
             RLPItem.bytes(verifierBytes!),
-            RLPItem.bytes(pIDID.bytes)
+            RLPItem.bytes(pIDIDBytes!)
         ]
         
         let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
