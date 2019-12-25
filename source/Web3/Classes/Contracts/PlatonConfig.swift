@@ -66,7 +66,7 @@ public struct PlatonConfig {
     }
     
     public struct FuncGasPrice {
-        public static var minGasPrice: BigUInt = BigUInt("1000000000")!
+        public static var minGasPrice: BigUInt = BigUInt("10000000000")!
         public static var defaultGasPrice: BigUInt = BigUInt("500000000000")!
         public static var submitTextGasPrice: BigUInt = BigUInt("1500000")!
         public static var submitVersionGasPrice: BigUInt = BigUInt("2100000")!
