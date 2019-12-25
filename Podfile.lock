@@ -11,7 +11,7 @@ DEPENDENCIES:
   - secp256k1.swift (~> 0.1)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - BigInt
     - CryptoSwift
     - Localize-Swift
@@ -25,4 +25,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 0e412eca9a313b8e01b91622bdbe3f641b77a678
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
