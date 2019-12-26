@@ -21,11 +21,15 @@ public struct RestrictingPlan {
     public enum Error: Swift.Error {
         case rlpItemInvalid
     }
+
+    public init(epoch: UInt64, amount: BigUInt) {
+        self.epoch = epoch
+        self.amount = amount
+    }
 }
 
 extension RLPItem {
-    init(epoch: UInt64,
-         amount: BigUInt) {
+    public init(epoch: UInt64, amount: BigUInt) {
         let epochData = Data.newData(unsignedLong: epoch)
         let epochBytes = epochData.bytes.trimLeadingZeros()
         self = .array(

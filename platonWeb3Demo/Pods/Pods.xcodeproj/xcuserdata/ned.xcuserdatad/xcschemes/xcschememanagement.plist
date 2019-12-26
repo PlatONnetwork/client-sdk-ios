@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>platonWeb3.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>secp256k1.swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>

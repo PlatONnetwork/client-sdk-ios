@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import BigInt
+import platonWeb3
 
 
 
@@ -481,6 +481,7 @@ class Web3_0_7_ViewController: BaseTableViewController {
     func testForCreateRestrictingPlan() {
         let account = "0x0772fd8e5126C01b98D3a93C64546306149202ED"
         let epoch: UInt64 = 1
+
         let plans = [
             RestrictingPlan(epoch: epoch, amount: BigUInt(100).multiplied(by: PlatonConfig.VON.LAT))
         ]

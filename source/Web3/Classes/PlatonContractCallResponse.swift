@@ -9,11 +9,11 @@
 import Foundation
 
 public struct PlatonContractCallResponse<T: Decodable>: Decodable {
-    var Code: Int
-    var errMsg: String?
-    var result: T?
+    public var Code: Int
+    public var errMsg: String?
+    public var result: T?
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case Code
         case Ret
     }

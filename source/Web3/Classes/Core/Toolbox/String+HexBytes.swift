@@ -11,7 +11,7 @@ import Foundation
 extension String {
     
     /// Convert a hex string "0xFF" or "FF" to Bytes
-    func hexBytes() throws -> Bytes {
+    public func hexBytes() throws -> Bytes {
         guard isHexString() else {
             return Bytes()
         }
