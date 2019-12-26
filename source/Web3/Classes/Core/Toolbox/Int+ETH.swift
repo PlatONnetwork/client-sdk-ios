@@ -11,39 +11,39 @@ import BigInt
 
 public extension BigUInt {
 
-    public var eth: BigUInt {
+    public var lat: BigUInt {
         return self * BigUInt(10).power(18)
     }
 
-    public var gwei: BigUInt {
+    public var gvon: BigUInt {
         return self * BigUInt(10).power(9)
     }
 }
 
 public extension UnsignedInteger {
 
-    public var eth: BigUInt {
-        return BigUInt(self).eth
+    public var lat: BigUInt {
+        return BigUInt(self).lat
     }
 
-    public var gwei: BigUInt {
-        return BigUInt(self).gwei
+    public var gvon: BigUInt {
+        return BigUInt(self).gvon
     }
 }
 
 public extension SignedInteger {
 
-    public var eth: BigUInt {
+    public var lat: BigUInt {
         guard self >= 0 else {
             return 0
         }
-        return BigUInt(self).eth
+        return BigUInt(self).lat
     }
 
-    public var gwei: BigUInt {
+    public var gvon: BigUInt {
         guard self >= 0 else {
             return 0
         }
-        return BigUInt(self).gwei
+        return BigUInt(self).gvon
     }
 }

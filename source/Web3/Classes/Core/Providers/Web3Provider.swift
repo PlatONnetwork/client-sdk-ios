@@ -17,17 +17,9 @@ public protocol Web3Provider {
 
 public struct Web3Response<Result: Codable> {
     
-    public enum Error: Swift.Error {
-        case emptyResponse
-        case requestFailed(Swift.Error?)
-        case connectionFailed(Swift.Error?)
-        case serverError(Swift.Error?)
-        case decodingError(Swift.Error?)
-    }
-    
     public enum Status<Result> {
         case success(Result)
-        case failure(Swift.Error)
+        case failure(Web3Error)
     }
 
     public let status: Status<Result>
@@ -36,7 +28,7 @@ public struct Web3Response<Result: Codable> {
         return status.result
     }
     
-    public var error: Swift.Error? {
+    public var error: Web3Error? {
         return status.error
     }
     
@@ -46,8 +38,7 @@ public struct Web3Response<Result: Codable> {
         self.status = status
     }
     
-    /// Initialize with any Error object
-    public init(error: Swift.Error) {
+    public init(error: Web3Error) {
         self.status = .failure(error)
     }
     
@@ -56,15 +47,10 @@ public struct Web3Response<Result: Codable> {
         if let result = rpcResponse.result {
             self.status = .success(result)
         } else if let error = rpcResponse.error {
-            self.status = .failure(error)
+            self.status = .failure(.rpcError(error))
         } else {
-            self.status = .failure(Error.emptyResponse)
+            self.status = .failure(.emptyResponse)
         }
-    }
-    
-    /// For convenience, initialize with one of the common errors
-    public init(error: Error) {
-        self.status = .failure(error)
     }
 }
 
@@ -92,7 +78,7 @@ extension Web3Response.Status {
         }
     }
     
-    public var error: Error? {
+    public var error: Web3Error? {
         switch self {
         case .failure(let error):
             return error

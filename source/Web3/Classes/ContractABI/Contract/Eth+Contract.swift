@@ -21,7 +21,7 @@ public enum ContractParsingError: Error, LocalizedError {
     }
 }
 
-public extension Web3.Eth {
+public extension Web3.Platon {
     
     /// Initialize an instance of a dynamic EthereumContract from data
     ///
@@ -57,7 +57,7 @@ public extension Web3.Eth {
     ///   - address: The address of the contract, if it is deployed
     /// - Returns: Instance of the dynamic contract as represented in the provided ABI
     public func Contract(abi: [ABIObject], address: EthereumAddress? = nil) -> DynamicContract {
-        return DynamicContract(abi: abi, address: address, eth: self)
+        return DynamicContract(abi: abi, address: address, platon: self)
     }
     
     
@@ -68,7 +68,7 @@ public extension Web3.Eth {
     ///   - address: Address the contract is deployed at, if it is deployed
     /// - Returns: An instance of the contract that is configured with this instance of Web3
     public func Contract<T: StaticContract>(type: T.Type, address: EthereumAddress? = nil) -> T {
-        return T(address: address, eth: self)
+        return T(address: address, platon: self)
     }
     
 }

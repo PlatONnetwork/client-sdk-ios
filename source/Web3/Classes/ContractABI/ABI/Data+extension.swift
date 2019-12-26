@@ -73,6 +73,16 @@ extension Data {
         self.append(UnsafeBufferPointer(start: &data, count: 1))
     }
     
+    mutating func append(unsignedInteger data: UInt8, bigEndian: Bool = true) {
+        var data = bigEndian ? data.bigEndian : data.littleEndian
+        self.append(UnsafeBufferPointer(start: &data, count: 1))
+    }
+    
+    mutating func append(unsignedInteger data: UInt16, bigEndian: Bool = true) {
+        var data = bigEndian ? data.bigEndian : data.littleEndian
+        self.append(UnsafeBufferPointer(start: &data, count: 1))
+    }
+    
     /// Appends the given unsigned integer (32 bits; 4 bytes) into the receiver Data.
     ///
     /// - parameter data: The unsigned integer to be appended.
@@ -100,6 +110,20 @@ extension Data {
     
     static func newData(uint32data: UInt32, bigEndian: Bool = true) -> Data{
         let data = bigEndian ? uint32data.bigEndian : uint32data.littleEndian
+        var ret = Data(count: 0)
+        ret.append(unsignedInteger: data)
+        return ret
+    }
+    
+    static func newData(uInt16Data: UInt16, bigEndian: Bool = true) -> Data {
+        let data = bigEndian ? uInt16Data.bigEndian : uInt16Data.littleEndian
+        var ret = Data(count: 0)
+        ret.append(unsignedInteger: data)
+        return ret
+    }
+    
+    static func newData(uInt8Data: UInt8, bigEndian: Bool = true) -> Data {
+        let data = bigEndian ? uInt8Data.bigEndian : uInt8Data.littleEndian
         var ret = Data(count: 0)
         ret.append(unsignedInteger: data)
         return ret

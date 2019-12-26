@@ -14,7 +14,7 @@ import Foundation
 /// Brokers relationship between Web3 and contract methods and events
 public protocol EthereumContract: SolidityFunctionHandler {
     var address: EthereumAddress? { get }
-    var eth: Web3.Eth { get }
+    var platon: Web3.Platon { get }
     var events: [SolidityEvent] { get }
 }
 
@@ -25,7 +25,7 @@ public protocol EthereumContract: SolidityFunctionHandler {
 ///
 /// Best for when you want to code the methods yourself
 public protocol StaticContract: EthereumContract {
-    init(address: EthereumAddress?, eth: Web3.Eth)
+    init(address: EthereumAddress?, platon: Web3.Platon)
 }
 
 /// Contract that is dynamically generated from a JSON representation
@@ -37,15 +37,15 @@ public protocol StaticContract: EthereumContract {
 public class DynamicContract: EthereumContract {
     
     public var address: EthereumAddress?
-    public let eth: Web3.Eth
+    public let platon: Web3.Platon
     
     private(set) public var constructor: SolidityConstructor?
     private(set) public var events: [SolidityEvent] = []
     private(set) var methods: [String: SolidityFunction] = [:]
     
-    public init(abi: [ABIObject], address: EthereumAddress?, eth: Web3.Eth) {
+    public init(abi: [ABIObject], address: EthereumAddress?, platon: Web3.Platon) {
         self.address = address
-        self.eth = eth
+        self.platon = platon
         self.parseABIObjects(abi: abi)
     }
     
@@ -129,7 +129,7 @@ extension EthereumContract {
     ///   - outputs: Expected return values
     ///   - completion: Completion handler
     public func call(_ call: EthereumCall, outputs: [SolidityFunctionParameter], block: EthereumQuantityTag = .latest, completion: @escaping ([String: Any]?, Error?) -> Void) {
-        eth.call(call: call, block: block) { response in
+        platon.call(call: call, block: block) { response in
             switch response.status {
             case .success(let data):
                 do {
@@ -154,7 +154,7 @@ extension EthereumContract {
     ///   - gasPrice: Amount of wei to spend per unit of gas
     ///   - completion: completion handler. Either the transaction's hash or an error.
     public func send(_ transaction: EthereumTransaction, completion: @escaping (EthereumData?, Error?) -> Void) {
-        eth.sendTransaction(transaction: transaction) { response in
+        platon.sendTransaction(transaction: transaction) { response in
             switch response.status {
             case .success(let hash):
                 completion(hash, nil)
@@ -170,7 +170,7 @@ extension EthereumContract {
     ///   - call: An ethereum call with the data for the transaction.
     ///   - completion: completion handler with either an error or the estimated amount of gas needed.
     public func estimateGas(_ call: EthereumCall, completion: @escaping (EthereumQuantity?, Error?) -> Void) {
-        eth.estimateGas(call: call) { response in
+        platon.estimateGas(call: call) { response in
             switch response.status {
             case .success(let quantity):
                 completion(quantity, nil)

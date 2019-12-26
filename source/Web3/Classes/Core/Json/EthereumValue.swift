@@ -126,7 +126,7 @@ extension EthereumValue: ExpressibleByArrayLiteral {
 
 // MARK: - Convenient Setters
 
-public extension EthereumValue {
+extension EthereumValue {
 
     public static func string(_ string: String) -> EthereumValue {
         return self.init(stringLiteral: string)
@@ -147,7 +147,7 @@ public extension EthereumValue {
 
 // MARK: - Convenient Getters
 
-public extension EthereumValue {
+extension EthereumValue {
 
     public var string: String? {
         if case .string(let string) = valueType {

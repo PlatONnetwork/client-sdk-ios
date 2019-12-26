@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F38960EF263E3E1C8E0B5C03C37B5689"
+               BlueprintIdentifier = "09DD83B7D075842A3A5105AD410BD38A"
                BuildableName = "BigInt.framework"
                BlueprintName = "BigInt"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -74,16 +74,29 @@
 		81248B3821BF99CC000C2F03 /* PlatonWeb3Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF221BF99CC000C2F03 /* PlatonWeb3Test.swift */; };
 		81248B3921BF99CC000C2F03 /* Web3+HTTPInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF421BF99CC000C2F03 /* Web3+HTTPInitializer.swift */; };
 		81248B3A21BF99CC000C2F03 /* Web3HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF521BF99CC000C2F03 /* Web3HttpProvider.swift */; };
-		81248B3B21BF99CC000C2F03 /* PlatonContractTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF621BF99CC000C2F03 /* PlatonContractTest.swift */; };
 		81248B3C21BF99CC000C2F03 /* Web3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF721BF99CC000C2F03 /* Web3+Extensions.swift */; };
-		81248B3D21BF99CC000C2F03 /* Web3ResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF821BF99CC000C2F03 /* Web3ResponseHelper.swift */; };
-		81248B3F21BF9AC6000C2F03 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248B3E21BF9AC6000C2F03 /* Config.swift */; };
 		81248B6F21BFA46A000C2F03 /* Pods_platonWeb3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81248B6E21BFA46A000C2F03 /* Pods_platonWeb3.framework */; };
+		813D37C823B34B35004B1D97 /* SlashContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37B723B34B35004B1D97 /* SlashContract.swift */; };
+		813D37C923B34B35004B1D97 /* PlatonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37B823B34B35004B1D97 /* PlatonConfig.swift */; };
+		813D37CA23B34B35004B1D97 /* StakingContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37B923B34B35004B1D97 /* StakingContract.swift */; };
+		813D37CB23B34B35004B1D97 /* FuncType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37BA23B34B35004B1D97 /* FuncType.swift */; };
+		813D37CC23B34B35004B1D97 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37BC23B34B35004B1D97 /* Candidate.swift */; };
+		813D37CD23B34B35004B1D97 /* RelatedDelegateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37BD23B34B35004B1D97 /* RelatedDelegateNode.swift */; };
+		813D37CE23B34B35004B1D97 /* TallyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37BE23B34B35004B1D97 /* TallyResult.swift */; };
+		813D37CF23B34B35004B1D97 /* RestrictingPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37BF23B34B35004B1D97 /* RestrictingPlan.swift */; };
+		813D37D023B34B35004B1D97 /* Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C023B34B35004B1D97 /* Verifier.swift */; };
+		813D37D123B34B35004B1D97 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C123B34B35004B1D97 /* Proposal.swift */; };
+		813D37D223B34B35004B1D97 /* NodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C223B34B35004B1D97 /* NodeInfo.swift */; };
+		813D37D323B34B35004B1D97 /* RestrictingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C323B34B35004B1D97 /* RestrictingInfo.swift */; };
+		813D37D423B34B35004B1D97 /* Govern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C423B34B35004B1D97 /* Govern.swift */; };
+		813D37D523B34B35004B1D97 /* PlantonContractProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C523B34B35004B1D97 /* PlantonContractProtocol.swift */; };
+		813D37D623B34B35004B1D97 /* RestrictingPlanContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C623B34B35004B1D97 /* RestrictingPlanContract.swift */; };
+		813D37D723B34B35004B1D97 /* ProposalContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37C723B34B35004B1D97 /* ProposalContract.swift */; };
+		813D37DA23B34C60004B1D97 /* PlatonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37D823B34C5F004B1D97 /* PlatonError.swift */; };
+		813D37DB23B34C60004B1D97 /* ProgramVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37D923B34C60004B1D97 /* ProgramVersion.swift */; };
+		813D37DD23B34CA4004B1D97 /* PlatonContractCallResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37DC23B34CA4004B1D97 /* PlatonContractCallResponse.swift */; };
 		817A9BD921E7289000C94CB4 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9BD821E7289000C94CB4 /* Debugger.swift */; };
-		817A9C8121E7532D00C94CB4 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C7F21E7532D00C94CB4 /* Contract.swift */; };
-		817A9C8221E7532D00C94CB4 /* CandidateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C8021E7532D00C94CB4 /* CandidateContract.swift */; };
 		817A9C8421E7539C00C94CB4 /* Data+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C8321E7539C00C94CB4 /* Data+extension.swift */; };
-		81AC35D721FC470E0054E917 /* TicketContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC35D621FC470D0054E917 /* TicketContract.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,17 +172,30 @@
 		81248AF221BF99CC000C2F03 /* PlatonWeb3Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatonWeb3Test.swift; sourceTree = "<group>"; };
 		81248AF421BF99CC000C2F03 /* Web3+HTTPInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+HTTPInitializer.swift"; sourceTree = "<group>"; };
 		81248AF521BF99CC000C2F03 /* Web3HttpProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3HttpProvider.swift; sourceTree = "<group>"; };
-		81248AF621BF99CC000C2F03 /* PlatonContractTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatonContractTest.swift; sourceTree = "<group>"; };
 		81248AF721BF99CC000C2F03 /* Web3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Extensions.swift"; sourceTree = "<group>"; };
-		81248AF821BF99CC000C2F03 /* Web3ResponseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3ResponseHelper.swift; sourceTree = "<group>"; };
-		81248B3E21BF9AC6000C2F03 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		81248B6C21BFA43D000C2F03 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81248B6E21BFA46A000C2F03 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		813D37B723B34B35004B1D97 /* SlashContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashContract.swift; sourceTree = "<group>"; };
+		813D37B823B34B35004B1D97 /* PlatonConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatonConfig.swift; sourceTree = "<group>"; };
+		813D37B923B34B35004B1D97 /* StakingContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StakingContract.swift; sourceTree = "<group>"; };
+		813D37BA23B34B35004B1D97 /* FuncType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncType.swift; sourceTree = "<group>"; };
+		813D37BC23B34B35004B1D97 /* Candidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
+		813D37BD23B34B35004B1D97 /* RelatedDelegateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelatedDelegateNode.swift; sourceTree = "<group>"; };
+		813D37BE23B34B35004B1D97 /* TallyResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TallyResult.swift; sourceTree = "<group>"; };
+		813D37BF23B34B35004B1D97 /* RestrictingPlan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictingPlan.swift; sourceTree = "<group>"; };
+		813D37C023B34B35004B1D97 /* Verifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verifier.swift; sourceTree = "<group>"; };
+		813D37C123B34B35004B1D97 /* Proposal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
+		813D37C223B34B35004B1D97 /* NodeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeInfo.swift; sourceTree = "<group>"; };
+		813D37C323B34B35004B1D97 /* RestrictingInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictingInfo.swift; sourceTree = "<group>"; };
+		813D37C423B34B35004B1D97 /* Govern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Govern.swift; sourceTree = "<group>"; };
+		813D37C523B34B35004B1D97 /* PlantonContractProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantonContractProtocol.swift; sourceTree = "<group>"; };
+		813D37C623B34B35004B1D97 /* RestrictingPlanContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictingPlanContract.swift; sourceTree = "<group>"; };
+		813D37C723B34B35004B1D97 /* ProposalContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProposalContract.swift; sourceTree = "<group>"; };
+		813D37D823B34C5F004B1D97 /* PlatonError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatonError.swift; sourceTree = "<group>"; };
+		813D37D923B34C60004B1D97 /* ProgramVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramVersion.swift; sourceTree = "<group>"; };
+		813D37DC23B34CA4004B1D97 /* PlatonContractCallResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatonContractCallResponse.swift; sourceTree = "<group>"; };
 		817A9BD821E7289000C94CB4 /* Debugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
-		817A9C7F21E7532D00C94CB4 /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
-		817A9C8021E7532D00C94CB4 /* CandidateContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateContract.swift; sourceTree = "<group>"; };
 		817A9C8321E7539C00C94CB4 /* Data+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+extension.swift"; sourceTree = "<group>"; };
-		81AC35D621FC470D0054E917 /* TicketContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketContract.swift; sourceTree = "<group>"; };
 		9649490547AC925271E21496 /* Pods-platonWeb3-demoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3-demoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D518EC3837A681CE954F3122 /* Pods-platonWeb3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3/Pods-platonWeb3.release.xcconfig"; sourceTree = "<group>"; };
 		EA3658831D86CD7ACA6C1089 /* Pods-platonWeb3-demoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3-demoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -238,8 +264,6 @@
 			isa = PBXGroup;
 			children = (
 				81248AA821BF99CB000C2F03 /* Classes */,
-				81248AF821BF99CC000C2F03 /* Web3ResponseHelper.swift */,
-				81248B3E21BF9AC6000C2F03 /* Config.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -247,14 +271,14 @@
 		81248AA821BF99CB000C2F03 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				817A9C7E21E7532D00C94CB4 /* Contracts */,
+				813D37B623B34B35004B1D97 /* Contracts */,
 				817A9BD721E7288800C94CB4 /* Debugger */,
 				81248AA921BF99CB000C2F03 /* Web3+completion.swift */,
+				813D37DC23B34CA4004B1D97 /* PlatonContractCallResponse.swift */,
 				81248AAA21BF99CB000C2F03 /* Core */,
 				81248ADC21BF99CC000C2F03 /* ContractABI */,
 				81248AF221BF99CC000C2F03 /* PlatonWeb3Test.swift */,
 				81248AF321BF99CC000C2F03 /* FoundationHTTP */,
-				81248AF621BF99CC000C2F03 /* PlatonContractTest.swift */,
 				81248AF721BF99CC000C2F03 /* Web3+Extensions.swift */,
 			);
 			path = Classes;
@@ -315,6 +339,8 @@
 		81248ABA21BF99CC000C2F03 /* Json */ = {
 			isa = PBXGroup;
 			children = (
+				813D37D823B34C5F004B1D97 /* PlatonError.swift */,
+				813D37D923B34C60004B1D97 /* ProgramVersion.swift */,
 				81248ABB21BF99CC000C2F03 /* EthereumBlockObject.swift */,
 				81248ABC21BF99CC000C2F03 /* EthereumTransactionReceiptObject.swift */,
 				81248ABD21BF99CC000C2F03 /* EthereumData.swift */,
@@ -410,22 +436,43 @@
 			path = FoundationHTTP;
 			sourceTree = "<group>";
 		};
+		813D37B623B34B35004B1D97 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				813D37B723B34B35004B1D97 /* SlashContract.swift */,
+				813D37B823B34B35004B1D97 /* PlatonConfig.swift */,
+				813D37B923B34B35004B1D97 /* StakingContract.swift */,
+				813D37BA23B34B35004B1D97 /* FuncType.swift */,
+				813D37BB23B34B35004B1D97 /* Models */,
+				813D37C523B34B35004B1D97 /* PlantonContractProtocol.swift */,
+				813D37C623B34B35004B1D97 /* RestrictingPlanContract.swift */,
+				813D37C723B34B35004B1D97 /* ProposalContract.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		813D37BB23B34B35004B1D97 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				813D37BC23B34B35004B1D97 /* Candidate.swift */,
+				813D37BD23B34B35004B1D97 /* RelatedDelegateNode.swift */,
+				813D37BE23B34B35004B1D97 /* TallyResult.swift */,
+				813D37BF23B34B35004B1D97 /* RestrictingPlan.swift */,
+				813D37C023B34B35004B1D97 /* Verifier.swift */,
+				813D37C123B34B35004B1D97 /* Proposal.swift */,
+				813D37C223B34B35004B1D97 /* NodeInfo.swift */,
+				813D37C323B34B35004B1D97 /* RestrictingInfo.swift */,
+				813D37C423B34B35004B1D97 /* Govern.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		817A9BD721E7288800C94CB4 /* Debugger */ = {
 			isa = PBXGroup;
 			children = (
 				817A9BD821E7289000C94CB4 /* Debugger.swift */,
 			);
 			path = Debugger;
-			sourceTree = "<group>";
-		};
-		817A9C7E21E7532D00C94CB4 /* Contracts */ = {
-			isa = PBXGroup;
-			children = (
-				81AC35D621FC470D0054E917 /* TicketContract.swift */,
-				817A9C7F21E7532D00C94CB4 /* Contract.swift */,
-				817A9C8021E7532D00C94CB4 /* CandidateContract.swift */,
-			);
-			path = Contracts;
 			sourceTree = "<group>";
 		};
 		95343EA29933AF7088AB89A5 /* Frameworks */ = {
@@ -547,71 +594,84 @@
 			files = (
 				81248AFD21BF99CC000C2F03 /* EthereumTransaction.swift in Sources */,
 				81248B1321BF99CC000C2F03 /* String+BytesConvertible.swift in Sources */,
-				817A9C8221E7532D00C94CB4 /* CandidateContract.swift in Sources */,
+				813D37C823B34B35004B1D97 /* SlashContract.swift in Sources */,
 				81248B2821BF99CC000C2F03 /* ERC20.swift in Sources */,
 				81248B1C21BF99CC000C2F03 /* CharacterSet+Hex.swift in Sources */,
 				81248B0921BF99CC000C2F03 /* EthereumSyncStatusObject.swift in Sources */,
 				81248B2921BF99CC000C2F03 /* ERC721.swift in Sources */,
-				81248B3D21BF99CC000C2F03 /* Web3ResponseHelper.swift in Sources */,
 				81248B1521BF99CC000C2F03 /* UInt+BytesRepresentable.swift in Sources */,
 				81248B0D21BF99CC000C2F03 /* EthereumValue.swift in Sources */,
+				813D37D023B34B35004B1D97 /* Verifier.swift in Sources */,
 				81248B2C21BF99CC000C2F03 /* SolidityFunction.swift in Sources */,
 				81248B2521BF99CC000C2F03 /* Eth+Contract.swift in Sources */,
+				813D37DD23B34CA4004B1D97 /* PlatonContractCallResponse.swift in Sources */,
 				81248B3721BF99CC000C2F03 /* ABIConvertible.swift in Sources */,
 				81248B0221BF99CC000C2F03 /* RLPItemConvertible.swift in Sources */,
 				81248B1921BF99CC000C2F03 /* BytesConvertible.swift in Sources */,
 				81248B0521BF99CC000C2F03 /* EthereumBlockObject.swift in Sources */,
-				817A9C8121E7532D00C94CB4 /* Contract.swift in Sources */,
 				81248B3821BF99CC000C2F03 /* PlatonWeb3Test.swift in Sources */,
 				81248B2F21BF99CC000C2F03 /* Eth+ABI.swift in Sources */,
-				81248B3F21BF9AC6000C2F03 /* Config.swift in Sources */,
 				81248B1421BF99CC000C2F03 /* Bytes+HexString.swift in Sources */,
 				81248AFB21BF99CC000C2F03 /* EthereumAddress.swift in Sources */,
-				81AC35D721FC470E0054E917 /* TicketContract.swift in Sources */,
 				81248B0421BF99CC000C2F03 /* Types+RLPItemConvertible.swift in Sources */,
 				817A9C8421E7539C00C94CB4 /* Data+extension.swift in Sources */,
+				813D37CF23B34B35004B1D97 /* RestrictingPlan.swift in Sources */,
 				81248B2D21BF99CC000C2F03 /* EthereumContract.swift in Sources */,
+				813D37CD23B34B35004B1D97 /* RelatedDelegateNode.swift in Sources */,
 				81248B2B21BF99CC000C2F03 /* ContractPromiseExtensions.swift in Sources */,
 				81248AF921BF99CC000C2F03 /* Web3+completion.swift in Sources */,
 				81248B1B21BF99CC000C2F03 /* Data+BytesConvertible.swift in Sources */,
+				813D37D523B34B35004B1D97 /* PlantonContractProtocol.swift in Sources */,
+				813D37D323B34B35004B1D97 /* RestrictingInfo.swift in Sources */,
 				81248B0121BF99CC000C2F03 /* RLPEncoder.swift in Sources */,
 				81248B1D21BF99CC000C2F03 /* BigUInt+BytesConvertible.swift in Sources */,
 				81248B3021BF99CC000C2F03 /* ABIEncoder.swift in Sources */,
 				81248B0621BF99CC000C2F03 /* EthereumTransactionReceiptObject.swift in Sources */,
 				81248B3621BF99CC000C2F03 /* SolidityTuple.swift in Sources */,
 				817A9BD921E7289000C94CB4 /* Debugger.swift in Sources */,
-				81248B3B21BF99CC000C2F03 /* PlatonContractTest.swift in Sources */,
 				81248B1A21BF99CC000C2F03 /* String+Conversion.swift in Sources */,
 				81248B0E21BF99CC000C2F03 /* RPCResponse.swift in Sources */,
 				81248B2721BF99CC000C2F03 /* ABIObject.swift in Sources */,
 				81248B3321BF99CC000C2F03 /* SolidityType+Codable.swift in Sources */,
+				813D37DA23B34C60004B1D97 /* PlatonError.swift in Sources */,
 				81248B3221BF99CC000C2F03 /* SolidityType.swift in Sources */,
 				81248B2E21BF99CC000C2F03 /* SolidityInvocation.swift in Sources */,
+				813D37D123B34B35004B1D97 /* Proposal.swift in Sources */,
 				81248B2421BF99CC000C2F03 /* UnsignedInteger+Shifting.swift in Sources */,
+				813D37DB23B34C60004B1D97 /* ProgramVersion.swift in Sources */,
 				81248B1F21BF99CC000C2F03 /* Exports+Web3.swift in Sources */,
 				81248B1621BF99CC000C2F03 /* Bytes+TrimLeadingZeros.swift in Sources */,
 				81248B1121BF99CC000C2F03 /* Types+EthereumValueConvertible.swift in Sources */,
 				81248AFE21BF99CC000C2F03 /* Web3Provider.swift in Sources */,
 				81248B2021BF99CC000C2F03 /* Int+ETH.swift in Sources */,
 				81248B0821BF99CC000C2F03 /* RPCRequest.swift in Sources */,
+				813D37D423B34B35004B1D97 /* Govern.swift in Sources */,
+				813D37D623B34B35004B1D97 /* RestrictingPlanContract.swift in Sources */,
 				81248AFC21BF99CC000C2F03 /* EthereumPrivateKey.swift in Sources */,
 				81248B1021BF99CC000C2F03 /* EthereumQuantityTag.swift in Sources */,
 				81248B3C21BF99CC000C2F03 /* Web3+Extensions.swift in Sources */,
+				813D37CC23B34B35004B1D97 /* Candidate.swift in Sources */,
 				81248B3121BF99CC000C2F03 /* ABIDecoder.swift in Sources */,
+				813D37C923B34B35004B1D97 /* PlatonConfig.swift in Sources */,
+				813D37CA23B34B35004B1D97 /* StakingContract.swift in Sources */,
 				81248B0021BF99CC000C2F03 /* RLPItem.swift in Sources */,
+				813D37D223B34B35004B1D97 /* NodeInfo.swift in Sources */,
 				81248B0B21BF99CC000C2F03 /* EthereumQuantity.swift in Sources */,
 				81248B0C21BF99CC000C2F03 /* EthereumTransactionObject.swift in Sources */,
 				81248B0F21BF99CC000C2F03 /* EthereumCall.swift in Sources */,
 				81248B1E21BF99CC000C2F03 /* Bytes+UInt.swift in Sources */,
 				81248B3A21BF99CC000C2F03 /* Web3HttpProvider.swift in Sources */,
+				813D37D723B34B35004B1D97 /* ProposalContract.swift in Sources */,
 				81248B0321BF99CC000C2F03 /* RLPDecoder.swift in Sources */,
 				81248B2121BF99CC000C2F03 /* Values+GeneralHashable.swift in Sources */,
 				81248B0A21BF99CC000C2F03 /* EthereumValueConvertible.swift in Sources */,
+				813D37CE23B34B35004B1D97 /* TallyResult.swift in Sources */,
 				81248B2221BF99CC000C2F03 /* UnsignedInteger+BytesConvertible.swift in Sources */,
 				81248B3421BF99CC000C2F03 /* SolidityWrappedValue.swift in Sources */,
 				81248AFF21BF99CC000C2F03 /* Web3.swift in Sources */,
 				81248AFA21BF99CC000C2F03 /* EthereumPublicKey.swift in Sources */,
 				81248B2321BF99CC000C2F03 /* Secp256k1+CTXCreator.swift in Sources */,
+				813D37CB23B34B35004B1D97 /* FuncType.swift in Sources */,
 				81248B1221BF99CC000C2F03 /* EthereumLogObject.swift in Sources */,
 				81248B3921BF99CC000C2F03 /* Web3+HTTPInitializer.swift in Sources */,
 				81248B3521BF99CC000C2F03 /* ABI.swift in Sources */,

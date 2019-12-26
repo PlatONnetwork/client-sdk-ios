@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-platonWeb3Demo/Pods-platonWeb3Demo-frameworks.sh
+${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework
+${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework
+${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework
+${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework
+${BUILT_PRODUCTS_DIR}/platonWeb3/platonWeb3.framework
+${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework
