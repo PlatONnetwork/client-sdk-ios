@@ -9,6 +9,6 @@
 import Foundation
 
 public struct ProgramVersion: Codable {
-    var Version: UInt32?
-    var Sign: String?
+    public var Version: UInt32?
+    public var Sign: String?
 }

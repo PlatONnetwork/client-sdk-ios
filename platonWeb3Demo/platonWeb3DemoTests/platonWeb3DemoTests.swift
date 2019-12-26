@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import platonWeb3
 @testable import platonWeb3Demo
 
 class platonWeb3DemoTests: XCTestCase {
@@ -20,7 +21,8 @@ class platonWeb3DemoTests: XCTestCase {
     var senderAddress: EthereumAddress!
 
 //    let web3: Web3 = Web3(rpcURL: "http://192.168.9.190:443/rpc", chainId: "103")
-    let web3: Web3 = Web3(rpcURL: "http://192.168.120.141:24567/rpc", chainId: "120")
+    let web3: Web3 = Web3(rpcURL: "http://192.168.120.141:6789/rpc", chainId: "103")
+//    let web3: Web3 = Web3(rpcURL: "http://192.168.120.141:24567/rpc", chainId: "120")
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -814,6 +816,65 @@ class platonWeb3DemoTests: XCTestCase {
         let account = "0x0772fd8e5126C01b98D3a93C64546306149202ED"
         let sender1 = "0xA7074774f4E1e033c6cBd471Ec072f7734144A0c"
         web3.restricting.getRestrictingPlanInfo(sender: sender1, account: account) { (result, response) in
+            switch result {
+            case .success:
+                guard let _ = response?.result else {
+                    XCTAssert(false, "response should be not nil")
+                    return
+                }
+            case .fail(_, let error):
+                XCTAssert(false, error ?? "send tx fail")
+            }
+            expection.fulfill()
+        }
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
+    }
+
+    func testPackageReward() {
+        let expection = self.expectation(description: "\(#function)")
+
+        web3.staking.getPackageReward(sender: sender) { (result, response) in
+            switch result {
+            case .success:
+                guard let _ = response?.result else {
+                    XCTAssert(false, "response should be not nil")
+                    return
+                }
+            case .fail(_, let error):
+                XCTAssert(false, error ?? "send tx fail")
+            }
+            expection.fulfill()
+        }
+
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
+    }
+
+    func testStakingReward() {
+        let expection = self.expectation(description: "\(#function)")
+        web3.staking.getStakingReward(sender: sender) { (result, response) in
+            switch result {
+            case .success:
+                guard let _ = response?.result else {
+                    XCTAssert(false, "response should be not nil")
+                    return
+                }
+            case .fail(_, let error):
+                XCTAssert(false, error ?? "send tx fail")
+            }
+            expection.fulfill()
+        }
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
+    }
+
+    func testAvgPackTime() {
+        let expection = self.expectation(description: "\(#function)")
+        web3.staking.getAvgPackTime(sender: sender) { (result, response) in
             switch result {
             case .success:
                 guard let _ = response?.result else {

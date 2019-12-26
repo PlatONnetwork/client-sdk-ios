@@ -171,6 +171,27 @@ public class StakingContract: PlantonContractProtocol {
         let funcObject = FuncType.stakingInfo(nodeId: nodeId)
         platonCall(funcObject, sender: sender, completion: completion)
     }
+
+    public func getPackageReward(
+        sender: String,
+        completon: PlatonCommonCompletionV2<PlatonContractCallResponse<String>?>?) {
+        let funcObject = FuncType.packageReward
+        platonCall(funcObject, sender: sender, completion: completon)
+    }
+
+    public func getStakingReward(
+        sender: String,
+        completon: PlatonCommonCompletionV2<PlatonContractCallResponse<String>?>?) {
+        let funcObject = FuncType.stakingReward
+        platonCall(funcObject, sender: sender, completion: completon)
+    }
+
+    public func getAvgPackTime(
+        sender: String,
+        completon: PlatonCommonCompletionV2<PlatonContractCallResponse<UInt64>?>?) {
+        let funcObject = FuncType.avgPackTime
+        platonCall(funcObject, sender: sender, completion: completon)
+    }
 }
 
 extension StakingContract {

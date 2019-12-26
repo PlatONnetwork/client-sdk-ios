@@ -38,6 +38,9 @@ public enum FuncType {
     case checkMultiSign(typ: UInt32, addr: String, blockNumber: UInt64)
     case createRestrictingPlan(account: String, plans: [RestrictingPlan])
     case restrictingInfo(account: String)
+    case packageReward // 查询当前结算周期的区块奖励
+    case stakingReward // 查询当前结算周期的质押奖励
+    case avgPackTime // 查询打包区块的平均时间
 }
 
 extension FuncType {
@@ -101,6 +104,12 @@ extension FuncType {
             return 4000
         case .restrictingInfo:
             return 4100
+        case .packageReward:
+            return 1200
+        case .stakingReward:
+            return 1201
+        case .avgPackTime:
+            return 1202
         }
     }
     
@@ -232,7 +241,10 @@ extension FuncType {
              .validatorList,
              .candidateList,
              .proposalList,
-             .activeVersion:
+             .activeVersion,
+             .packageReward,
+             .stakingReward,
+             .avgPackTime:
             let data = build_defaultData()
             return data
         }

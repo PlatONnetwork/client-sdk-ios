@@ -43,26 +43,26 @@ public struct PlatonConfig {
     
     // 合约消耗交易发送的gas
     // 内置合约gas消耗 = 21000 + 合约调用固定消耗 + 接口固定gas消耗 + 接口动态gas消耗规则 + (data中的非0值byte个数*68) + (data中的0值byte个数*4)
-    struct FuncGas {
-        static var defaultGas: BigUInt = BigUInt("21000")!
+    public struct FuncGas {
+        public static var defaultGas: BigUInt = BigUInt("21000")!
         
-        static var createStakingGas: BigUInt = defaultGas + ContractCallGas.createStakingGas + ContractCallGas.stakingContractGas
-        static var editorStakingGas: BigUInt = defaultGas + ContractCallGas.editorStakingGas + ContractCallGas.stakingContractGas
-        static var increaseStakingGas: BigUInt = defaultGas + ContractCallGas.increaseStakingGas + ContractCallGas.stakingContractGas
-        static var withdrewStakingGas: BigUInt = defaultGas + ContractCallGas.withdrewStakingGas + ContractCallGas.stakingContractGas
-        static var createDelegateGas: BigUInt = defaultGas + ContractCallGas.createDelegateGas + ContractCallGas.stakingContractGas
-        static var withdrewDelegateGas: BigUInt = defaultGas + ContractCallGas.withdrewDelegateGas + ContractCallGas.stakingContractGas
+        public static var createStakingGas: BigUInt = defaultGas + ContractCallGas.createStakingGas + ContractCallGas.stakingContractGas
+        public static var editorStakingGas: BigUInt = defaultGas + ContractCallGas.editorStakingGas + ContractCallGas.stakingContractGas
+        public static var increaseStakingGas: BigUInt = defaultGas + ContractCallGas.increaseStakingGas + ContractCallGas.stakingContractGas
+        public static var withdrewStakingGas: BigUInt = defaultGas + ContractCallGas.withdrewStakingGas + ContractCallGas.stakingContractGas
+        public static var createDelegateGas: BigUInt = defaultGas + ContractCallGas.createDelegateGas + ContractCallGas.stakingContractGas
+        public static var withdrewDelegateGas: BigUInt = defaultGas + ContractCallGas.withdrewDelegateGas + ContractCallGas.stakingContractGas
         
-        static var submitTextGas: BigUInt = defaultGas + ContractCallGas.submitTextGas + ContractCallGas.proposalContractGas
-        static var submitVersionGas: BigUInt = defaultGas + ContractCallGas.submitVersionGas + ContractCallGas.proposalContractGas
-        static var submitParamGas: BigUInt = defaultGas + ContractCallGas.submitParamGas + ContractCallGas.proposalContractGas
-        static var submitCancelGas: BigUInt = defaultGas + ContractCallGas.submitCancelGas + ContractCallGas.proposalContractGas
-        static var voteProposalGas: BigUInt = defaultGas + ContractCallGas.voteProposalGas + ContractCallGas.proposalContractGas
-        static var declareVersionGas: BigUInt = defaultGas + ContractCallGas.declareVersionGas + ContractCallGas.proposalContractGas
+        public static var submitTextGas: BigUInt = defaultGas + ContractCallGas.submitTextGas + ContractCallGas.proposalContractGas
+        public static var submitVersionGas: BigUInt = defaultGas + ContractCallGas.submitVersionGas + ContractCallGas.proposalContractGas
+        public static var submitParamGas: BigUInt = defaultGas + ContractCallGas.submitParamGas + ContractCallGas.proposalContractGas
+        public static var submitCancelGas: BigUInt = defaultGas + ContractCallGas.submitCancelGas + ContractCallGas.proposalContractGas
+        public static var voteProposalGas: BigUInt = defaultGas + ContractCallGas.voteProposalGas + ContractCallGas.proposalContractGas
+        public static var declareVersionGas: BigUInt = defaultGas + ContractCallGas.declareVersionGas + ContractCallGas.proposalContractGas
         
-        static var reportMultiSignGas: BigUInt = defaultGas + ContractCallGas.reportMultiSignGas + ContractCallGas.slashContractGas
+        public static var reportMultiSignGas: BigUInt = defaultGas + ContractCallGas.reportMultiSignGas + ContractCallGas.slashContractGas
         
-        static var createRestrictingPlanGas: BigUInt = defaultGas + ContractCallGas.createRestrictingPlanGas + ContractCallGas.restrictingContractGas
+        public static var createRestrictingPlanGas: BigUInt = defaultGas + ContractCallGas.createRestrictingPlanGas + ContractCallGas.restrictingContractGas
     }
     
     public struct FuncGasPrice {
