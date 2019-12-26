@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   
   s.author = { "admin" => "support@platon.network" }
 
-  s.source       = { :git => "https://github.com/AngryBaby/client-sdk-ios.git", :commit => "89b29e1" }
+  s.source       = { :git => "https://github.com/AngryBaby/client-sdk-ios.git", :commit => "b85f4f6" }
 
   s.source_files = "source/**/*.swift"
 
