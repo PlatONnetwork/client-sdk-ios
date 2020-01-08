@@ -1,6 +1,6 @@
 {
   "name": "platonWeb3",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "summary": "platonWeb3 SDK is a Swift development kit for PlatON public chain provided by PlatON for iOS developers.",
   "description": "platonWeb3 SDK is a Swift development kit for PlatON public chain provided by PlatON for iOS developers.",
   "homepage": "https://github.com/PlatONnetwork/client-sdk-ios",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/AngryBaby/client-sdk-ios.git",
-    "commit": "b85f4f6"
+    "commit": "9631c00"
   },
   "source_files": "source/**/*.swift",
   "platforms": {

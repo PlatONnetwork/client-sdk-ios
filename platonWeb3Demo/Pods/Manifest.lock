@@ -2,7 +2,7 @@ PODS:
   - BigInt (4.0.0)
   - CryptoSwift (0.15.0)
   - Localize-Swift (2.0.0)
-  - platonWeb3 (0.7.4):
+  - platonWeb3 (0.7.5):
     - BigInt (~> 4.0)
     - CryptoSwift (~> 0.8)
     - Localize-Swift (~> 2.0)
@@ -30,7 +30,7 @@ SPEC CHECKSUMS:
   BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
   CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
   Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
-  platonWeb3: d8941184cc109889ffc8d38fb860b07f06fda45a
+  platonWeb3: 4495ab2230715b6ed4343c2a8dcb675e6b230dc4
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 

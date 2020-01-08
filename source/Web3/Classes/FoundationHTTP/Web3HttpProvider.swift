@@ -79,7 +79,6 @@ public struct Web3HttpProvider: Web3Provider {
                 }
                 
                 do {
-                    
                     let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data)
                     // We got the Result object
                     let res = Web3Response(rpcResponse: rpcResponse)
@@ -88,7 +87,6 @@ public struct Web3HttpProvider: Web3Provider {
                     // We don't have the response we expected...
                     let err = Web3Response<Result>(error: .decodingError(error))
                     response(err)
-                    
                 }
             }
             task.resume()

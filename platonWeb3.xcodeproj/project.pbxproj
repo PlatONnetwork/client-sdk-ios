@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52F798E73EBDF57002F34E11 /* Pods_platonWeb3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D070FD59A37C0FACC79BEA2 /* Pods_platonWeb3.framework */; };
 		81248AA021BF9973000C2F03 /* platonWeb3.h in Headers */ = {isa = PBXBuildFile; fileRef = 81248A9E21BF9973000C2F03 /* platonWeb3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81248AF921BF99CC000C2F03 /* Web3+completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AA921BF99CB000C2F03 /* Web3+completion.swift */; };
 		81248AFA21BF99CC000C2F03 /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AAC21BF99CB000C2F03 /* EthereumPublicKey.swift */; };
@@ -75,7 +76,6 @@
 		81248B3921BF99CC000C2F03 /* Web3+HTTPInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF421BF99CC000C2F03 /* Web3+HTTPInitializer.swift */; };
 		81248B3A21BF99CC000C2F03 /* Web3HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF521BF99CC000C2F03 /* Web3HttpProvider.swift */; };
 		81248B3C21BF99CC000C2F03 /* Web3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81248AF721BF99CC000C2F03 /* Web3+Extensions.swift */; };
-		81248B6F21BFA46A000C2F03 /* Pods_platonWeb3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81248B6E21BFA46A000C2F03 /* Pods_platonWeb3.framework */; };
 		813D37C823B34B35004B1D97 /* SlashContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37B723B34B35004B1D97 /* SlashContract.swift */; };
 		813D37C923B34B35004B1D97 /* PlatonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37B823B34B35004B1D97 /* PlatonConfig.swift */; };
 		813D37CA23B34B35004B1D97 /* StakingContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37B923B34B35004B1D97 /* StakingContract.swift */; };
@@ -97,12 +97,15 @@
 		813D37DD23B34CA4004B1D97 /* PlatonContractCallResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813D37DC23B34CA4004B1D97 /* PlatonContractCallResponse.swift */; };
 		817A9BD921E7289000C94CB4 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9BD821E7289000C94CB4 /* Debugger.swift */; };
 		817A9C8421E7539C00C94CB4 /* Data+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C8321E7539C00C94CB4 /* Data+extension.swift */; };
+		81F1F00823C42B75000D687C /* RewardContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F1F00723C42B75000D687C /* RewardContract.swift */; };
+		81F1F00A23C42E27000D687C /* RewardRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F1F00923C42E27000D687C /* RewardRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4CF0F7BE6E2263B13EF50BD7 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7295FA86079D3425605EEFD9 /* Pods-platonWeb3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3/Pods-platonWeb3.debug.xcconfig"; sourceTree = "<group>"; };
-		78A21334DC701B6999CBB3F1 /* Pods_platonWeb3_demoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3_demoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AB12B538CB8B9991F2EAA73 /* Pods_platonWeb3Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D070FD59A37C0FACC79BEA2 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		23745CF8B634BBA71E456C87 /* Pods-platonWeb3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3.release.xcconfig"; path = "Target Support Files/Pods-platonWeb3/Pods-platonWeb3.release.xcconfig"; sourceTree = "<group>"; };
+		5348EC700FDF80FC00B64BE0 /* Pods-platonWeb3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3.debug.xcconfig"; path = "Target Support Files/Pods-platonWeb3/Pods-platonWeb3.debug.xcconfig"; sourceTree = "<group>"; };
 		81248A9B21BF9973000C2F03 /* platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81248A9E21BF9973000C2F03 /* platonWeb3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platonWeb3.h; sourceTree = "<group>"; };
 		81248A9F21BF9973000C2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -173,8 +176,6 @@
 		81248AF421BF99CC000C2F03 /* Web3+HTTPInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+HTTPInitializer.swift"; sourceTree = "<group>"; };
 		81248AF521BF99CC000C2F03 /* Web3HttpProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3HttpProvider.swift; sourceTree = "<group>"; };
 		81248AF721BF99CC000C2F03 /* Web3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Extensions.swift"; sourceTree = "<group>"; };
-		81248B6C21BFA43D000C2F03 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		81248B6E21BFA46A000C2F03 /* Pods_platonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_platonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		813D37B723B34B35004B1D97 /* SlashContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashContract.swift; sourceTree = "<group>"; };
 		813D37B823B34B35004B1D97 /* PlatonConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatonConfig.swift; sourceTree = "<group>"; };
 		813D37B923B34B35004B1D97 /* StakingContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StakingContract.swift; sourceTree = "<group>"; };
@@ -196,9 +197,10 @@
 		813D37DC23B34CA4004B1D97 /* PlatonContractCallResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatonContractCallResponse.swift; sourceTree = "<group>"; };
 		817A9BD821E7289000C94CB4 /* Debugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
 		817A9C8321E7539C00C94CB4 /* Data+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+extension.swift"; sourceTree = "<group>"; };
-		9649490547AC925271E21496 /* Pods-platonWeb3-demoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3-demoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.release.xcconfig"; sourceTree = "<group>"; };
-		D518EC3837A681CE954F3122 /* Pods-platonWeb3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3.release.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3/Pods-platonWeb3.release.xcconfig"; sourceTree = "<group>"; };
-		EA3658831D86CD7ACA6C1089 /* Pods-platonWeb3-demoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3-demoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-platonWeb3-demoUITests/Pods-platonWeb3-demoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		81F1F00723C42B75000D687C /* RewardContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardContract.swift; sourceTree = "<group>"; };
+		81F1F00923C42E27000D687C /* RewardRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardRecord.swift; sourceTree = "<group>"; };
+		DAA04AC4B073A960D170526D /* Pods-platonWeb3Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Tests.release.xcconfig"; path = "Target Support Files/Pods-platonWeb3Tests/Pods-platonWeb3Tests.release.xcconfig"; sourceTree = "<group>"; };
+		E27159564D096ECF283C08EE /* Pods-platonWeb3Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Tests.debug.xcconfig"; path = "Target Support Files/Pods-platonWeb3Tests/Pods-platonWeb3Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,22 +208,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81248B6F21BFA46A000C2F03 /* Pods_platonWeb3.framework in Frameworks */,
+				52F798E73EBDF57002F34E11 /* Pods_platonWeb3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		70C80CDB211796BE233CC7FC /* Pods */ = {
+		0CCA0DAFB723F4EC1E40B75A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7295FA86079D3425605EEFD9 /* Pods-platonWeb3.debug.xcconfig */,
-				D518EC3837A681CE954F3122 /* Pods-platonWeb3.release.xcconfig */,
-				EA3658831D86CD7ACA6C1089 /* Pods-platonWeb3-demoUITests.debug.xcconfig */,
-				9649490547AC925271E21496 /* Pods-platonWeb3-demoUITests.release.xcconfig */,
+				5348EC700FDF80FC00B64BE0 /* Pods-platonWeb3.debug.xcconfig */,
+				23745CF8B634BBA71E456C87 /* Pods-platonWeb3.release.xcconfig */,
+				E27159564D096ECF283C08EE /* Pods-platonWeb3Tests.debug.xcconfig */,
+				DAA04AC4B073A960D170526D /* Pods-platonWeb3Tests.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		81248A9121BF9973000C2F03 = {
@@ -230,8 +232,8 @@
 				81248AA621BF99CB000C2F03 /* source */,
 				81248A9D21BF9973000C2F03 /* platonWeb3 */,
 				81248A9C21BF9973000C2F03 /* Products */,
-				70C80CDB211796BE233CC7FC /* Pods */,
-				95343EA29933AF7088AB89A5 /* Frameworks */,
+				0CCA0DAFB723F4EC1E40B75A /* Pods */,
+				F262693D0610E90FCA2F5D21 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -442,6 +444,7 @@
 				813D37B723B34B35004B1D97 /* SlashContract.swift */,
 				813D37B823B34B35004B1D97 /* PlatonConfig.swift */,
 				813D37B923B34B35004B1D97 /* StakingContract.swift */,
+				81F1F00723C42B75000D687C /* RewardContract.swift */,
 				813D37BA23B34B35004B1D97 /* FuncType.swift */,
 				813D37BB23B34B35004B1D97 /* Models */,
 				813D37C523B34B35004B1D97 /* PlantonContractProtocol.swift */,
@@ -463,6 +466,7 @@
 				813D37C223B34B35004B1D97 /* NodeInfo.swift */,
 				813D37C323B34B35004B1D97 /* RestrictingInfo.swift */,
 				813D37C423B34B35004B1D97 /* Govern.swift */,
+				81F1F00923C42E27000D687C /* RewardRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -475,13 +479,11 @@
 			path = Debugger;
 			sourceTree = "<group>";
 		};
-		95343EA29933AF7088AB89A5 /* Frameworks */ = {
+		F262693D0610E90FCA2F5D21 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				81248B6E21BFA46A000C2F03 /* Pods_platonWeb3.framework */,
-				81248B6C21BFA43D000C2F03 /* Pods_platonWeb3.framework */,
-				4CF0F7BE6E2263B13EF50BD7 /* Pods_platonWeb3.framework */,
-				78A21334DC701B6999CBB3F1 /* Pods_platonWeb3_demoUITests.framework */,
+				0D070FD59A37C0FACC79BEA2 /* Pods_platonWeb3.framework */,
+				0AB12B538CB8B9991F2EAA73 /* Pods_platonWeb3Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -504,7 +506,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81248AA321BF9973000C2F03 /* Build configuration list for PBXNativeTarget "platonWeb3" */;
 			buildPhases = (
-				76A5D88AE23A3636815B8FAF /* [CP] Check Pods Manifest.lock */,
+				276F4A704484963764DA83F8 /* [CP] Check Pods Manifest.lock */,
 				81248A9621BF9973000C2F03 /* Headers */,
 				81248A9721BF9973000C2F03 /* Sources */,
 				81248A9821BF9973000C2F03 /* Frameworks */,
@@ -525,7 +527,7 @@
 		81248A9221BF9973000C2F03 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = ju;
 				TargetAttributes = {
@@ -563,7 +565,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		76A5D88AE23A3636815B8FAF /* [CP] Check Pods Manifest.lock */ = {
+		276F4A704484963764DA83F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -633,6 +635,7 @@
 				81248B0E21BF99CC000C2F03 /* RPCResponse.swift in Sources */,
 				81248B2721BF99CC000C2F03 /* ABIObject.swift in Sources */,
 				81248B3321BF99CC000C2F03 /* SolidityType+Codable.swift in Sources */,
+				81F1F00A23C42E27000D687C /* RewardRecord.swift in Sources */,
 				813D37DA23B34C60004B1D97 /* PlatonError.swift in Sources */,
 				81248B3221BF99CC000C2F03 /* SolidityType.swift in Sources */,
 				81248B2E21BF99CC000C2F03 /* SolidityInvocation.swift in Sources */,
@@ -640,6 +643,7 @@
 				81248B2421BF99CC000C2F03 /* UnsignedInteger+Shifting.swift in Sources */,
 				813D37DB23B34C60004B1D97 /* ProgramVersion.swift in Sources */,
 				81248B1F21BF99CC000C2F03 /* Exports+Web3.swift in Sources */,
+				81F1F00823C42B75000D687C /* RewardContract.swift in Sources */,
 				81248B1621BF99CC000C2F03 /* Bytes+TrimLeadingZeros.swift in Sources */,
 				81248B1121BF99CC000C2F03 /* Types+EthereumValueConvertible.swift in Sources */,
 				81248AFE21BF99CC000C2F03 /* Web3Provider.swift in Sources */,
@@ -812,7 +816,7 @@
 		};
 		81248AA421BF9973000C2F03 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7295FA86079D3425605EEFD9 /* Pods-platonWeb3.debug.xcconfig */;
+			baseConfigurationReference = 5348EC700FDF80FC00B64BE0 /* Pods-platonWeb3.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -839,7 +843,7 @@
 		};
 		81248AA521BF9973000C2F03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D518EC3837A681CE954F3122 /* Pods-platonWeb3.release.xcconfig */;
+			baseConfigurationReference = 23745CF8B634BBA71E456C87 /* Pods-platonWeb3.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;

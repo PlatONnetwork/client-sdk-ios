@@ -14,7 +14,6 @@ class PlatonWeb3Test {
     
     func testTransfer(){
         
-        
         let functionName = "transfer02"
         let contractAddress = EthereumAddress(hexString: "0x43355c787c50b647c425f594b441d4bd751951c1")
         
@@ -45,8 +44,6 @@ class PlatonWeb3Test {
             }
             
         })
-        
-        
     }
     
     func testRLPCode(){
