@@ -159,27 +159,21 @@ public extension Web3.Platon {
                 tempNonce = nonce
                 semaphore.signal()
             case .fail(let code, let message):
-                DispatchQueue.main.async {
-                    completion?(.fail(code, message), nil)
-                }
+                completion?(.fail(code, message), nil)
                 semaphore.signal()
             }
         }
         
         semaphore.wait()
         guard let nonce = tempNonce else {
-            DispatchQueue.main.async {
-                completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
-            }
+            completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
             semaphore.signal()
             return
         }
         
         let tempSignedTx = platonSignTransaction(to: contractAddress, nonce: nonce, data: data, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: value, estimated: estimated)
         guard let signedTx = tempSignedTx else {
-            DispatchQueue.main.async {
-                completion?(.fail(Web3Error.signedTxError.code, Web3Error.signedTxError.message), nil)
-            }
+            completion?(.fail(Web3Error.signedTxError.code, Web3Error.signedTxError.message), nil)
             semaphore.signal()
             return
         }
@@ -189,14 +183,10 @@ public extension Web3.Platon {
             switch sendTxResp.status{
             case .success(_):
                 txHash = sendTxResp.result!
-                DispatchQueue.main.async {
-                    completion?(.success, Data(bytes: txHash.bytes))
-                }
+                completion?(.success, Data(bytes: txHash.bytes))
                 semaphore.signal()
             case .failure(_):
-                DispatchQueue.main.async {
-                    completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
-                }
+                completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
                 semaphore.signal()
             }
         }

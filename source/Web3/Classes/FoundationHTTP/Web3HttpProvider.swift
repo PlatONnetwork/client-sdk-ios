@@ -81,6 +81,11 @@ public struct Web3HttpProvider: Web3Provider {
                 do {
                     let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data)
                     // We got the Result object
+                    if let rpcErr = rpcResponse.error {
+                        let err = Web3Response<Result>(error: .rpcError(rpcErr))
+                        response(err)
+                        return
+                    }
                     let res = Web3Response(rpcResponse: rpcResponse)
                     response(res)
                 } catch {

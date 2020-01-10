@@ -17,9 +17,9 @@ public class RewardContract: PlantonContractProtocol {
         self.contractAddress = contractAddress
     }
 
-    public func withdrawDelegateReward(sender: String, privateKey: String, completon: PlatonCommonCompletionV2<Data?>?) {
+    public func withdrawDelegateReward(sender: String, privateKey: String, gasLimit: BigUInt? = nil, gasPrice: BigUInt? = nil, completon: PlatonCommonCompletionV2<Data?>?) {
         let funcObject = FuncType.withdrawDelegateReward
-        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, completion: completon)
+        platonSendRawTransaction(funcObject, sender: sender, privateKey: privateKey, gas: gasLimit ?? funcObject.gas, gasPrice: gasPrice ?? funcObject.gasPrice, completion: completon)
     }
 
     public func getDelegateReward(address: String, nodeIDs: [String], sender: String, completion: PlatonCommonCompletionV2<PlatonContractCallResponse<[RewardRecord]>?>?) {
