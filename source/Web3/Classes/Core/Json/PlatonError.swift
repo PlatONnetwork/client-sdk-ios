@@ -23,6 +23,8 @@ public enum Web3Error: PlatonError {
     case rpcError(RPCError)
     case emptyNonce
     case signedTxError
+    case requestTimeout(Error?)
+    case reponseTimeout(Error?)
     
     public var code: Int {
         switch self {
@@ -42,6 +44,10 @@ public enum Web3Error: PlatonError {
             return -1005
         case .signedTxError:
             return -1006
+        case .requestTimeout:
+            return -10001
+        case .reponseTimeout:
+            return -10002
         }
     }
     
@@ -63,6 +69,10 @@ public enum Web3Error: PlatonError {
             return "empty nonce"
         case .signedTxError:
             return "signed transaction error"
+        case .requestTimeout:
+            return Localized("RPC_Response_connectionTimeout")
+        case .reponseTimeout:
+            return "response timeout"
         }
     }
 }

@@ -90,7 +90,6 @@ public extension Web3.Platon {
                         Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
                         semaphore.signal()
                     case .failure(_):
-                        completion?(.fail(nonceResp.error?.code, nonceResp.error?.message), nil)
                         semaphore.signal()
                     }
                 })
@@ -99,7 +98,7 @@ public extension Web3.Platon {
         
         semaphore.wait()
         guard nonce != nil else {
-            completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
+            completion?(.fail(Web3Error.requestTimeout(nil).code, Web3Error.requestTimeout(nil).message), nil)
             semaphore.signal()
             return
         }
@@ -161,6 +160,7 @@ public extension Web3.Platon {
             case .fail(let code, let message):
                 completion?(.fail(code, message), nil)
                 semaphore.signal()
+                return
             }
         }
         
@@ -177,16 +177,22 @@ public extension Web3.Platon {
             semaphore.signal()
             return
         }
-        
+
         var txHash = EthereumData(bytes: [])
         sendRawTransaction(transaction: signedTx) { (sendTxResp) in
-            switch sendTxResp.status{
+            switch sendTxResp.status {
             case .success(_):
-                txHash = sendTxResp.result!
-                completion?(.success, Data(bytes: txHash.bytes))
+                completion?(.success, Data(bytes: signedTx.hash?.hexToBytes() ?? Bytes()))
                 semaphore.signal()
-            case .failure(_):
-                completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
+            case .failure(let err):
+                switch err {
+                case .reponseTimeout:
+                    completion?(.success, Data(bytes: signedTx.hash?.hexToBytes() ?? Bytes()))
+                case .requestTimeout:
+                    completion?(.fail(err.code, Localized("RPC_Response_connectionTimeout")), nil)
+                default:
+                    completion?(.fail(err.code, err.message), nil)
+                }
                 semaphore.signal()
             }
         }

@@ -8,6 +8,7 @@
 
 import Foundation
 import BigInt
+import CryptoSwift
 
 public struct EthereumTransaction: Codable {
     /// The number of transactions made prior to this one
@@ -403,5 +404,14 @@ extension EthereumSignedTransaction: Hashable {
         return hashValues(
             nonce, gasPrice, gasLimit, to, value, data, v, r, s, chainId
         )
+    }
+}
+
+extension EthereumSignedTransaction {
+
+    public var hash: String? {
+        guard let string = rlp().ethereumValue().string else { return nil }
+        let hash = SHA3(variant: .keccak256).calculate(for: string.hexToBytes())
+        return hash.toHexString()
     }
 }

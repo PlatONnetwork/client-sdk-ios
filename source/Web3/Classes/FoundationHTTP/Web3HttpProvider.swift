@@ -65,9 +65,19 @@ public struct Web3HttpProvider: Web3Provider {
 
             let task = self.session.dataTask(with: req) { data, urlResponse, error in
                 guard let urlResponse = urlResponse as? HTTPURLResponse, let data = data, error == nil else {
-                    let err = Web3Response<Result>(error: .serverError(error))
-                    response(err)
-                    return
+                    if error?._code == NSURLErrorTimedOut {
+                        let err = Web3Response<Result>(error: .reponseTimeout(error))
+                        response(err)
+                        return
+                    } else if error?._code == NSURLErrorCannotConnectToHost {
+                        let err = Web3Response<Result>(error: .requestTimeout(error))
+                        response(err)
+                        return
+                    } else {
+                        let err = Web3Response<Result>(error: .serverError(error))
+                        response(err)
+                        return
+                    }
                 }
 
                 let status = urlResponse.statusCode
