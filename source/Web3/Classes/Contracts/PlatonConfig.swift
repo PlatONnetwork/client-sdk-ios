@@ -15,6 +15,7 @@ public struct PlatonConfig {
         public static let proposalContractAddress: String = "0x1000000000000000000000000000000000000005"
         public static let restrictingContractAddress: String = "0x1000000000000000000000000000000000000001"
         public static let slashContractAddress: String = "0x1000000000000000000000000000000000000004"
+        public static let rewardContractAddress: String = "0x1000000000000000000000000000000000000006"
     }
     
     struct ContractCallGas {

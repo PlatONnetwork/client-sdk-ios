@@ -890,4 +890,25 @@ class platonWeb3DemoTests: XCTestCase {
             print(error?.localizedDescription ?? "")
         }
     }
+
+    func testGetDelegateReward() {
+        let expection = self.expectation(description: "\(#function)")
+        let address = "0x45886ffccf2c6726f44deec15446f9a53c007848"
+        let nodeIds = ["77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067557430e6edfe5320bb81c3666a19cf4a5172d6533117d7ebcd0f2c82055499050"]
+        web3.reward.getDelegateReward(address: address, nodeIDs: nodeIds, sender: address) { (result, response) in
+            switch result {
+            case .success:
+                guard let _ = response?.result else {
+                    XCTAssert(false, "response should be not nil")
+                    return
+                }
+            case .fail(_, let error):
+                XCTAssert(false, error ?? "send tx fail")
+            }
+            expection.fulfill()
+        }
+        waitForExpectations(timeout: 30) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
+    }
 }

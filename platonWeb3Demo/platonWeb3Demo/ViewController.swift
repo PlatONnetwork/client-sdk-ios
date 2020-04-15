@@ -8,12 +8,14 @@
 
 import UIKit
 import SVProgressHUD
+import platonWeb3
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification), name: NSNotification.Name.SVProgressHUDDidReceiveTouchEvent, object: nil)
+
     }
     
     @objc func onNotification(){

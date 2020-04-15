@@ -41,6 +41,8 @@ public enum FuncType {
     case packageReward // 查询当前结算周期的区块奖励
     case stakingReward // 查询当前结算周期的质押奖励
     case avgPackTime // 查询打包区块的平均时间
+    case withdrawDelegateReward // 提取账户当前所有的可提取的委托奖励
+    case getDelegateReward(address: String, nodeIDs: [String]) // 查询账户在各节点未提取委托奖励
 }
 
 extension FuncType {
@@ -110,6 +112,10 @@ extension FuncType {
             return 1201
         case .avgPackTime:
             return 1202
+        case .withdrawDelegateReward:
+            return 5000
+        case .getDelegateReward:
+            return 5100
         }
     }
     
@@ -237,6 +243,9 @@ extension FuncType {
         case .restrictingInfo(let account):
             let data = build_restrictingPlanInfo(account: account)
             return data
+        case .getDelegateReward(let address, let nodeIDs):
+            let data = build_getDelegateReward(address: address, nodeIDs: nodeIDs)
+            return data
         case .verifierList,
              .validatorList,
              .candidateList,
@@ -244,10 +253,35 @@ extension FuncType {
              .activeVersion,
              .packageReward,
              .stakingReward,
-             .avgPackTime:
+             .avgPackTime,
+             .withdrawDelegateReward:
             let data = build_defaultData()
             return data
         }
+    }
+
+    func build_getDelegateReward(address: String, nodeIDs: [String]) -> Data {
+        let acccountAddress = EthereumAddress(hexString: address)
+        let nodeIdsRLP = nodeIDs.map { (nodeId) -> RLPItem in
+            let nodeIdBytes = try? nodeId.hexBytes()
+            return RLPItem.bytes(nodeIdBytes!)
+        }
+
+        let rlpItemss = [
+            RLPItem.bytes(typeValue.makeBytes()),
+            RLPItem.bytes(acccountAddress!.rawAddress),
+            RLPItem.array(nodeIdsRLP)
+        ]
+
+        let rlpedItems = rlpItemss.map { (rlpItem) -> RLPItem in
+            let rawRlp = try? RLPEncoder().encode(rlpItem)
+            return RLPItem.bytes(rawRlp ?? Bytes())
+        }
+
+        let rlpItems = RLPItem.array(rlpedItems)
+        let rawRlp = try? RLPEncoder().encode(rlpItems)
+
+        return Data(bytes: rawRlp!)
     }
     
     func build_createRestrictingPlan(account: String,

@@ -90,7 +90,6 @@ public extension Web3.Platon {
                         Debugger.debugPrint("nonce:\(String((nonceResp.result?.quantity)!))")
                         semaphore.signal()
                     case .failure(_):
-                        completion?(.fail(nonceResp.error?.code, nonceResp.error?.message), nil)
                         semaphore.signal()
                     }
                 })
@@ -99,7 +98,7 @@ public extension Web3.Platon {
         
         semaphore.wait()
         guard nonce != nil else {
-            completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
+            completion?(.fail(Web3Error.requestTimeout(nil).code, Web3Error.requestTimeout(nil).message), nil)
             semaphore.signal()
             return
         }
@@ -159,43 +158,40 @@ public extension Web3.Platon {
                 tempNonce = nonce
                 semaphore.signal()
             case .fail(let code, let message):
-                DispatchQueue.main.async {
-                    completion?(.fail(code, message), nil)
-                }
+                completion?(.fail(code, message), nil)
                 semaphore.signal()
+                return
             }
         }
         
         semaphore.wait()
         guard let nonce = tempNonce else {
-            DispatchQueue.main.async {
-                completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
-            }
+            completion?(.fail(Web3Error.emptyNonce.code, Web3Error.emptyNonce.message), nil)
             semaphore.signal()
             return
         }
         
         let tempSignedTx = platonSignTransaction(to: contractAddress, nonce: nonce, data: data, sender: sender, privateKey: privateKey, gasPrice: gasPrice, gas: gas, value: value, estimated: estimated)
         guard let signedTx = tempSignedTx else {
-            DispatchQueue.main.async {
-                completion?(.fail(Web3Error.signedTxError.code, Web3Error.signedTxError.message), nil)
-            }
+            completion?(.fail(Web3Error.signedTxError.code, Web3Error.signedTxError.message), nil)
             semaphore.signal()
             return
         }
-        
+
         var txHash = EthereumData(bytes: [])
         sendRawTransaction(transaction: signedTx) { (sendTxResp) in
-            switch sendTxResp.status{
+            switch sendTxResp.status {
             case .success(_):
-                txHash = sendTxResp.result!
-                DispatchQueue.main.async {
-                    completion?(.success, Data(bytes: txHash.bytes))
-                }
+                completion?(.success, Data(bytes: signedTx.hash?.hexToBytes() ?? Bytes()))
                 semaphore.signal()
-            case .failure(_):
-                DispatchQueue.main.async {
-                    completion?(.fail(sendTxResp.error?.code, sendTxResp.error?.message), nil)
+            case .failure(let err):
+                switch err {
+                case .reponseTimeout:
+                    completion?(.success, Data(bytes: signedTx.hash?.hexToBytes() ?? Bytes()))
+                case .requestTimeout:
+                    completion?(.fail(err.code, Localized("RPC_Response_connectionTimeout")), nil)
+                default:
+                    completion?(.fail(err.code, err.message), nil)
                 }
                 semaphore.signal()
             }

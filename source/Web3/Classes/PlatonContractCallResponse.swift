@@ -12,7 +12,7 @@ public struct PlatonContractCallResponse<T: Decodable>: Decodable {
     public var Code: Int
     public var errMsg: String?
     public var result: T?
-    
+
     public enum CodingKeys: String, CodingKey {
         case Code
         case Ret

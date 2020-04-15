@@ -57,7 +57,8 @@ public struct Web3 {
     
     /// The struct holding all `restricting` contract requests
     public let restricting: RestrictingPlanContract
-    
+
+    public let reward: RewardContract
 
     // MARK: - Initialization
 
@@ -77,6 +78,7 @@ public struct Web3 {
         self.proposal = ProposalContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.proposalContractAddress)
         self.slash = SlashContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.slashContractAddress)
         self.restricting = RestrictingPlanContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.restrictingContractAddress)
+        self.reward = RewardContract(platon: self.platon, contractAddress: PlatonConfig.ContractAddress.rewardContractAddress)
     }
 
     // MARK: - Web3 methods

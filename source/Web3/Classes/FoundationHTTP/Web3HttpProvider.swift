@@ -65,9 +65,19 @@ public struct Web3HttpProvider: Web3Provider {
 
             let task = self.session.dataTask(with: req) { data, urlResponse, error in
                 guard let urlResponse = urlResponse as? HTTPURLResponse, let data = data, error == nil else {
-                    let err = Web3Response<Result>(error: .serverError(error))
-                    response(err)
-                    return
+                    if error?._code == NSURLErrorTimedOut {
+                        let err = Web3Response<Result>(error: .reponseTimeout(error))
+                        response(err)
+                        return
+                    } else if error?._code == NSURLErrorCannotConnectToHost {
+                        let err = Web3Response<Result>(error: .requestTimeout(error))
+                        response(err)
+                        return
+                    } else {
+                        let err = Web3Response<Result>(error: .serverError(error))
+                        response(err)
+                        return
+                    }
                 }
 
                 let status = urlResponse.statusCode
@@ -79,16 +89,19 @@ public struct Web3HttpProvider: Web3Provider {
                 }
                 
                 do {
-                    
                     let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data)
                     // We got the Result object
+                    if let rpcErr = rpcResponse.error {
+                        let err = Web3Response<Result>(error: .rpcError(rpcErr))
+                        response(err)
+                        return
+                    }
                     let res = Web3Response(rpcResponse: rpcResponse)
                     response(res)
                 } catch {
                     // We don't have the response we expected...
                     let err = Web3Response<Result>(error: .decodingError(error))
                     response(err)
-                    
                 }
             }
             task.resume()
