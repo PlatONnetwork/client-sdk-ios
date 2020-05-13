@@ -24,6 +24,8 @@ class platonWeb3DemoTests: XCTestCase {
     let web3: Web3 = Web3(rpcURL: "http://192.168.120.141:6789/rpc", chainId: "103")
 //    let web3: Web3 = Web3(rpcURL: "http://192.168.120.141:24567/rpc", chainId: "120")
 
+    let bech32 = Bech32()
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -32,6 +34,17 @@ class platonWeb3DemoTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    func testBech32() {
+        do {
+            let bech32Address = try AddrCoder.shared.encode(hrp: "lax", address: "0x4f9c1a1efaa7d81ba1cabf07f2c3a5ac5cf4f818")
+            print(bech32Address)
+            let hexAddress = try  AddrCoder.shared.decodeHex(addr: bech32Address)
+            print(hexAddress)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
     func testTransfer() {
         let expection = self.expectation(description: "\(#function)")
 
