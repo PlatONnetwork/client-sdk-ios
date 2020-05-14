@@ -61,8 +61,6 @@ public struct Web3 {
 
     public let reward: RewardContract
 
-    let bech32 = Bech32()
-
     // MARK: - Initialization
 
     /**
@@ -77,11 +75,11 @@ public struct Web3 {
         self.net = Net(properties: properties)
         self.platon = Platon(properties: properties)
         
-        self.staking = StakingContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: "lax", address: PlatonConfig.ContractAddress.stakingContractAddress))
-        self.proposal = ProposalContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: "lax", address: PlatonConfig.ContractAddress.proposalContractAddress))
-        self.slash = SlashContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: "lax", address: PlatonConfig.ContractAddress.slashContractAddress))
-        self.restricting = RestrictingPlanContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: "lax", address: PlatonConfig.ContractAddress.restrictingContractAddress))
-        self.reward = RewardContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: "lax", address: PlatonConfig.ContractAddress.rewardContractAddress))
+        self.staking = StakingContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.stakingContractAddress))
+        self.proposal = ProposalContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.proposalContractAddress))
+        self.slash = SlashContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.slashContractAddress))
+        self.restricting = RestrictingPlanContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.restrictingContractAddress))
+        self.reward = RewardContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.rewardContractAddress))
     }
 
     public init(provider: Web3Provider, rpcId: Int = 1, chainId: String, hrp: String) {
@@ -90,11 +88,11 @@ public struct Web3 {
         self.net = Net(properties: properties)
         self.platon = Platon(properties: properties)
 
-        self.staking = StakingContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: hrp, address: PlatonConfig.ContractAddress.stakingContractAddress))
-        self.proposal = ProposalContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: hrp, address: PlatonConfig.ContractAddress.proposalContractAddress))
-        self.slash = SlashContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: hrp, address: PlatonConfig.ContractAddress.slashContractAddress))
-        self.restricting = RestrictingPlanContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: hrp, address: PlatonConfig.ContractAddress.restrictingContractAddress))
-        self.reward = RewardContract(platon: self.platon, contractAddress: try! bech32.addressEncode(hrp: hrp, address: PlatonConfig.ContractAddress.rewardContractAddress))
+        self.staking = StakingContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: hrp, address: PlatonConfig.ContractAddress.stakingContractAddress))
+        self.proposal = ProposalContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: hrp, address: PlatonConfig.ContractAddress.proposalContractAddress))
+        self.slash = SlashContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: hrp, address: PlatonConfig.ContractAddress.slashContractAddress))
+        self.restricting = RestrictingPlanContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: hrp, address: PlatonConfig.ContractAddress.restrictingContractAddress))
+        self.reward = RewardContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: hrp, address: PlatonConfig.ContractAddress.rewardContractAddress))
     }
 
     // MARK: - Web3 methods
