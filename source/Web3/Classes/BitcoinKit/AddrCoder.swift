@@ -57,9 +57,9 @@ public class AddrCoder {
         guard conv.count >= 2 && conv.count <= 40 else {
             throw CoderError.dataSizeMismatch(conv.count)
         }
-        guard dec.checksum[0] <= 16 else {
+        /*guard dec.checksum[0] <= 16 else {
             throw CoderError.versionNotSupported(dec.checksum[0])
-        }
+        }*/
         if dec.checksum[0] == 0 && conv.count != 20 && conv.count != 32 {
             throw CoderError.programSizeMismatch(conv.count)
         }
@@ -77,9 +77,9 @@ public class AddrCoder {
         guard conv.count >= 2 && conv.count <= 40 else {
             throw CoderError.dataSizeMismatch(conv.count)
         }
-        guard dec.checksum[0] <= 16 else {
+        /*guard dec.checksum[0] <= 16 else {
             throw CoderError.versionNotSupported(dec.checksum[0])
-        }
+        }*/
         if dec.checksum[0] == 0 && conv.count != 20 && conv.count != 32 {
             throw CoderError.programSizeMismatch(conv.count)
         }

@@ -36,9 +36,9 @@ class platonWeb3DemoTests: XCTestCase {
 
     func testBech32() {
         do {
-            let bech32Address = try AddrCoder.shared.encode(hrp: "lax", address: "0x4f9c1a1efaa7d81ba1cabf07f2c3a5ac5cf4f818")
-            print(bech32Address)
-            let hexAddress = try  AddrCoder.shared.decodeHex(addr: bech32Address)
+//            let bech32Address = try AddrCoder.shared.encode(hrp: "lax", address: "0x4f9c1a1efaa7d81ba1cabf07f2c3a5ac5cf4f818")
+//            print(bech32Address)
+            let hexAddress = try  AddrCoder.shared.decodeHex(addr: "lat1k73c0jw6a49rafn08dng8qkczplendgljzf7qh")
             print(hexAddress)
         } catch {
             XCTFail(error.localizedDescription)
