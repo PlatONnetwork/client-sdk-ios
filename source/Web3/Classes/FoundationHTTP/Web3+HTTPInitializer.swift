@@ -19,4 +19,8 @@ public extension Web3 {
     init(rpcURL: String, rpcId: Int = 1, chainId: String) {
         self.init(provider: Web3HttpProvider(rpcURL: rpcURL), rpcId: rpcId, chainId: chainId)
     }
+
+    init(rpcURL: String, rpcId: Int = 1, chainId: String, hrp: String) {
+        self.init(provider: Web3HttpProvider(rpcURL: rpcURL), rpcId: rpcId, chainId: chainId, hrp: hrp)
+    }
 }

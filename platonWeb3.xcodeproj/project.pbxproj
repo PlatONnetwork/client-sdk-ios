@@ -99,6 +99,8 @@
 		817A9C8421E7539C00C94CB4 /* Data+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817A9C8321E7539C00C94CB4 /* Data+extension.swift */; };
 		81F1F00823C42B75000D687C /* RewardContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F1F00723C42B75000D687C /* RewardContract.swift */; };
 		81F1F00A23C42E27000D687C /* RewardRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F1F00923C42E27000D687C /* RewardRecord.swift */; };
+		E88CA02B246C03E80015562A /* AddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88CA029246C03E80015562A /* AddrCoder.swift */; };
+		E88CA02C246C03E80015562A /* Bech32.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88CA02A246C03E80015562A /* Bech32.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,6 +203,8 @@
 		81F1F00923C42E27000D687C /* RewardRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardRecord.swift; sourceTree = "<group>"; };
 		DAA04AC4B073A960D170526D /* Pods-platonWeb3Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Tests.release.xcconfig"; path = "Target Support Files/Pods-platonWeb3Tests/Pods-platonWeb3Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E27159564D096ECF283C08EE /* Pods-platonWeb3Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platonWeb3Tests.debug.xcconfig"; path = "Target Support Files/Pods-platonWeb3Tests/Pods-platonWeb3Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		E88CA029246C03E80015562A /* AddrCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddrCoder.swift; sourceTree = "<group>"; };
+		E88CA02A246C03E80015562A /* Bech32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bech32.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +277,7 @@
 		81248AA821BF99CB000C2F03 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E88CA028246C03E80015562A /* BitcoinKit */,
 				813D37B623B34B35004B1D97 /* Contracts */,
 				817A9BD721E7288800C94CB4 /* Debugger */,
 				81248AA921BF99CB000C2F03 /* Web3+completion.swift */,
@@ -479,6 +484,15 @@
 			path = Debugger;
 			sourceTree = "<group>";
 		};
+		E88CA028246C03E80015562A /* BitcoinKit */ = {
+			isa = PBXGroup;
+			children = (
+				E88CA029246C03E80015562A /* AddrCoder.swift */,
+				E88CA02A246C03E80015562A /* Bech32.swift */,
+			);
+			path = BitcoinKit;
+			sourceTree = "<group>";
+		};
 		F262693D0610E90FCA2F5D21 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,6 +654,7 @@
 				81248B3221BF99CC000C2F03 /* SolidityType.swift in Sources */,
 				81248B2E21BF99CC000C2F03 /* SolidityInvocation.swift in Sources */,
 				813D37D123B34B35004B1D97 /* Proposal.swift in Sources */,
+				E88CA02C246C03E80015562A /* Bech32.swift in Sources */,
 				81248B2421BF99CC000C2F03 /* UnsignedInteger+Shifting.swift in Sources */,
 				813D37DB23B34C60004B1D97 /* ProgramVersion.swift in Sources */,
 				81248B1F21BF99CC000C2F03 /* Exports+Web3.swift in Sources */,
@@ -660,6 +675,7 @@
 				813D37CA23B34B35004B1D97 /* StakingContract.swift in Sources */,
 				81248B0021BF99CC000C2F03 /* RLPItem.swift in Sources */,
 				813D37D223B34B35004B1D97 /* NodeInfo.swift in Sources */,
+				E88CA02B246C03E80015562A /* AddrCoder.swift in Sources */,
 				81248B0B21BF99CC000C2F03 /* EthereumQuantity.swift in Sources */,
 				81248B0C21BF99CC000C2F03 /* EthereumTransactionObject.swift in Sources */,
 				81248B0F21BF99CC000C2F03 /* EthereumCall.swift in Sources */,
@@ -818,9 +834,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5348EC700FDF80FC00B64BE0 /* Pods-platonWeb3.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = JL97B8WL3X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -845,9 +862,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23745CF8B634BBA71E456C87 /* Pods-platonWeb3.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = JL97B8WL3X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
