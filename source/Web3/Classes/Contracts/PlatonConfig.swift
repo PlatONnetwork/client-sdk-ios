@@ -19,33 +19,33 @@ public struct PlatonConfig {
     }
     
     struct ContractCallGas {
-        static var stakingContractGas: BigUInt = BigUInt("6000")!
-        static var proposalContractGas: BigUInt = BigUInt("9000")!
-        static var slashContractGas: BigUInt = BigUInt("21000")!
-        static var restrictingContractGas: BigUInt = BigUInt("18000")!
+        static var stakingContractGas: BigUInt = BigUInt("6000")
+        static var proposalContractGas: BigUInt = BigUInt("9000")
+        static var slashContractGas: BigUInt = BigUInt("21000")
+        static var restrictingContractGas: BigUInt = BigUInt("18000")
         
-        static let createStakingGas: BigUInt = BigUInt("32000")!
-        static let editorStakingGas: BigUInt = BigUInt("12000")!
-        static let increaseStakingGas: BigUInt = BigUInt("20000")!
-        static let withdrewStakingGas: BigUInt = BigUInt("20000")!
-        static let createDelegateGas: BigUInt = BigUInt("16000")!
-        static let withdrewDelegateGas: BigUInt = BigUInt("8000")!
+        static let createStakingGas: BigUInt = BigUInt("32000")
+        static let editorStakingGas: BigUInt = BigUInt("12000")
+        static let increaseStakingGas: BigUInt = BigUInt("20000")
+        static let withdrewStakingGas: BigUInt = BigUInt("20000")
+        static let createDelegateGas: BigUInt = BigUInt("16000")
+        static let withdrewDelegateGas: BigUInt = BigUInt("8000")
         
-        static let submitTextGas: BigUInt = BigUInt("320000")!
-        static let submitVersionGas: BigUInt = BigUInt("450000")!
-        static let submitCancelGas: BigUInt = BigUInt("500000")!
-        static let submitParamGas: BigUInt = BigUInt("500000")!
-        static let voteProposalGas: BigUInt = BigUInt("2000")!
-        static let declareVersionGas: BigUInt = BigUInt("3000")!
+        static let submitTextGas: BigUInt = BigUInt("320000")
+        static let submitVersionGas: BigUInt = BigUInt("450000")
+        static let submitCancelGas: BigUInt = BigUInt("500000")
+        static let submitParamGas: BigUInt = BigUInt("500000")
+        static let voteProposalGas: BigUInt = BigUInt("2000")
+        static let declareVersionGas: BigUInt = BigUInt("3000")
         
-        static let reportMultiSignGas: BigUInt = BigUInt("21000")!
-        static let createRestrictingPlanGas: BigUInt = BigUInt("8000")!
+        static let reportMultiSignGas: BigUInt = BigUInt("21000")
+        static let createRestrictingPlanGas: BigUInt = BigUInt("8000")
     }
     
     // 合约消耗交易发送的gas
     // 内置合约gas消耗 = 21000 + 合约调用固定消耗 + 接口固定gas消耗 + 接口动态gas消耗规则 + (data中的非0值byte个数*68) + (data中的0值byte个数*4)
     public struct FuncGas {
-        public static var defaultGas: BigUInt = BigUInt("21000")!
+        public static var defaultGas: BigUInt = BigUInt("21000")
         
         public static var createStakingGas: BigUInt = defaultGas + ContractCallGas.createStakingGas + ContractCallGas.stakingContractGas
         public static var editorStakingGas: BigUInt = defaultGas + ContractCallGas.editorStakingGas + ContractCallGas.stakingContractGas
@@ -67,12 +67,12 @@ public struct PlatonConfig {
     }
     
     public struct FuncGasPrice {
-        public static var minGasPrice: BigUInt = BigUInt("10000000000")!
-        public static var defaultGasPrice: BigUInt = BigUInt("500000000000")!
-        public static var submitTextGasPrice: BigUInt = BigUInt("1500000")!
-        public static var submitVersionGasPrice: BigUInt = BigUInt("2100000")!
-        public static var submitCancelGasPrice: BigUInt = BigUInt("3000000")!
-        public static var submitParamGasPrice: BigUInt = BigUInt("2000000")!
+        public static var minGasPrice: BigUInt = BigUInt("10000000000")
+        public static var defaultGasPrice: BigUInt = BigUInt("500000000000")
+        public static var submitTextGasPrice: BigUInt = BigUInt("1500000")
+        public static var submitVersionGasPrice: BigUInt = BigUInt("2100000")
+        public static var submitCancelGasPrice: BigUInt = BigUInt("3000000")
+        public static var submitParamGasPrice: BigUInt = BigUInt("2000000")
     }
     
     public struct VON {
