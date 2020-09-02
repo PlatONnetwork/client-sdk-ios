@@ -28,9 +28,9 @@ class PlatonWeb3Test {
         let rlpHex = rawRlp?.toHexString()
         
         
-        var gasPrice = EthereumQuantity(quantity: BigUInt("22000000000")!)
-        var gas = EthereumQuantity(quantity: BigUInt("4300000")!)
-        var value = EthereumQuantity(quantity: BigUInt("0")!)
+        var gasPrice = EthereumQuantity(quantity: BigUInt("22000000000"))
+        var gas = EthereumQuantity(quantity: BigUInt("4300000"))
+        var value = EthereumQuantity(quantity: BigUInt("0"))
         
         let from = try! EthereumAddress(hex: "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219", eip55: false)
         let data = EthereumData(bytes: rawRlp!)
@@ -271,7 +271,7 @@ class PlatonWeb3Test {
         let rlpHex = rawRlp?.toHexString()
         
         let tmpAddr = EthereumAddress(hexString: "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219")
-        let tmpQuan = EthereumQuantity(quantity: BigUInt("0")!)
+        let tmpQuan = EthereumQuantity(quantity: BigUInt("0"))
         let call = EthereumCall(from: nil, to: tmpAddr!, gas: nil, gasPrice: nil, value: nil, data: EthereumData(bytes: rawRlp!))
         
         platonWeb3.platon.estimateGas(call: call) { (gasresp) in
@@ -279,15 +279,15 @@ class PlatonWeb3Test {
             print("\(String((gasresp.result?.quantity)!))")
             print("\(self)")
             
-            let value = EthereumQuantity(quantity: BigUInt("0")!)
+            let value = EthereumQuantity(quantity: BigUInt("0"))
             let address = try! EthereumAddress(hex: "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219", eip55: false)
             let to = try! EthereumAddress(hex: "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219", eip55: false)
             //var gasPrice = gasresp.result
             //var gas = EthereumQuantity(quantity: 1.gwei)
             
             //
-            var gasPrice = EthereumQuantity(quantity: BigUInt("22000000000")!)
-            var gas = EthereumQuantity(quantity: BigUInt("4300000")!)
+            var gasPrice = EthereumQuantity(quantity: BigUInt("22000000000"))
+            var gas = EthereumQuantity(quantity: BigUInt("4300000"))
             
             let from = try! EthereumAddress(hex: "0x60ceca9c1290ee56b98d4e160ef0453f7c40d219", eip55: false)
             let data = EthereumData(bytes: rawRlp!)
