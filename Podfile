@@ -5,10 +5,10 @@ target 'platonWeb3' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'BigInt', '~> 4.0'
-  pod 'CryptoSwift', '~> 0.8'
-  pod 'secp256k1.swift', '~> 0.1'
-  pod 'Localize-Swift', '~> 2.0'
+  pod 'BigInt', '~> 5.2.0'
+  pod 'CryptoSwift', '~> 1.3.1'
+  pod 'secp256k1.swift', '~> 0.1.4'
+  pod 'Localize-Swift', '~> 3.1.0'
 
 end
 

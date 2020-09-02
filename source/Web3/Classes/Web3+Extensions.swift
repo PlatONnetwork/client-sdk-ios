@@ -126,7 +126,7 @@ public extension Web3.Platon {
         
         let from = try? EthereumAddress(hex: sender, eip55: false)
         
-        var sendValue = EthereumQuantity(quantity: BigUInt("0")!)
+        var sendValue = EthereumQuantity(quantity: BigUInt("0"))
         if value != nil{
             sendValue = value!
         }

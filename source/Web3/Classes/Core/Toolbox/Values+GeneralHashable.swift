@@ -14,8 +14,8 @@ func hashValues(_ values: [BytesRepresentable?]) -> Int {
 
     for v in values {
         // Is throwing deterministic? If not this could cause issues...
-        if let elems = try? v?.makeBytes(), let arr = elems {
-            raw.append(contentsOf: arr)
+        if let elems = try? v?.makeBytes() {
+            raw.append(contentsOf: elems)
         }
     }
 

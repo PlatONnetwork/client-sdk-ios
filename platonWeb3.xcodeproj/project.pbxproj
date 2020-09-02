@@ -542,7 +542,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1170;
 				ORGANIZATIONNAME = ju;
 				TargetAttributes = {
 					81248A9A21BF9973000C2F03 = {
@@ -853,7 +853,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ju.platonWeb3;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -881,7 +881,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ju.platonWeb3;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
