@@ -1,6 +1,6 @@
 //
 //  RewardContract.swift
-//  platonWeb3
+//  PlatonWeb3
 //
 //  Created by Admin on 7/1/2020.
 //  Copyright © 2020 ju. All rights reserved.

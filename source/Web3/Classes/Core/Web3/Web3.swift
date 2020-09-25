@@ -63,26 +63,13 @@ public struct Web3 {
 
     // MARK: - Initialization
 
-    /**
-     * Initializes a new instance of `Web3` with the given custom provider.
-     *
-     * - parameter provider: The provider which handles all requests and responses.
-     * - parameter rpcId: The rpc id to be used in all requests. Defaults to 1.
-     */
-    public init(provider: Web3Provider, rpcId: Int = 1, chainId: String) {
-        let properties = Properties(provider: provider, rpcId: rpcId, chainId: chainId, hrp: "lax")
-        self.properties = properties
-        self.net = Net(properties: properties)
-        self.platon = Platon(properties: properties)
-        
-        self.staking = StakingContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.stakingContractAddress))
-        self.proposal = ProposalContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.proposalContractAddress))
-        self.slash = SlashContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.slashContractAddress))
-        self.restricting = RestrictingPlanContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.restrictingContractAddress))
-        self.reward = RewardContract(platon: self.platon, contractAddress: try! AddrCoder.shared.encode(hrp: "lax", address: PlatonConfig.ContractAddress.rewardContractAddress))
-    }
-
-    public init(provider: Web3Provider, rpcId: Int = 1, chainId: String, hrp: String) {
+    /// Initializes a new instance of `Web3` with the given custom provider.
+    /// - Parameters:
+    ///   - provider: The provider which handles all requests and responses.
+    ///   - rpcId: The rpc id to be used in all requests. Defaults to 1.
+    ///   - chainId: chainId
+    ///   - hrp: hrp, . Defaults to lax.
+    public init(provider: Web3Provider, rpcId: Int = 1, chainId: String, hrp: String = "lax") {
         let properties = Properties(provider: provider, rpcId: rpcId, chainId: chainId, hrp: hrp)
         self.properties = properties
         self.net = Net(properties: properties)

@@ -1,17 +1,17 @@
 PODS:
-  - BigInt (4.0.0)
-  - CryptoSwift (0.15.0)
-  - Localize-Swift (2.0.0)
-  - platonWeb3 (0.7.7):
-    - BigInt (~> 4.0)
-    - CryptoSwift (~> 0.8)
-    - Localize-Swift (~> 2.0)
-    - secp256k1.swift (~> 0.1)
+  - BigInt (5.2.0)
+  - CryptoSwift (1.3.2)
+  - Localize-Swift (3.1.0)
+  - PlatonWeb3 (0.13.1):
+    - BigInt (~> 5.2.0)
+    - CryptoSwift (~> 1.3.1)
+    - Localize-Swift (~> 3.1.0)
+    - secp256k1.swift (~> 0.1.4)
   - secp256k1.swift (0.1.4)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
-  - platonWeb3 (from `../`)
+  - PlatonWeb3 (from `../`)
   - SVProgressHUD
 
 SPEC REPOS:
@@ -23,17 +23,17 @@ SPEC REPOS:
     - SVProgressHUD
 
 EXTERNAL SOURCES:
-  platonWeb3:
+  PlatonWeb3:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
-  CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
-  Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
-  platonWeb3: 3e3ff3004ee66a26913653ee9a22571f2108d6ba
+  BigInt: f668a80089607f521586bbe29513d708491ef2f7
+  CryptoSwift: 093499be1a94b0cae36e6c26b70870668cb56060
+  Localize-Swift: 4bed4f0ccac8be2ec3517ee359da80ba2adb0fae
+  PlatonWeb3: 3e606bb74819b82dfe0b8448c4248993746bbac6
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 62e490536b99b9111c8525f6c88797ff9605da32
+PODFILE CHECKSUM: 09db77b88c1c3bbe5998deab9f1ed4e9b93bb8e9
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

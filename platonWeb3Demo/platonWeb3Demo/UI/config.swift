@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import platonWeb3
+import PlatonWeb3
 
 //let web3 : Web3 = Web3(rpcURL: "http://13.67.44.50:6789")
 
