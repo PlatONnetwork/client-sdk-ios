@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import platonWeb3
+import PlatonWeb3
 @testable import platonWeb3Demo
 
 class platonWeb3DemoTests: XCTestCase {

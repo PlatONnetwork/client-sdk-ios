@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension String {
+extension String {
     
     func remove0xPrefix() -> String {
         guard self.hasPrefix("0x") else {
