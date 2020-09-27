@@ -161,7 +161,7 @@ public let statusCodeDescriptions = [
     
     304001: "param epoch can't be zero",
     304002: "the number of the restricting plan can't be zero or more than 36",
-    304003: "total restricting amount need more than 1 LAT",
+    304003: "total restricting amount need more than 1 \(GlobalConfig.unit)",
     304004: "the balance is not enough in restrict",
     304005: "account is not found on restricting contract",
     304006: "slashing amount is larger than staking amount",

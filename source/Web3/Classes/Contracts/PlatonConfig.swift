@@ -77,7 +77,9 @@ public struct PlatonConfig {
     
     public struct VON {
         public static let GVON = BigUInt(1000000000)
-        public static let LAT = BigUInt(1000000000000000000)
+        public static let UNIT = BigUInt(1000000000000000000)
+        /// Old version
+        public static let LAT = UNIT
     }
     
     public static let EnableEIP155 = true
