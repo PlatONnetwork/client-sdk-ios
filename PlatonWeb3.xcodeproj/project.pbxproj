@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A61A04D42521BAA400B0F872 /* GlobalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61A04D32521BAA400B0F872 /* GlobalConfig.swift */; };
 		A6BC0C54251CB9050015D427 /* Web3+completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BC0BE7251CB9040015D427 /* Web3+completion.swift */; };
 		A6BC0C55251CB9050015D427 /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BC0BEA251CB9040015D427 /* EthereumPublicKey.swift */; };
 		A6BC0C56251CB9050015D427 /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BC0BEB251CB9040015D427 /* EthereumAddress.swift */; };
@@ -99,7 +100,6 @@
 		A6BC0CAD251CB9050015D427 /* ProposalContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BC0C4E251CB9040015D427 /* ProposalContract.swift */; };
 		A6BC0CAE251CB9050015D427 /* Web3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BC0C4F251CB9040015D427 /* Web3+Extensions.swift */; };
 		A6BC0CAF251CB9050015D427 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BC0C51251CB9040015D427 /* Debugger.swift */; };
-		A6BC0CB0251CB9050015D427 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BC0C53251CB9040015D427 /* Parameters.swift */; };
 		A6C98020251CA6CC00C4A08D /* PlatonWeb3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C98016251CA6CC00C4A08D /* PlatonWeb3.framework */; };
 		A6C98025251CA6CC00C4A08D /* PlatonWeb3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C98024251CA6CC00C4A08D /* PlatonWeb3Tests.swift */; };
 		A6C98027251CA6CC00C4A08D /* PlatonWeb3.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C98019251CA6CC00C4A08D /* PlatonWeb3.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -120,6 +120,7 @@
 		415E4834178404666E69BFC6 /* Pods-PlatonWeb3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlatonWeb3.debug.xcconfig"; path = "Target Support Files/Pods-PlatonWeb3/Pods-PlatonWeb3.debug.xcconfig"; sourceTree = "<group>"; };
 		994BFC8851A03B17291AD567 /* Pods-PlatonWeb3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlatonWeb3.release.xcconfig"; path = "Target Support Files/Pods-PlatonWeb3/Pods-PlatonWeb3.release.xcconfig"; sourceTree = "<group>"; };
 		A1BB8A9FFF52F785B2F8435F /* Pods_PlatonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlatonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A61A04D32521BAA400B0F872 /* GlobalConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConfig.swift; sourceTree = "<group>"; };
 		A6BC0BE7251CB9040015D427 /* Web3+completion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+completion.swift"; sourceTree = "<group>"; };
 		A6BC0BEA251CB9040015D427 /* EthereumPublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPublicKey.swift; sourceTree = "<group>"; };
 		A6BC0BEB251CB9040015D427 /* EthereumAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddress.swift; sourceTree = "<group>"; };
@@ -212,7 +213,6 @@
 		A6BC0C4E251CB9040015D427 /* ProposalContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProposalContract.swift; sourceTree = "<group>"; };
 		A6BC0C4F251CB9040015D427 /* Web3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Extensions.swift"; sourceTree = "<group>"; };
 		A6BC0C51251CB9040015D427 /* Debugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
-		A6BC0C53251CB9040015D427 /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		A6C98016251CA6CC00C4A08D /* PlatonWeb3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PlatonWeb3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C98019251CA6CC00C4A08D /* PlatonWeb3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatonWeb3.h; sourceTree = "<group>"; };
 		A6C9801A251CA6CC00C4A08D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -253,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				A6BC0BE5251CB9040015D427 /* Web3 */,
-				A6BC0C52251CB9040015D427 /* Parameters */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -269,6 +268,7 @@
 		A6BC0BE6251CB9040015D427 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A61A04D32521BAA400B0F872 /* GlobalConfig.swift */,
 				A6BC0BE7251CB9040015D427 /* Web3+completion.swift */,
 				A6BC0BE8251CB9040015D427 /* Core */,
 				A6BC0C1C251CB9040015D427 /* ContractABI */,
@@ -485,14 +485,6 @@
 			path = Debugger;
 			sourceTree = "<group>";
 		};
-		A6BC0C52251CB9040015D427 /* Parameters */ = {
-			isa = PBXGroup;
-			children = (
-				A6BC0C53251CB9040015D427 /* Parameters.swift */,
-			);
-			path = Parameters;
-			sourceTree = "<group>";
-		};
 		A6C9800C251CA6CC00C4A08D = {
 			isa = PBXGroup;
 			children = (
@@ -686,7 +678,6 @@
 				A6BC0C99251CB9050015D427 /* PlatonContractCallResponse.swift in Sources */,
 				A6BC0C8C251CB9050015D427 /* Eth+ABI.swift in Sources */,
 				A6BC0C6D251CB9050015D427 /* PlatonError.swift in Sources */,
-				A6BC0CB0251CB9050015D427 /* Parameters.swift in Sources */,
 				A6BC0C68251CB9050015D427 /* EthereumValue.swift in Sources */,
 				A6BC0C5D251CB9050015D427 /* RLPItemConvertible.swift in Sources */,
 				A6BC0C70251CB9050015D427 /* String+BytesConvertible.swift in Sources */,
@@ -699,6 +690,7 @@
 				A6BC0C75251CB9050015D427 /* String+HexBytes.swift in Sources */,
 				A6BC0C54251CB9050015D427 /* Web3+completion.swift in Sources */,
 				A6BC0C7A251CB9050015D427 /* BigUInt+BytesConvertible.swift in Sources */,
+				A61A04D42521BAA400B0F872 /* GlobalConfig.swift in Sources */,
 				A6BC0C7B251CB9050015D427 /* Bytes+UInt.swift in Sources */,
 				A6BC0C5C251CB9050015D427 /* RLPEncoder.swift in Sources */,
 				A6BC0C9C251CB9050015D427 /* SlashContract.swift in Sources */,

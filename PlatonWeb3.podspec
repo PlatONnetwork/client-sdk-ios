@@ -3,7 +3,7 @@ $version = "0.13.2"
 
 Pod::Spec.new do |s|
 
-  s.name         = "PlatonWeb3"
+  s.name         = "platonWeb3" 
 
   s.version      = $version
 
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   
   s.license      = "MIT"
   
-  s.author = { "chendai" => "daniel@platon.network" }
+  s.author       = { "chendai" => "daniel@platon.network" }
 
   s.source       = { :git => "https://github.com/PlatONnetwork/client-sdk-ios.git", :tag => $version }
 
