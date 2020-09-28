@@ -7,9 +7,7 @@
 * To install it via CocoaPods, simply add the following line to your Podfile:
 
 
-```
 pod 'platonWeb3', '~> 0.13.1'
-```
 
 
 * use in project
