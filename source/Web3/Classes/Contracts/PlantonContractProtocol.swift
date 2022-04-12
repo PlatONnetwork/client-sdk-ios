@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Localize_Swift
 
 protocol PlantonContractProtocol {
     var contractAddress: String { get }

@@ -5,7 +5,6 @@
 
 import Foundation
 import BigInt
-import Localize_Swift
 
 
 let web3RPCWaitTimeout = 60.0
@@ -27,7 +26,7 @@ public extension Web3.Platon {
                 
                 guard let bytes = response.result?.bytes else {
                     DispatchQueue.main.async {
-                        completion?(.fail(-1, Localized("RPC_Response_empty")), nil)
+                        completion?(.fail(-1, "RPC_Response_empty"), nil)
                         completion = nil
                     }
                     return
@@ -189,7 +188,7 @@ public extension Web3.Platon {
                 case .reponseTimeout:
                     completion?(.success, Data(bytes: signedTx.hash?.hexToBytes() ?? Bytes()))
                 case .requestTimeout:
-                    completion?(.fail(err.code, Localized("RPC_Response_connectionTimeout")), nil)
+                    completion?(.fail(err.code, "RPC_Response_connectionTimeout"), nil)
                 default:
                     completion?(.fail(err.code, err.message), nil)
                 }

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public enum PlatonCommonResult : Error{
+public enum PlatonCommonResult : Error {
     case success
     case fail(Int?, String?)
 }

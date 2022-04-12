@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Localize_Swift
 
 public protocol PlatonError: Error {
     var code: Int { get }
@@ -54,15 +53,15 @@ public enum Web3Error: PlatonError {
     public var message: String {
         switch self {
         case .emptyResponse:
-            return Localized("RPC_Response_empty")
+            return "RPC_Response_empty"
         case .requestFailed:
-            return Localized("RPC_Response_requestFailed")
+            return "RPC_Response_requestFailed"
         case .connectionFailed:
-            return Localized("RPC_Response_connectionFailed")
+            return "RPC_Response_connectionFailed"
         case .serverError:
-            return Localized("RPC_Response_serverError")
+            return "RPC_Response_serverError"
         case .decodingError:
-            return Localized("RPC_Response_decodingError")
+            return "RPC_Response_decodingError"
         case .rpcError(let error):
             return error.message
         case .emptyNonce:
@@ -70,7 +69,7 @@ public enum Web3Error: PlatonError {
         case .signedTxError:
             return "signed transaction error"
         case .requestTimeout:
-            return Localized("RPC_Response_connectionTimeout")
+            return "RPC_Response_connectionTimeout"
         case .reponseTimeout:
             return "response timeout"
         }
