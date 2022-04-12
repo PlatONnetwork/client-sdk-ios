@@ -8,7 +8,7 @@
 
 import UIKit
 import SVProgressHUD
-import PlatonWeb3
+import platonWeb3
 
 class ViewController: UIViewController {
 

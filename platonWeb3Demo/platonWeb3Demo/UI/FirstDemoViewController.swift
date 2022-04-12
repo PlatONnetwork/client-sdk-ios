@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PlatonWeb3
+import platonWeb3
 
 class FirstDemoViewController: BaseTableViewController {
 
